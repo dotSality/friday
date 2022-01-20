@@ -1,0 +1,8 @@
+.superSpan {
+    cursor: pointer;
+    color: rgba(182,176,179,0.76);
+    height: 20px}
+
+.superSpan:before {
+    content: url('./img/edit_2.png');
+}

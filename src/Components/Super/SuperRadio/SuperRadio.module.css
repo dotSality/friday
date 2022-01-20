@@ -1,0 +1,28 @@
+.radio {
+    appearance: none;
+
+    width: 10px;
+    height: 10px;
+    /*margin: 5px;*/
+margin-top: 15px;
+
+    border-radius: 50%;
+    outline: none;
+    background-color: rgba(129,128,129,0.76);
+}
+
+.radio:hover{
+    background-color: white;
+}
+
+.radio:checked {
+    background-color: black;
+    border: 1px solid white;
+}
+
+
+
+
+
+
+

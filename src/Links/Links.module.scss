@@ -1,0 +1,26 @@
+.links {
+  display: flex;
+  width: 160px;
+  height: 300px;
+  justify-content: space-between;
+  flex-direction: column;
+
+  .link {
+    margin: 5px;
+    padding: 5px;
+    text-decoration: none;
+    color: black;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &:active {
+      color: white;
+    }
+
+    &.active {
+      color: red;
+    }
+  }
+}
