@@ -9,7 +9,7 @@ import {store} from './bll/store';
 
 ReactDOM.render(
     <Provider store={store}>
-        <HashRouter basename={'/'}>
+        <HashRouter>
             <App/>
         </HashRouter>
     </Provider>,
