@@ -7,9 +7,10 @@ import {NewPassCreate} from './Pages/NewPassCreate/NewPassCreate';
 import {PassRecoverPage} from './Pages/PassRecoverPage/PassRecoverPage';
 import {ProfilePage} from './Pages/ProfilePage/ProfilePage';
 import {ErrorPage} from './Pages/ErrorPage/ErrorPage';
+import s from './AllRoutes.module.scss'
 
 export const AllRoutes = () => {
-    return <div>
+    return <div className={s.routes}>
         <Routes>
             <Route path={PATH.LOGIN} element={<LoginPage/>}/>
             <Route path={PATH.REGISTER} element={<RegisterPage/>}/>

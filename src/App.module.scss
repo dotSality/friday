@@ -1,4 +1,5 @@
 .app {
     display: grid;
     grid-template-areas: 'l r';
+    grid-template-columns: 1fr 9fr;
 }

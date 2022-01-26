@@ -1,6 +1,7 @@
 .links {
+  grid-area: l;
   display: flex;
-  width: 160px;
+  width: 100%;
   height: 300px;
   justify-content: space-between;
   flex-direction: column;
