@@ -1,12 +1,12 @@
 import {Route, Routes} from 'react-router-dom';
 import {PATH} from '../utils/paths';
-import {LoginPage} from './Pages/LoginPage';
-import {RegisterPage} from './Pages/RegisterPage';
-import {Test} from './Pages/Test';
-import {NewPassCreate} from './Pages/NewPassCreate';
-import {PassRecoverPage} from './Pages/PassRecoverPage';
-import {ProfilePage} from './Pages/ProfilePage';
-import {ErrorPage} from './Pages/ErrorPage';
+import {LoginPage} from './Pages/LoginPage/LoginPage';
+import {RegisterPage} from './Pages/RegisterPage/RegisterPage';
+import {Test} from './Pages/Test/Test';
+import {NewPassCreate} from './Pages/NewPassCreate/NewPassCreate';
+import {PassRecoverPage} from './Pages/PassRecoverPage/PassRecoverPage';
+import {ProfilePage} from './Pages/ProfilePage/ProfilePage';
+import {ErrorPage} from './Pages/ErrorPage/ErrorPage';
 
 export const AllRoutes = () => {
     return <div>

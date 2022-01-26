@@ -1,9 +1,9 @@
-import SuperInputText from '../../Components/Super/SuperInputText/SuperInputText';
-import SuperEditableSpan from '../../Components/Super/SuperEditableSpan/SuperEditableSpan';
-import SuperButton from '../../Components/Super/SuperButton/SuperButton';
-import SuperSelect from '../../Components/Super/SuperSelect/SuperSelect';
-import SuperRadio from '../../Components/Super/SuperRadio/SuperRadio';
-import SuperCheckbox from '../../Components/Super/SuperCheckbox/SuperCheckbox';
+import SuperInputText from '../../../Components/Super/SuperInputText/SuperInputText';
+import SuperEditableSpan from '../../../Components/Super/SuperEditableSpan/SuperEditableSpan';
+import SuperButton from '../../../Components/Super/SuperButton/SuperButton';
+import SuperSelect from '../../../Components/Super/SuperSelect/SuperSelect';
+import SuperRadio from '../../../Components/Super/SuperRadio/SuperRadio';
+import SuperCheckbox from '../../../Components/Super/SuperCheckbox/SuperCheckbox';
 import {useState} from 'react';
 
 const values = ['1','2','3']
