@@ -1,14 +1,15 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {cardsAPI} from "../dal/api";
+import {setUserProfile} from './profile-reducer';
 
 
 export const loginTC = createAsyncThunk(
     'login/loginTC',
     async (params: { email: string, password: string, rememberMe: boolean }, {dispatch}) => {
         try {
-           let response =  await cardsAPI.login(params.email, params.password, params.rememberMe)
-            console.log(response)
+           let {data} =  await cardsAPI.login(params.email, params.password, params.rememberMe)
             dispatch(isLoggedIn(true))
+            dispatch(setUserProfile(data))
         } catch (e) {
 
         }
