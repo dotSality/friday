@@ -14,7 +14,7 @@ export const cardsAPI = {
         return instance.post<AxiosResponse<RegisterResponseType>>('auth/register', {email, password});
     },
     recover(email: string) {
-        return instance.post('auth/forgot', {email})
+        return instance.post<RecoverResponseType>('auth/forgot', {email})
     },
     login(email: string, password: string, rememberMe:boolean) {
         return instance.post(`auth/login`, {email, password,rememberMe})
@@ -22,6 +22,13 @@ export const cardsAPI = {
 }
 
 // types
+
+type RecoverResponseType = {
+    answer: boolean,
+    html: boolean,
+    info: string,
+    success: boolean,
+}
 
 export type LoginResponseType = {
     _id: string;
