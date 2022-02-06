@@ -13,6 +13,9 @@ export const cardsAPI = {
     registration(email: string, password: string) {
         return instance.post<AxiosResponse<ResponseType>>('auth/register', {email, password});
     },
+    recover(email: string) {
+        return instance.post('auth/forgot', {email})
+    }
 }
 
 // types
