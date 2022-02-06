@@ -1,5 +1,5 @@
 import {useFormik} from "formik"
-import { api } from "../../../dal/api"
+import { cardsAPI } from "../../../dal/api"
 
 type FormikValuesType = {
     email: string
@@ -13,7 +13,7 @@ export const PassRecoverPage = () => {
         },
         onSubmit: async (data: FormikValuesType) => {
             alert(JSON.stringify(data))
-            let res = await api.recover(data.email)
+            let res = await cardsAPI.recover(data.email)
             console.log(res)
         }
     })
