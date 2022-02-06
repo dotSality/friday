@@ -1,15 +1,10 @@
+import {createSlice} from '@reduxjs/toolkit';
 
 
+const passRecoverSlice = createSlice({
+    name: 'passRecover',
+    initialState: null,
+    reducers: {}
+})
 
-const initState: any[] = []
-
-type InitStateType = typeof initState
-
-export const passRecoverReducer = (state = initState, action: RecoverActionsType) : InitStateType => {
-    switch (action.type) {
-        default:
-            return state
-    }
-}
-
-export type RecoverActionsType = any
+export const passRecoverReducer = passRecoverSlice.reducer

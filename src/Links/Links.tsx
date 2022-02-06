@@ -7,7 +7,7 @@ export const Links = () => {
         <NavLink className={({isActive}) => `${s.link} ${isActive ? s.active : ''}`}
             to={PATH.LOGIN}>Login page</NavLink>
         <NavLink className={({isActive}) => `${s.link} ${isActive ? s.active : ''}`}
-            to={PATH.PROFILE}>Profile page</NavLink>
+            to={PATH.MAIN}>Profile page</NavLink>
         <NavLink className={({isActive}) => `${s.link} ${isActive ? s.active : ''}`}
             to={PATH.CREATE_PASS}>Create pass page</NavLink>
         <NavLink className={({isActive}) => `${s.link} ${isActive ? s.active : ''}`}

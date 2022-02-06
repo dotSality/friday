@@ -17,7 +17,7 @@ export const AllRoutes = () => {
             <Route path={PATH.TEST} element={<Test/>}/>
             <Route path={PATH.CREATE_PASS} element={<NewPassCreate/>}/>
             <Route path={PATH.PASS_RECOVER} element={<PassRecoverPage/>}/>
-            <Route path={PATH.PROFILE} element={<ProfilePage/>}/>
+            <Route path={PATH.MAIN} element={<ProfilePage/>}/>
             <Route path={PATH.ERROR} element={<ErrorPage/>}/>
         </Routes>
     </div>

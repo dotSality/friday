@@ -1,15 +1,10 @@
+import {createSlice} from '@reduxjs/toolkit';
 
 
+const createPassSlice = createSlice({
+    name: 'createPass',
+    initialState: null,
+    reducers: {}
+})
 
-const initState: any[] = []
-
-type InitStateType = typeof initState
-
-export const createPassReducer = (state = initState, action: CreatePassActionsType) : InitStateType => {
-    switch (action.type) {
-        default:
-            return state
-    }
-}
-
-export type CreatePassActionsType = any
+export const createPassReducer = createPassSlice.reducer

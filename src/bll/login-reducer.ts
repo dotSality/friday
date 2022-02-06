@@ -1,15 +1,10 @@
+import {createSlice} from '@reduxjs/toolkit';
 
 
+const loginSlice = createSlice({
+    name: 'login',
+    initialState: null,
+    reducers: {}
+})
 
-const initState: any[] = []
-
-type InitStateType = typeof initState
-
-export const loginReducer = (state = initState, action: LoginActionsType) : InitStateType => {
-    switch (action.type) {
-        default:
-            return state
-    }
-}
-
-export type LoginActionsType = any
+export const loginReducer = loginSlice.reducer

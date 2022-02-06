@@ -1,10 +1,12 @@
-import {applyMiddleware, combineReducers, createStore} from 'redux';
-import {LoginActionsType, loginReducer} from './login-reducer';
-import thunk, {ThunkAction} from 'redux-thunk';
-import {ProfileActionsType, profileReducer} from './profile-reducer';
-import {RegisterActionsType, registerReducer} from './register-reducer';
-import {RecoverActionsType, passRecoverReducer} from './pass-recover-reducer';
-import {CreatePassActionsType, createPassReducer} from './create-pass-reducer';
+import {combineReducers} from 'redux';
+import thunk from 'redux-thunk';
+import {configureStore} from '@reduxjs/toolkit';
+import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
+import {registerReducer} from './register-reducer';
+import {loginReducer} from './login-reducer';
+import {createPassReducer} from './create-pass-reducer';
+import {passRecoverReducer} from './pass-recover-reducer';
+import {profileReducer} from './profile-reducer';
 
 const reducers = combineReducers({
     login: loginReducer,
@@ -14,17 +16,14 @@ const reducers = combineReducers({
     profile: profileReducer,
 })
 
-export const store = createStore(reducers, applyMiddleware(thunk))
+export const store = configureStore({
+    reducer: reducers,
+    middleware: getDefaultMiddleware => getDefaultMiddleware().prepend(thunk)
+})
 
-type AppActionsType = ProfileActionsType
-    | RegisterActionsType
-    | RecoverActionsType
-    | CreatePassActionsType
-    | LoginActionsType
-
-export type ThunkType = ThunkAction<void, AppStateType, unknown, AppActionsType>
-
-export type AppStateType = ReturnType<typeof reducers>
+export type RootStateType = ReturnType<typeof reducers>
+export const useAppSelector: TypedUseSelectorHook<RootStateType> = useSelector
+export const useAppDispatch = () => useDispatch<typeof store.dispatch>()
 
 //@ts-ignore
 window.store = store
