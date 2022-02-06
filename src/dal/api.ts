@@ -13,9 +13,29 @@ export const cardsAPI = {
     registration(email: string, password: string) {
         return instance.post<AxiosResponse<ResponseType>>('auth/register', {email, password});
     },
+    login(email: string, password: string, rememberMe:boolean) {
+        return instance.post(`auth/login`, {email, password,rememberMe})
+    }
 }
 
 // types
+
+export type LoginResponseType = {
+    _id: string;
+    email: string;
+    name: string;
+    avatar?: string;
+    publicCardPacksCount: number; // количество колод
+
+    created: Date;
+    updated: Date;
+    isAdmin: boolean;
+    verified: boolean; // подтвердил ли почту
+    rememberMe: boolean;
+
+    error?: string;
+}
+
 export type ResponseType = {
     addedUser: {
         "_id": string,
