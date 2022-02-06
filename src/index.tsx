@@ -7,9 +7,6 @@ import {Provider} from 'react-redux';
 import {HashRouter} from 'react-router-dom';
 import {store} from './bll/store';
 
-//more stupid comment
-//max
-
 ReactDOM.render(
     <Provider store={store}>
         <HashRouter>
