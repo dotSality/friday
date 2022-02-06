@@ -1,0 +1,14 @@
+.validateError {
+    height: 25px;
+    color: red;
+}
+
+.navigateToLogin {
+    padding-top: 20px;
+}
+
+.registrationError {
+    height: 15px;
+    color: red;
+    padding-bottom: 25px;
+}
