@@ -7,6 +7,10 @@ import {Provider} from 'react-redux';
 import {HashRouter} from 'react-router-dom';
 import {store} from './bll/store';
 
+
+//1111`1
+
+
 ReactDOM.render(
     <Provider store={store}>
         <HashRouter>
