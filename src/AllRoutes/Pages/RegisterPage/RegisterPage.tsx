@@ -6,8 +6,8 @@ import {RootStateType} from '../../../bll/store';
 import {registrationTC} from '../../../bll/register-reducer';
 import {Button, TextField, FormControl, FormGroup, FormLabel, Grid, InputAdornment, IconButton} from '@mui/material';
 import s from './RegisterPage.module.css'
-import Visibility from './../../../common/img/eye-svgrepo-com.svg';
-import VisibilityOff from './../../../common/img/eye-off-sharp-svgrepo-com.svg';
+import Visibility from './../../../common/img/eye.svg';
+import VisibilityOff from './../../../common/img/eye_off.svg';
 
 type FormikErrorType = {
     email?: string
@@ -125,9 +125,9 @@ export const RegisterPage = () => {
                                                        onMouseDown={handleMouseDownPassword}>
                                                        {values.showPassword
                                                            ? <img src={Visibility}
-                                                                  width='20' height='20' alt="Visibility"/>
+                                                                  width='16' height='16' alt="Visibility"/>
                                                            : <img src={VisibilityOff}
-                                                                  width='20' height='20' alt="VisibilityOff"/>}
+                                                                  width='16' height='16' alt="VisibilityOff"/>}
                                                    </IconButton>
                                                </InputAdornment>
                                            ),
@@ -150,9 +150,9 @@ export const RegisterPage = () => {
                                                        onMouseDown={handleMouseDownPassword}>
                                                        {values.showConfirmPassword
                                                            ? <img src={Visibility}
-                                                                  width='20' height='20' alt="Visibility"/>
+                                                                  width='16' height='16' alt="Visibility"/>
                                                            : <img src={VisibilityOff}
-                                                                  width='20' height='20' alt="Visibility"/>}
+                                                                  width='16' height='16' alt="Visibility"/>}
                                                    </IconButton>
                                                </InputAdornment>
                                            ),
