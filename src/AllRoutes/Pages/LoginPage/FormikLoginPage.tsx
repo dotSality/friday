@@ -137,7 +137,7 @@ export const LoginPage = () => {
                 <Typography
                     variant={'subtitle2'}
                     sx={{cursor: 'pointer'}}
-                    onClick={() => navigate(PATH.PASS_RECOVER)}>
+                    onClick={() => navigate(PATH.FORGOT)}>
                     forgot your password?
                 </Typography>
                 <FormControlLabel
