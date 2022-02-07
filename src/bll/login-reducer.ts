@@ -48,11 +48,13 @@ const loginSlice = createSlice({
 })
 
 
+//types
 type InitStateType = {
     isLoggedIn: boolean
     error: string | null
 }
 
+//actions
 const {isLoggedIn} = loginSlice.actions
 
 export const loginReducer = loginSlice.reducer

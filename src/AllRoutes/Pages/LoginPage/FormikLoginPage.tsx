@@ -1,19 +1,23 @@
-import {useNavigate} from "react-router-dom";
-import {useDispatch} from "react-redux";
-
-import {useFormik} from "formik";
-import {useAppSelector} from "../../../bll/store";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useFormik } from "formik";
 
 import Paper from "@mui/material/Paper/Paper";
 import Typography from "@mui/material/Typography/Typography";
 import TextField from "@mui/material/TextField/TextField";
 import Container from "@mui/material/Container/Container";
 import Button from "@mui/material/Button/Button";
-import {Checkbox, FormControlLabel} from "@mui/material";
-import {loginTC} from "../../../bll/login-reducer";
+import { Checkbox, FormControlLabel, IconButton, InputAdornment } from "@mui/material";
 
-import s from './Login.module.scss'
+import { useAppSelector } from "../../../bll/store";
+import { loginTC } from "../../../bll/login-reducer";
+
 import {PATH} from "../../../utils/paths";
+import Visibility from "../../../common/img/eye.svg";
+import VisibilityOff from "../../../common/img/eye_off.svg";
+import s from './Login.module.scss'
+
 
 type FormikErrorType = {
     email?: string
@@ -27,6 +31,28 @@ export const LoginPage = () => {
     const isLoggedIn = useAppSelector<boolean>(state => state.login.isLoggedIn)
     const navigate = useNavigate()
     const dispatch = useDispatch()
+
+
+    type State = {
+        showPassword: boolean
+        showConfirmPassword: boolean
+    }
+
+    const [values, setValues] = useState<State>({
+        showPassword: false,
+        showConfirmPassword: false,
+    });
+
+    const handleClickShowPassword = () => {
+        setValues({
+            ...values,
+            showPassword: !values.showPassword,
+        });
+    };
+
+    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+    };
 
     const formik = useFormik({
         initialValues: {
@@ -71,23 +97,43 @@ export const LoginPage = () => {
 
                 <TextField
                     sx={{width: '100%'}}
+                    margin={'normal'}
                     id='outlined-basic'
                     label='E-mail'
                     variant='standard'
+                    error={!!(formik.touched.email && formik.errors.email)}
+                    helperText={formik.errors.email}
                     {...formik.getFieldProps('email')}
                 />
-                {formik.touched.email && formik.errors.email &&
-                <div style={{color: 'red', textAlign: 'center'}}>{formik.errors.email}</div>}
+
                 <TextField
                     sx={{width: '100%'}}
+                    margin={'normal'}
                     id='outlined-basic'
-                    type='password'
+                    type={values.showPassword ? 'text' : 'password'}
                     label='Password'
                     variant='standard'
+                    error={!!(formik.touched.password && formik.errors.password)}
+                    helperText={formik.errors.password}
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position='end'>
+                                <IconButton
+                                    aria-label='toggle password visibility'
+                                    onClick={handleClickShowPassword}
+                                    onMouseDown={handleMouseDownPassword}>
+                                    {values.showPassword
+                                        ? <img src={Visibility}
+                                               width='16' height='16' alt="Visibility"/>
+                                        : <img src={VisibilityOff}
+                                               width='16' height='16' alt="VisibilityOff"/>}
+                                </IconButton>
+                            </InputAdornment>
+                        ),
+                    }}
                     {...formik.getFieldProps('password')}
                 />
-                {formik.touched.email && formik.errors.password && <
-                    div style={{color: 'red', textAlign: 'center'}}>{formik.errors.password}</div>}
+
                 <Typography
                     variant={'subtitle2'}
                     sx={{cursor: 'pointer'}}
@@ -110,7 +156,6 @@ export const LoginPage = () => {
 
                     <Button onClick={() => navigate(PATH.REGISTER)}>Sign Up</Button>
                 </Container>
-
             </form>
         </Paper>
     </div>
