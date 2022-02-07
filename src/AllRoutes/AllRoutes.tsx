@@ -17,7 +17,7 @@ export const AllRoutes = () => {
             <Route path={PATH.LOGIN} element={<LoginPage/>}/>
             <Route path={PATH.REGISTER} element={<RegisterPage/>}/>
             <Route path={PATH.TEST} element={<Test/>}/>
-            <Route path={PATH.CREATE_PASS} element={<NewPassCreate/>}/>
+            <Route path={PATH.CREATE_PASS + '/:token'} element={<NewPassCreate/>}/>
             <Route path={PATH.FORGOT} element={<ForgotPage/>}/>
             <Route path={PATH.CHECK_SUCCESS} element={<CheckSuccess/>}/>
             <Route path={PATH.MAIN} element={<ProfilePage/>}/>

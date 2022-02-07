@@ -1,0 +1,19 @@
+.container {
+  height: 100%;
+  padding: 50px 40px;
+  justify-content: flex-start !important;
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    .contentContainer {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
