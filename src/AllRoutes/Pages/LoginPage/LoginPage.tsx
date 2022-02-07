@@ -6,9 +6,11 @@ import {useAppSelector} from '../../../bll/store';
 
 
 export const LoginPage = () => {
+
     const [email, setEmail] = useState<string>('')
     const [password, setPassword] = useState<string>('')
     const [rememberMe, setRememberMe] = useState<boolean>(false)
+
     const isLoggedIn = useAppSelector<boolean>(state => state.login.isLoggedIn)
 
     const dispatch = useDispatch()

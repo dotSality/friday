@@ -5,11 +5,11 @@ import Paper from "@mui/material/Paper/Paper"
 import TextField from "@mui/material/TextField/TextField"
 import Typography from "@mui/material/Typography/Typography"
 import {useFormik} from "formik"
-import {Navigate, NavLink} from "react-router-dom"
-import {sendInstructions} from "../../../bll/pass-recover-reducer"
-import {useAppDispatch, useAppSelector} from "../../../bll/store"
-import {cardsAPI} from "../../../dal/api"
-import {PATH} from "../../../utils/paths"
+import { Navigate } from "react-router-dom"
+import { sendInstructions } from "../../../bll/pass-recover-reducer"
+import { useAppDispatch, useAppSelector } from "../../../bll/store"
+import { cardsAPI } from "../../../dal/api"
+import { PATH } from "../../../utils/paths"
 import s from './PassRecoverPage.module.scss'
 
 type FormikValuesType = {
