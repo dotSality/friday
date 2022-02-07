@@ -7,7 +7,6 @@ import Typography from "@mui/material/Typography/Typography"
 import {useFormik} from "formik"
 import {Navigate, NavLink} from "react-router-dom"
 import s from './ForgotPage.module.scss'
-import c from './../../../common/styles/Container.module.scss'
 import {useAppDispatch, useAppSelector} from '../../../bll/store';
 import {sendInstructions} from '../../../bll/pass-recover-reducer';
 import {PATH} from '../../../utils/paths';

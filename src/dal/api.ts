@@ -18,6 +18,9 @@ export const cardsAPI = {
     },
     login(email: string, password: string, rememberMe:boolean) {
         return instance.post<{email: string, password: string, rememberMe:boolean}, AxiosResponse<LoginResponseType>>(`auth/login`, {email, password,rememberMe})
+    },
+    logout() {
+        return instance.delete(`/auth/me`)
     }
 }
 
