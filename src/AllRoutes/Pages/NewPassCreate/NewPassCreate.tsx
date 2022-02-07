@@ -1,7 +1,7 @@
 import c from './../../../common/styles/Container.module.scss'
 import s from './NewPassCreate.module.scss';
 import Paper from '@mui/material/Paper/Paper';
-import {useParams} from 'react-router-dom';
+import {Navigate, useNavigate, useParams} from 'react-router-dom';
 import Typography from '@mui/material/Typography/Typography';
 import {useFormik} from 'formik';
 import {IconButton, InputAdornment, TextField} from '@mui/material';
@@ -10,6 +10,9 @@ import VisibilityOff from '../../../common/img/eye_off.svg';
 import React, {useState} from 'react';
 import Fab from '@mui/material/Fab/Fab';
 import Container from '@mui/material/Container/Container';
+import {useAppDispatch, useAppSelector} from '../../../bll/store';
+import {sendNewPassword} from '../../../bll/pass-recover-reducer';
+import {PATH} from '../../../utils/paths';
 
 type FormikValuesType = {
     password: string,
@@ -23,7 +26,10 @@ type StateType = {
 
 export const NewPassCreate = () => {
 
-    const {token} = useParams<'token'>()
+    const {token} = useParams()
+    const dispatch = useAppDispatch()
+    const navigate = useNavigate()
+    const {passChanged} = useAppSelector(state => state.passRecover)
 
     const [values, setValues] = useState<StateType>({
         showPassword: false,
@@ -49,10 +55,14 @@ export const NewPassCreate = () => {
                 errors.confirmPassword = 'Passwords are incorrect'
             return errors
         },
-        onSubmit: (values: FormikValuesType) => {
-            console.log(values)
+        onSubmit: async (values: FormikValuesType) => {
+            if (token) await dispatch(sendNewPassword({pass: values.password, token}))
         }
     })
+
+    if (passChanged) {
+        return <Navigate to={PATH.LOGIN}/>
+    }
 
     return <div className={c.mainContainer}>
 
