@@ -1,18 +1,22 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
+
 import {cardsAPI} from "../dal/api";
 import {setUserProfile} from './profile-reducer';
+import {setAppError, setAppStatus} from "./app-reducer";
 
 
 export const loginTC = createAsyncThunk(
     'login/loginTC',
     async (params: { email: string, password: string, rememberMe: boolean }, {dispatch}) => {
         try {
+            dispatch(setAppStatus('loading'))
             let {data} = await cardsAPI.login(params.email, params.password, params.rememberMe)
             dispatch(isLoggedIn(true))
             dispatch(setUserProfile(data))
+            dispatch(setAppStatus('succeeded'))
         } catch (e: any) {
-            const error = e.response
-            console.log(error.data.error)
+            const error = e.response ? e.response.data.error : (e.message + ', Try later')
+                dispatch(setAppError(error))
         }
     }
 )
@@ -43,7 +47,6 @@ const loginSlice = createSlice({
         isLoggedIn: (state, action: PayloadAction<boolean>) => {
             state.isLoggedIn = action.payload
         },
-
     },
 })
 
@@ -55,6 +58,6 @@ type InitStateType = {
 }
 
 //actions
-const {isLoggedIn} = loginSlice.actions
+export const {isLoggedIn} = loginSlice.actions
 
 export const loginReducer = loginSlice.reducer
