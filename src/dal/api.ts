@@ -1,4 +1,4 @@
-import axios, {AxiosResponse} from 'axios'
+import axios, { AxiosResponse } from 'axios'
 
 const instance = axios.create({
     baseURL: "https://neko-back.herokuapp.com/2.0",
@@ -21,7 +21,11 @@ export const cardsAPI = {
     },
     logout() {
         return instance.delete(`/auth/me`)
+    },
+    me () {
+        return instance.post<LoginResponseType, {}>(`/auth/me`)
     }
+
 }
 
 // types
@@ -62,3 +66,5 @@ export type RegisterResponseType = {
     }
     error?: string
 }
+
+

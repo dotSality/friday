@@ -29,6 +29,7 @@ type FormikErrorType = {
 export const LoginPage = () => {
 
     const isLoggedIn = useAppSelector<boolean>(state => state.login.isLoggedIn)
+    const error = useAppSelector<string | null>(state => state.app.error)
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
@@ -105,6 +106,7 @@ export const LoginPage = () => {
                     helperText={formik.errors.email}
                     {...formik.getFieldProps('email')}
                 />
+                {error && <div>{error}</div>}
 
                 <TextField
                     sx={{width: '100%'}}
@@ -134,7 +136,7 @@ export const LoginPage = () => {
                     {...formik.getFieldProps('password')}
                 />
 
-                <Typography
+                <Typography className={s.text}
                     variant={'subtitle2'}
                     sx={{cursor: 'pointer'}}
                     onClick={() => navigate(PATH.FORGOT)}>
