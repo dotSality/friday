@@ -11,13 +11,13 @@ const instance = axios.create({
 // api
 export const cardsAPI = {
     registration(email: string, password: string) {
-        return instance.post<AxiosResponse<RegisterResponseType>>('auth/register', {email, password});
+        return instance.post<AxiosResponse<RegisterResponseType, {email: string, password: string}>>('auth/register', {email, password});
     },
     recover(email: string) {
         return instance.post<RecoverResponseType>('auth/forgot', {email})
     },
     login(email: string, password: string, rememberMe:boolean) {
-        return instance.post(`auth/login`, {email, password,rememberMe})
+        return instance.post<{email: string, password: string, rememberMe:boolean}, AxiosResponse<LoginResponseType>>(`auth/login`, {email, password,rememberMe})
     }
 }
 
@@ -46,16 +46,16 @@ export type LoginResponseType = {
 
 export type RegisterResponseType = {
     addedUser: {
-        "_id": string,
-        "email": string,
-        "rememberMe": boolean,
-        "isAdmin": boolean,
-        "name": string,
-        "verified": boolean,
-        "publicCardPacksCount": number,
-        "created": string,
-        "updated": string,
-        "__v": number
+        _id: string,
+        email: string,
+        rememberMe: boolean,
+        isAdmin: boolean,
+        name: string,
+        verified: boolean,
+        publicCardPacksCount: number,
+        created: string,
+        updated: string,
+        __v: number
     }
     error?: string
 }

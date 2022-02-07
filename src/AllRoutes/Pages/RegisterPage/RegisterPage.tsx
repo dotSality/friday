@@ -68,40 +68,40 @@ export const RegisterPage = () => {
                         </div>
 
                         <FormGroup>
-                            <TextField id="standard-basic"
-                                       label="Email"
-                                       variant="standard"
-                                       {...formik.getFieldProps("email")}/>
+                            <TextField id='standard-basic'
+                                       label='Email'
+                                       variant='standard'
+                                       {...formik.getFieldProps('email')}/>
                             <div className={s.validateError}>
                                 {formik.touched.email && formik.errors.email &&
                                 <div>{formik.errors.email}</div>}
                             </div>
 
-                            <TextField id="standard-basic"
-                                       variant="standard"
-                                       label="Password"
-                                       type="password"
-                                       {...formik.getFieldProps("password")}/>
+                            <TextField id='standard-basic'
+                                       variant='standard'
+                                       label='Password'
+                                       type='password'
+                                       {...formik.getFieldProps('password')}/>
                             <div className={s.validateError}>
                                 {formik.touched.password && formik.errors.password &&
                                 <div>{formik.errors.password}</div>}
                             </div>
 
-                            <TextField id="standard-basic"
-                                       variant="standard"
-                                       label="Confirm password"
-                                       type="password"
-                                       {...formik.getFieldProps("confirmPassword")}/>
+                            <TextField id='standard-basic'
+                                       variant='standard'
+                                       label='Confirm password'
+                                       type='password'
+                                       {...formik.getFieldProps('confirmPassword')}/>
                             <div className={s.validateError}>
                                 {formik.touched.confirmPassword && formik.errors.confirmPassword &&
                                 <div>{formik.errors.confirmPassword}</div>}
                             </div>
                         </FormGroup>
-                        <Button type={'submit'} variant="contained">Register</Button>
+                        <Button type={'submit'} variant='contained'>Register</Button>
                         <div className={s.navigateToLogin}>
                             Already have an account?
                             <NavLink to={'/login'}>
-                                <Button variant="text">Sign in</Button>
+                                <Button variant='text'>Sign in</Button>
                             </NavLink>
                         </div>
                     </FormControl>
