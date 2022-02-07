@@ -32,6 +32,8 @@
       }
 
       .text {
+        width: 100%;
+        text-align: right;
         &:hover {
           color: #4f16d2;
         }

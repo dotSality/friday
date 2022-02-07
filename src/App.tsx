@@ -9,6 +9,7 @@ import {initializeApp} from "./bll/app-reducer";
 import {useAppSelector} from "./bll/store";
 
 import s from './App.module.scss'
+import {ErrorSnackbar} from "./AllRoutes/Pages/ErrorSnackBar";
 
 
 
@@ -31,6 +32,7 @@ function App() {
         <div className={s.app}>
             <Links/>
             <AllRoutes/>
+            <ErrorSnackbar/>
         </div>
     )
 }

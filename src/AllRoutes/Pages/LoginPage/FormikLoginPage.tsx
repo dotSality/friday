@@ -17,6 +17,7 @@ import {PATH} from "../../../utils/paths";
 import Visibility from "../../../common/img/eye.svg";
 import VisibilityOff from "../../../common/img/eye_off.svg";
 import s from './Login.module.scss'
+import {StatusType} from "../../../bll/app-reducer";
 
 
 type FormikErrorType = {
@@ -29,7 +30,7 @@ type FormikErrorType = {
 export const LoginPage = () => {
 
     const isLoggedIn = useAppSelector<boolean>(state => state.login.isLoggedIn)
-    const error = useAppSelector<string | null>(state => state.app.error)
+
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
@@ -106,7 +107,6 @@ export const LoginPage = () => {
                     helperText={formik.errors.email}
                     {...formik.getFieldProps('email')}
                 />
-                {error && <div>{error}</div>}
 
                 <TextField
                     sx={{width: '100%'}}
@@ -140,7 +140,7 @@ export const LoginPage = () => {
                     variant={'subtitle2'}
                     sx={{cursor: 'pointer'}}
                     onClick={() => navigate(PATH.FORGOT)}>
-                    forgot your password?
+                    Forgot password
                 </Typography>
                 <FormControlLabel
                     label={'Remember me'}
@@ -156,7 +156,7 @@ export const LoginPage = () => {
                         Don't have an account?
                     </Typography>
 
-                    <Button onClick={() => navigate(PATH.REGISTER)}>Sign Up</Button>
+                    <Button onClick={() => navigate(PATH.REGISTER)} >Sign Up</Button>
                 </Container>
             </form>
         </Paper>

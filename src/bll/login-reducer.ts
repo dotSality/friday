@@ -15,7 +15,7 @@ export const loginTC = createAsyncThunk(
             dispatch(setUserProfile(data))
             dispatch(setAppStatus('succeeded'))
         } catch (e: any) {
-            const error = e.response ? e.response.data.error : (e.message + ', more details in the console')
+            const error = e.response ? e.response.data.error : (e.message + ', Try later')
                 dispatch(setAppError(error))
         }
     }

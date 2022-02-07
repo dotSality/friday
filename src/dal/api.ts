@@ -22,7 +22,7 @@ export const cardsAPI = {
     logout() {
         return instance.delete(`/auth/me`)
     },
-    me () {
+    authMe () {
         return instance.post<LoginResponseType, {}>(`/auth/me`)
     }
 

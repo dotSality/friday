@@ -32,14 +32,16 @@ export const initializeApp = createAsyncThunk(
     'app/initializeApp',
     async (_, {dispatch}) => {
         try {
-            const response = await cardsAPI.me()
-            console.log(response)
+            dispatch(setAppStatus('loading'))
+            await cardsAPI.authMe()
             dispatch(isLoggedIn(true))
-
         } catch (e: any) {
-
-        }finally {
+            const error = e.response ? e.response.data.error : (e.message + ', Try later')
+            dispatch(setAppError(error))
+            dispatch(isLoggedIn(false))
+        } finally {
             dispatch(setAppInitialized(true))
+            dispatch(setAppStatus('succeeded'))
         }
     }
 )
@@ -51,7 +53,7 @@ type InitStateType = {
     isInitialized: boolean
 }
 
-type StatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
+export type StatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
 export const {setAppError, setAppStatus, setAppInitialized} = appSlice.actions
 
