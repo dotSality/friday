@@ -5,18 +5,19 @@ import Paper from "@mui/material/Paper/Paper"
 import TextField from "@mui/material/TextField/TextField"
 import Typography from "@mui/material/Typography/Typography"
 import {useFormik} from "formik"
-import { Navigate } from "react-router-dom"
-import { sendInstructions } from "../../../bll/pass-recover-reducer"
-import { useAppDispatch, useAppSelector } from "../../../bll/store"
-import { cardsAPI } from "../../../dal/api"
-import { PATH } from "../../../utils/paths"
-import s from './PassRecoverPage.module.scss'
+import {Navigate, NavLink} from "react-router-dom"
+import s from './ForgotPage.module.scss'
+import c from './../../../common/styles/Container.module.scss'
+import {useAppDispatch, useAppSelector} from '../../../bll/store';
+import {sendInstructions} from '../../../bll/pass-recover-reducer';
+import {PATH} from '../../../utils/paths';
+
 
 type FormikValuesType = {
     email: string
 }
 
-export const PassRecoverPage = () => {
+export const ForgotPage = () => {
 
     const {success} = useAppSelector(state => state.passRecover)
     const dispatch = useAppDispatch()
@@ -31,7 +32,7 @@ export const PassRecoverPage = () => {
     })
 
     if (success) {
-        return <Navigate to={PATH.CREATE_PASS}/>
+        return <Navigate to={PATH.CHECK_SUCCESS}/>
     }
 
     return (

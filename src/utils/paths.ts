@@ -3,7 +3,8 @@ export const PATH = {
     REGISTER: '/register',
     MAIN: '/',
     ERROR: '*',
-    PASS_RECOVER: '/pass-recover',
+    FORGOT: '/forgot',
+    CHECK_SUCCESS: '/check-success',
     CREATE_PASS: '/create-pass',
     TEST: '/test'
 }

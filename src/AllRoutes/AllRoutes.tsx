@@ -3,11 +3,12 @@ import {PATH} from '../utils/paths';
 import {RegisterPage} from './Pages/RegisterPage/RegisterPage';
 import {Test} from './Pages/Test/Test';
 import {NewPassCreate} from './Pages/NewPassCreate/NewPassCreate';
-import {PassRecoverPage} from './Pages/PassRecoverPage/PassRecoverPage';
+import {ForgotPage} from './Pages/ForgotPage/ForgotPage';
 import {ProfilePage} from './Pages/ProfilePage/ProfilePage';
 import {ErrorPage} from './Pages/ErrorPage/ErrorPage';
 import s from './AllRoutes.module.scss'
 import {LoginPage} from "./Pages/LoginPage/FormikLoginPage";
+import {CheckSuccess} from './Pages/ForgotPage/CheckSuccess/CheckSuccess';
 
 
 export const AllRoutes = () => {
@@ -17,7 +18,8 @@ export const AllRoutes = () => {
             <Route path={PATH.REGISTER} element={<RegisterPage/>}/>
             <Route path={PATH.TEST} element={<Test/>}/>
             <Route path={PATH.CREATE_PASS} element={<NewPassCreate/>}/>
-            <Route path={PATH.PASS_RECOVER} element={<PassRecoverPage/>}/>
+            <Route path={PATH.FORGOT} element={<ForgotPage/>}/>
+            <Route path={PATH.CHECK_SUCCESS} element={<CheckSuccess/>}/>
             <Route path={PATH.MAIN} element={<ProfilePage/>}/>
             <Route path={PATH.ERROR} element={<ErrorPage/>}/>
         </Routes>

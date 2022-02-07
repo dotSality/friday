@@ -4,6 +4,7 @@ import {NavLink, useNavigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {loginTC} from "../../../bll/login-reducer";
 import s from './Login.module.scss'
+import c from './../../../common/styles/Container.module.scss';
 import Paper from "@mui/material/Paper/Paper";
 import Typography from "@mui/material/Typography/Typography";
 import TextField from "@mui/material/TextField/TextField";
@@ -11,6 +12,7 @@ import Fab from "@mui/material/Fab/Fab";
 import Container from "@mui/material/Container/Container";
 import Button from "@mui/material/Button/Button";
 import {Checkbox, FormControlLabel, FormGroup} from "@mui/material";
+import {PATH} from '../../../utils/paths';
 
 
 export const LoginPage = () => {
@@ -66,7 +68,7 @@ export const LoginPage = () => {
                 <Typography
                     variant={'subtitle2'}
                     sx={{cursor:'pointer'}}
-                    onClick={() => navigate('/pass-recover')}>
+                    onClick={() => navigate(PATH.FORGOT)}>
                     forgot your password?
                 </Typography>
                 <FormControlLabel

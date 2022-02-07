@@ -4,7 +4,7 @@ import { cardsAPI } from '../dal/api';
 export const sendInstructions = createAsyncThunk('passRecover', async (email: string, {dispatch,rejectWithValue}) => {
     try {
         let res = await cardsAPI.recover(email)
-        return res.data
+        return {success: res.data.success, email}
     } catch (e: any) {
         rejectWithValue(e.response.data)
     }
@@ -13,12 +13,16 @@ export const sendInstructions = createAsyncThunk('passRecover', async (email: st
 const passRecoverSlice = createSlice({
     name: 'passRecover',
     initialState: {
-        success: false
+        success: false,
+        email: null as string | null,
     },
     reducers: {},
     extraReducers: builder => {
         builder.addCase(sendInstructions.fulfilled, (state, action) => {
-            if(action.payload) state.success = action.payload.success
+            if(action.payload) {
+                state.success = action.payload.success
+                state.email = action.payload.email
+            }
         })
     }
 })

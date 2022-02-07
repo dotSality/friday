@@ -1,0 +1,27 @@
+.container {
+  padding: 20px 50px;
+  text-align: center;
+  justify-content: flex-start !important;
+
+  .imageContainer {
+    width: 150px;
+    height: 150px;
+    background-color: rgba(122,0,255,0.2);
+    border-radius: 50%;
+
+    .image {
+      position: relative;
+      margin: 0 auto;
+      transform: translate(0,20%);
+      background-image: url('./../../../../common/img/mail-letter.svg');
+      background-size: contain;
+      width: 70%;
+      height: 70%;
+      z-index: 1;
+    }
+  }
+
+  .item {
+    margin: 20px 0;
+  }
+}
