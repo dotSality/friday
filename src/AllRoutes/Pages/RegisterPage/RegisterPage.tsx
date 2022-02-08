@@ -9,6 +9,7 @@ import s from './RegisterPage.module.css'
 import Visibility from './../../../common/img/eye.svg';
 import VisibilityOff from './../../../common/img/eye_off.svg';
 import Paper from "@mui/material/Paper/Paper";
+import Typography from "@mui/material/Typography/Typography";
 
 type FormikErrorType = {
     email?: string
@@ -90,13 +91,14 @@ export const RegisterPage = () => {
                 <Grid container justifyContent={'center'}>
                     <Grid item justifyContent={'center'}>
 
-                        <form onSubmit={formik.handleSubmit}>
+                        <form onSubmit={formik.handleSubmit} className={s.form}>
                             <FormControl>
 
-                                <FormLabel className={s.formLabel}>
-                                    <div className={s.nameForm}>Sign Up</div>
-                                    <div className={s.descriptionForm}> create a new account</div>
-                                </FormLabel>
+                                <Typography variant={'h4'}>
+                                    Sign Up
+
+                                </Typography>
+                                <div className={s.descriptionForm}> create a new account</div>
 
                                 <div className={s.registrationError}>
                                     {error &&

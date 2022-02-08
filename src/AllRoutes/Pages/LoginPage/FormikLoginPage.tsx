@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import {Navigate, useNavigate} from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 
@@ -83,7 +83,7 @@ export const LoginPage = () => {
     })
 
     if (isLoggedIn) {
-        navigate(PATH.MAIN)
+        return <Navigate to={PATH.MAIN}/>
     }
 
     return <div className={s.mainContainer}>
