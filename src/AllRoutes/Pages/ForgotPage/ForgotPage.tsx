@@ -54,7 +54,8 @@ export const ForgotPage = () => {
                         Enter your email address and we will send you further instructions
                     </Typography>
 
-                    <Fab sx={{padding: '0 40px'}} type={'submit'} variant="extended" size="medium" color={'primary'} aria-label="add">
+                    <Fab sx={{padding: '0 40px'}} type={'submit'} variant="extended" size="medium" color={'primary'}
+                         aria-label="add">
                         Send instructions
                     </Fab>
 
