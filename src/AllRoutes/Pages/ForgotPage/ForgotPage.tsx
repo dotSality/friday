@@ -10,6 +10,8 @@ import s from './ForgotPage.module.scss'
 import {useAppDispatch, useAppSelector} from '../../../bll/store';
 import {sendInstructions} from '../../../bll/pass-recover-reducer';
 import {PATH} from '../../../utils/paths';
+import {CircularProgress} from '@mui/material';
+import React from 'react';
 
 
 type FormikValuesType = {
@@ -18,6 +20,7 @@ type FormikValuesType = {
 
 export const ForgotPage = () => {
 
+    const {status} = useAppSelector(state => state.app)
     const {success} = useAppSelector(state => state.passRecover)
     const dispatch = useAppDispatch()
 
@@ -54,9 +57,11 @@ export const ForgotPage = () => {
                         Enter your email address and we will send you further instructions
                     </Typography>
 
-                    <Fab sx={{padding: '0 40px'}} type={'submit'} variant="extended" size="medium" color={'primary'} aria-label="add">
-                        Send instructions
-                    </Fab>
+                    {status === 'loading'
+                        ? <CircularProgress sx={{alignSelf: 'center'}} color="secondary"/>
+                        : <Fab sx={{padding: '0 40px'}} type={'submit'} variant="extended" size="medium" color={'primary'} aria-label="add">
+                            Send instructions</Fab>}
+
 
                     <Container className={s.remember}>
                         <Typography variant={'subtitle1'} sx={{opacity: '50%'}}>

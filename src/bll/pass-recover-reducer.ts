@@ -1,8 +1,10 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
-import {cardsAPI} from '../dal/api';
+import {cardsAPI, NewPassRequestType} from '../dal/api';
 import {PATH} from '../utils/paths';
+import {setAppError, setAppStatus} from './app-reducer';
 
 export const sendInstructions = createAsyncThunk('forgot/sendInstructions', async (email: string, {dispatch, rejectWithValue}) => {
+    dispatch(setAppStatus('loading'))
     try {
         let res = await cardsAPI.recover({
             email, from: 'Best INCUBATOR IT-team',
@@ -11,17 +13,23 @@ export const sendInstructions = createAsyncThunk('forgot/sendInstructions', asyn
                         <a href='http://localhost:3000/friday#${PATH.CREATE_PASS}/$token$'>link</a>
                       </div>\``
         })
+        dispatch(setAppStatus('succeeded'))
         return {success: res.data.success, email}
     } catch (e: any) {
+        dispatch(setAppStatus('failed'))
         rejectWithValue(e.response.data)
     }
 })
 
 export const sendNewPassword = createAsyncThunk('forgot/sendNewPassword',
-    async (data: { pass: string, token: string }, {dispatch, rejectWithValue}) => {
+    async (data: NewPassRequestType, {dispatch, rejectWithValue}) => {
+        dispatch(setAppStatus('loading'))
         try {
             let res = await cardsAPI.setNewPass(data)
+            dispatch(setAppStatus('succeeded'))
+            dispatch(setAppError(res.data.info))
         } catch (e: any) {
+            dispatch(setAppStatus('failed'))
             return rejectWithValue({})
         }
     })
