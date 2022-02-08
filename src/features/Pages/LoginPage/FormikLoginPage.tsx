@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography/Typography";
 import TextField from "@mui/material/TextField/TextField";
 import Container from "@mui/material/Container/Container";
 import Button from "@mui/material/Button/Button";
-import {Checkbox, FormControlLabel, IconButton, InputAdornment} from "@mui/material";
+import {Checkbox, FormControl, FormControlLabel, FormGroup, Grid, IconButton, InputAdornment} from "@mui/material";
 
 import {useAppSelector} from "../../../bll/store";
 import {loginTC} from "../../../bll/login-reducer";
@@ -87,79 +87,88 @@ export const LoginPage = React.memo(() => {
 
         return <div className={s.mainContainer}>
             <Paper elevation={2} className={s.container}>
-                <form onSubmit={formik.handleSubmit} className={s.form}>
-                    <Typography variant={'h4'}>
-                        it-incubator
-                    </Typography>
-                    <Typography variant={'h4'}>
-                        Sign in
-                    </Typography>
+                <Grid container justifyContent={'center'}>
+                    <Grid item justifyContent={'center'}>
+                        <form onSubmit={formik.handleSubmit} className={s.form}>
+                            <FormControl className={s.formControl}>
+                                <Typography variant={'h4'} className={s.typography}>
+                                    Sign in
+                                </Typography>
+                                <div className={s.descriptionForm}>
+                                    Use your Cards Application
+                                </div>
+                                <FormGroup className={s.formGroup}>
+                                    <TextField
+                                        className={s.textField}
+                                        sx={{width: '100%'}}
+                                        margin={'normal'}
+                                        id='outlined-basic'
+                                        label='E-mail'
+                                        variant='standard'
+                                        error={!!(formik.touched.email && formik.errors.email)}
+                                        helperText={formik.touched.email && formik.errors.email}
+                                        {...formik.getFieldProps('email')}
+                                    />
 
-                    <TextField
-                        sx={{width: '100%'}}
-                        margin={'normal'}
-                        id='outlined-basic'
-                        label='E-mail'
-                        variant='standard'
-                        error={!!(formik.touched.email && formik.errors.email)}
-                        helperText={formik.touched.email && formik.errors.email}
-                        {...formik.getFieldProps('email')}
-                    />
+                                    <TextField
+                                        className={s.textField}
+                                        sx={{width: '100%'}}
+                                        margin={'normal'}
+                                        id='outlined-basic'
+                                        type={values.showPassword ? 'text' : 'password'}
+                                        label='Password'
+                                        variant='standard'
+                                        error={!!(formik.touched.password && formik.errors.password)}
+                                        helperText={formik.touched.password && formik.errors.password}
+                                        InputProps={{
+                                            endAdornment: (
+                                                <InputAdornment position='end'>
+                                                    <IconButton
+                                                        aria-label='toggle password visibility'
+                                                        onClick={handleClickShowPassword}
+                                                        onMouseDown={handleMouseDownPassword}>
+                                                        {values.showPassword
+                                                            ? <img src={Visibility}
+                                                                   width='16' height='16' alt="Visibility"/>
+                                                            : <img src={VisibilityOff}
+                                                                   width='16' height='16' alt="VisibilityOff"/>}
+                                                    </IconButton>
+                                                </InputAdornment>
+                                            ),
+                                        }}
+                                        {...formik.getFieldProps('password')}
+                                    />
 
-                    <TextField
-                        sx={{width: '100%'}}
-                        margin={'normal'}
-                        id='outlined-basic'
-                        type={values.showPassword ? 'text' : 'password'}
-                        label='Password'
-                        variant='standard'
-                        error={!!(formik.touched.password && formik.errors.password)}
-                        helperText={formik.touched.password && formik.errors.password}
-                        InputProps={{
-                            endAdornment: (
-                                <InputAdornment position='end'>
-                                    <IconButton
-                                        aria-label='toggle password visibility'
-                                        onClick={handleClickShowPassword}
-                                        onMouseDown={handleMouseDownPassword}>
-                                        {values.showPassword
-                                            ? <img src={Visibility}
-                                                   width='16' height='16' alt="Visibility"/>
-                                            : <img src={VisibilityOff}
-                                                   width='16' height='16' alt="VisibilityOff"/>}
-                                    </IconButton>
-                                </InputAdornment>
-                            ),
-                        }}
-                        {...formik.getFieldProps('password')}
-                    />
+                                    <Typography className={s.text}
+                                                variant={'subtitle2'}
+                                                sx={{cursor: 'pointer'}}
+                                                onClick={() => navigate(PATH.FORGOT)}>
+                                        Forgot password
+                                    </Typography>
+                                    <FormControlLabel
+                                        label={'Remember me'}
+                                        control={<Checkbox
+                                            {...formik.getFieldProps('rememberMe')}/>}
+                                    />
+                                </FormGroup>
+                                    <Button type={'submit'}
+                                            sx={{width: '100%'}}
+                                            variant={'contained'}>
+                                        Login
+                                    </Button>
 
-                    <Typography className={s.text}
-                                variant={'subtitle2'}
-                                sx={{cursor: 'pointer'}}
-                                onClick={() => navigate(PATH.FORGOT)}>
-                        Forgot password
-                    </Typography>
-                    <FormControlLabel
-                        label={'Remember me'}
-                        control={<Checkbox
-                            {...formik.getFieldProps('rememberMe')}/>}
-                    />
-                    <Button type={'submit'}
-                            sx={{width: '100%'}}
-                            variant={'contained'}>
-                        Login
-                    </Button>
+                                <Container className={s.signUp}>
+                                    <Typography variant={'subtitle1'}
+                                               >
+                                        Don't have an account?
+                                    </Typography>
 
-                    <Container className={s.signUp}>
-                        <Typography variant={'subtitle1'}
-                                    sx={{opacity: '50%'}}>
-                            Don't have an account?
-                        </Typography>
-
-                        <Button onClick={() => navigate(PATH.REGISTER)}>Sign Up</Button>
-                    </Container>
-                </form>
+                                    <Button onClick={() => navigate(PATH.REGISTER)}>Sign Up</Button>
+                                </Container>
+                            </FormControl>
+                        </form>
+                    </Grid>
+                </Grid>
             </Paper>
         </div>
     }
