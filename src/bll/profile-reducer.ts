@@ -1,6 +1,5 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-
-import {LoginResponseType} from '../dal/api';
+import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {cardsAPI, LoginResponseType, UserDataType} from '../dal/api';
 
 
 
@@ -14,6 +13,13 @@ const profileSlice = createSlice({
     }
 })
 
+
+export const changeUserDataTC = createAsyncThunk(
+    'profile/changeUserData',
+    async (userData:UserDataType, {dispatch}) => {
+        await cardsAPI.changeUserData(userData)
+    }
+)
 
 type InitStateType = ProfileType
 

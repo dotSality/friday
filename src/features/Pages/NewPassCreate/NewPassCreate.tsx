@@ -4,7 +4,7 @@ import Paper from '@mui/material/Paper/Paper';
 import {Navigate, useNavigate, useParams} from 'react-router-dom';
 import Typography from '@mui/material/Typography/Typography';
 import {useFormik} from 'formik';
-import {IconButton, InputAdornment, TextField} from '@mui/material';
+import {CircularProgress, IconButton, InputAdornment, TextField} from '@mui/material';
 import Visibility from '../../../common/img/eye.svg';
 import VisibilityOff from '../../../common/img/eye_off.svg';
 import React, {useState} from 'react';
@@ -28,8 +28,8 @@ export const NewPassCreate = () => {
 
     const {token} = useParams()
     const dispatch = useAppDispatch()
-    const navigate = useNavigate()
     const {passChanged} = useAppSelector(state => state.passRecover)
+    const {status} = useAppSelector(state => state.app)
 
     const [values, setValues] = useState<StateType>({
         showPassword: false,
@@ -56,7 +56,7 @@ export const NewPassCreate = () => {
             return errors
         },
         onSubmit: async (values: FormikValuesType) => {
-            if (token) await dispatch(sendNewPassword({pass: values.password, token}))
+            if (token) await dispatch(sendNewPassword({password: values.password, resetPasswordToken: token}))
         }
     })
 
@@ -109,7 +109,7 @@ export const NewPassCreate = () => {
                         label='Confirm password'
                         variant='standard'
                         error={!!(formik.touched.confirmPassword && formik.errors.confirmPassword)}
-                        helperText={formik.touched.confirmPassword &&formik.errors.confirmPassword}
+                        helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
                         InputProps={{
                             endAdornment: (
                                 <InputAdornment position='end'>
@@ -134,10 +134,13 @@ export const NewPassCreate = () => {
 
 
                 </Container>
-                <Fab sx={{padding: '0 40px', margin: '0 20px 50px'}} type={'submit'}
-                    variant="extended" size="medium" color={'primary'} aria-label="add">
-                    Create new password
-                </Fab>
+                {status === 'loading'
+                    ? <CircularProgress sx={{alignSelf: 'center'}} color="secondary"/>
+                    : <Fab sx={{padding: '0 40px', margin: '0 20px 50px'}} type={'submit'}
+                        variant="extended" size="medium" color={'primary'} aria-label="add">
+                        Create new password
+                    </Fab>}
+
 
             </form>
         </Paper>

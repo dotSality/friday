@@ -1,6 +1,7 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {cardsAPI} from "../dal/api";
 import {isLoggedIn} from "./login-reducer";
+import {setUserProfile} from './profile-reducer';
 
 
 const initialState: InitStateType = {
@@ -33,8 +34,9 @@ export const initializeApp = createAsyncThunk(
     async (_, {dispatch}) => {
         try {
             dispatch(setAppStatus('loading'))
-            await cardsAPI.authMe()
+            const {data} = await cardsAPI.authMe()
             dispatch(isLoggedIn(true))
+            dispatch(setUserProfile(data))
         } catch (e: any) {
             const error = e.response ? e.response.data.error : (e.message + ', Try later')
             dispatch(setAppError(error))
