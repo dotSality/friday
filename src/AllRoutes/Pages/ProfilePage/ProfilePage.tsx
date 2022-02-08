@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import {Navigate, useNavigate} from 'react-router-dom';
 import {useDispatch} from "react-redux";
 
 import {useAppSelector} from '../../../bll/store';
@@ -24,7 +24,7 @@ export const ProfilePage = () => {
     }
 
     if (!isLoggedIn) {
-        navigate('login')
+        return <Navigate to={'login'}/>
     }
 
 
