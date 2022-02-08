@@ -92,9 +92,9 @@ export const RegisterPage = () => {
                     <Grid item justifyContent={'center'}>
 
                         <form onSubmit={formik.handleSubmit} className={s.form}>
-                            <FormControl>
+                            <FormControl className={s.formControl}>
 
-                                <Typography variant={'h4'}>
+                                <Typography variant={'h4'} className={s.typographyLabel}>
                                     Sign Up
 
                                 </Typography>
