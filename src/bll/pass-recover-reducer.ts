@@ -1,12 +1,12 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
-import {cardsAPI, NewPassRequestType} from '../dal/api';
 import {PATH} from '../utils/paths';
 import {setAppError, setAppStatus} from './app-reducer';
+import {NewPassRequestType, passwordAPI} from '../dal/password-api';
 
 export const sendInstructions = createAsyncThunk('forgot/sendInstructions', async (email: string, {dispatch, rejectWithValue}) => {
     dispatch(setAppStatus('loading'))
     try {
-        let res = await cardsAPI.recover({
+        let res = await passwordAPI.recover({
             email, from: 'Best INCUBATOR IT-team',
             message: `<div style="background-color: lime; padding: 15px">
                         password recovery link: 
@@ -25,7 +25,7 @@ export const sendNewPassword = createAsyncThunk('forgot/sendNewPassword',
     async (data: NewPassRequestType, {dispatch, rejectWithValue}) => {
         dispatch(setAppStatus('loading'))
         try {
-            let res = await cardsAPI.setNewPass(data)
+            let res = await passwordAPI.setNewPass(data)
             dispatch(setAppStatus('succeeded'))
             dispatch(setAppError(res.data.info))
         } catch (e: any) {

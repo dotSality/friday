@@ -1,6 +1,9 @@
 .app {
-    height: 100vh;
-    display: grid;
-    grid-template-areas: 'l r';
-    grid-template-columns: 1fr 9fr;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    height: 100%;
+    width: 100%;
 }

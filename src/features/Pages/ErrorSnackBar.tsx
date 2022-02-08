@@ -19,6 +19,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 
 
 export function ErrorSnackbar() {
+    const {passChanged} = useAppSelector(state => state.passRecover)
     const error = useAppSelector<string | null>(state => state.app.error)
     const dispatch = useDispatch()
 
@@ -34,7 +35,7 @@ export function ErrorSnackbar() {
 
     return (
         <Snackbar open={isOpen} autoHideDuration={6000} onClose={handleClose}>
-            <Alert onClose={handleClose} severity="error" sx={{width: '100%'}}>
+            <Alert onClose={handleClose} severity={passChanged ? 'success' : 'error'} sx={{width: '100%'}}>
                 {error}
             </Alert>
         </Snackbar>

@@ -13,12 +13,6 @@ export const cardsAPI = {
     registration(email: string, password: string) {
         return instance.post<AxiosResponse<RegisterResponseType, {email: string, password: string}>>('auth/register', {email, password});
     },
-    recover(data: RecoverRequestType) {
-        return instance.post<RecoverRequestType, AxiosResponse<RecoverResponseType>>('auth/forgot', data)
-    },
-    setNewPass(data: NewPassRequestType) {
-        return instance.post<NewPassRequestType, AxiosResponse<{info: string}>>('auth/set-new-password', data)
-    },
     login(email: string, password: string, rememberMe:boolean) {
         return instance.post<{email: string, password: string, rememberMe:boolean}, AxiosResponse<LoginResponseType>>(`auth/login`, {email, password,rememberMe})
     },
@@ -32,28 +26,6 @@ export const cardsAPI = {
 }
 
 // types
-
-export type NewPassRequestType = {
-    password: string,
-    resetPasswordToken: string,
-}
-
-type NewPassResponseType = {
-    info: string
-}
-
-type RecoverRequestType = {
-    email: string,
-    from: string,
-    message: string,
-}
-
-type RecoverResponseType = {
-    answer: boolean,
-    html: boolean,
-    info: string,
-    success: boolean,
-}
 
 export type LoginResponseType = {
     _id: string;
