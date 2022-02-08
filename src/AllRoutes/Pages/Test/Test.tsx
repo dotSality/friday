@@ -1,5 +1,4 @@
 import SuperInputText from '../../../Components/Super/SuperInputText/SuperInputText';
-import SuperEditableSpan from '../../../Components/Super/SuperEditableSpan/SuperEditableSpan';
 import SuperButton from '../../../Components/Super/SuperButton/SuperButton';
 import SuperSelect from '../../../Components/Super/SuperSelect/SuperSelect';
 import SuperRadio from '../../../Components/Super/SuperRadio/SuperRadio';
@@ -15,7 +14,6 @@ export const Test = () => {
     const [check, setCheck] = useState(false)
     return <div>
         <SuperInputText value={input} onChangeText={setInput}/>
-        <SuperEditableSpan value={span} onChangeText={setSpan}/>
         <SuperButton>Button</SuperButton>
         <SuperSelect value={value} options={values} onChangeOption={setValue}/>
         <SuperRadio value={value} options={values} onChangeOption={setValue}/>

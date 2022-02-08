@@ -7,7 +7,7 @@ import {ForgotPage} from './Pages/ForgotPage/ForgotPage';
 import {ProfilePage} from './Pages/ProfilePage/ProfilePage';
 import {ErrorPage} from './Pages/ErrorPage/ErrorPage';
 import s from './AllRoutes.module.scss'
-import {LoginPage} from "./Pages/LoginPage/FormikLoginPage";
+import {LoginPage} from './Pages/LoginPage/FormikLoginPage';
 import {CheckSuccess} from './Pages/ForgotPage/CheckSuccess/CheckSuccess';
 
 
