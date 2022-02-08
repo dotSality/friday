@@ -17,15 +17,23 @@ export const cardsAPI = {
         return instance.post<{email: string, password: string, rememberMe:boolean}, AxiosResponse<LoginResponseType>>(`auth/login`, {email, password,rememberMe})
     },
     logout() {
-        return instance.delete(`/auth/me`)
+        return instance.delete<{info: string, error: string}>(`/auth/me`)
     },
     authMe () {
         return instance.post<LoginResponseType, {}>(`/auth/me`)
+    },
+    changeUserData (userData: UserDataType) {
+        return instance.put(`auth/me`, userData)
     }
 
 }
 
 // types
+
+type UserDataType = {
+    name?:string
+    avatar?:string
+}
 
 export type LoginResponseType = {
     _id: string;
