@@ -8,6 +8,8 @@ import {Button, TextField, FormControl, FormGroup, FormLabel, Grid, InputAdornme
 import s from './RegisterPage.module.css'
 import Visibility from './../../../common/img/eye.svg';
 import VisibilityOff from './../../../common/img/eye_off.svg';
+import Paper from "@mui/material/Paper/Paper";
+import Typography from "@mui/material/Typography/Typography";
 
 type FormikErrorType = {
     email?: string
@@ -84,94 +86,99 @@ export const RegisterPage = () => {
     }
 
     return (
-        <Grid container justifyContent={'center'}>
-            <Grid item justifyContent={'center'}>
+        <div className={s.mainContainer}>
+            <Paper elevation={2} className={s.container}>
+                <Grid container justifyContent={'center'}>
+                    <Grid item justifyContent={'center'}>
 
-                <form onSubmit={formik.handleSubmit}>
-                    <FormControl>
+                        <form onSubmit={formik.handleSubmit} className={s.form}>
+                            <FormControl>
 
-                        <FormLabel className={s.formLabel}>
-                            <div className={s.nameForm}>Sign Up</div>
-                            <div className={s.descriptionForm}> create a new account</div>
-                        </FormLabel>
+                                <Typography variant={'h4'}>
+                                    Sign Up
 
-                        <div className={s.registrationError}>
-                            {error &&
-                            <div>{error}</div>}
-                        </div>
+                                </Typography>
+                                <div className={s.descriptionForm}> create a new account</div>
 
-                        <FormGroup className={s.formGroup}>
-                            <TextField className={s.textField}
-                                       id='standard-basic'
-                                       label='Email'
-                                       variant='standard'
-                                       error={!!(formik.touched.email && formik.errors.email)}
-                                       helperText={formik.errors.email}
-                                       {...formik.getFieldProps('email')}/>
+                                <div className={s.registrationError}>
+                                    {error &&
+                                    <div>{error}</div>}
+                                </div>
 
-                            <TextField className={s.textField}
-                                       id='standard-basic'
-                                       variant='standard'
-                                       label='Password'
-                                       type={values.showPassword ? 'text' : 'password'}
-                                       error={!!(formik.touched.password && formik.errors.password)}
-                                       helperText={formik.errors.password}
-                                       InputProps={{
-                                           endAdornment: (
-                                               <InputAdornment position='end'>
-                                                   <IconButton
-                                                       aria-label='toggle password visibility'
-                                                       onClick={handleClickShowPassword}
-                                                       onMouseDown={handleMouseDownPassword}>
-                                                       {values.showPassword
-                                                           ? <img src={Visibility}
-                                                                  width='16' height='16' alt="Visibility"/>
-                                                           : <img src={VisibilityOff}
-                                                                  width='16' height='16' alt="VisibilityOff"/>}
-                                                   </IconButton>
-                                               </InputAdornment>
-                                           ),
-                                       }}
-                                       {...formik.getFieldProps('password')}/>
+                                <FormGroup className={s.formGroup}>
+                                    <TextField className={s.textField}
+                                               id='standard-basic'
+                                               label='Email'
+                                               variant='standard'
+                                               error={!!(formik.touched.email && formik.errors.email)}
+                                               helperText={formik.errors.email}
+                                               {...formik.getFieldProps('email')}/>
 
-                            <TextField className={s.textField}
-                                       id='standard-basic'
-                                       variant='standard'
-                                       label='Confirm password'
-                                       type={values.showConfirmPassword ? 'text' : 'password'}
-                                       error={!!(formik.touched.confirmPassword && formik.errors.confirmPassword)}
-                                       helperText={formik.errors.confirmPassword}
-                                       InputProps={{
-                                           endAdornment: (
-                                               <InputAdornment position='end'>
-                                                   <IconButton
-                                                       aria-label='toggle password visibility'
-                                                       onClick={handleClickShowConfirmPassword}
-                                                       onMouseDown={handleMouseDownPassword}>
-                                                       {values.showConfirmPassword
-                                                           ? <img src={Visibility}
-                                                                  width='16' height='16' alt="Visibility"/>
-                                                           : <img src={VisibilityOff}
-                                                                  width='16' height='16' alt="Visibility"/>}
-                                                   </IconButton>
-                                               </InputAdornment>
-                                           ),
-                                       }}
-                                       {...formik.getFieldProps('confirmPassword')}/>
-                        </FormGroup>
+                                    <TextField className={s.textField}
+                                               id='standard-basic'
+                                               variant='standard'
+                                               label='Password'
+                                               type={values.showPassword ? 'text' : 'password'}
+                                               error={!!(formik.touched.password && formik.errors.password)}
+                                               helperText={formik.errors.password}
+                                               InputProps={{
+                                                   endAdornment: (
+                                                       <InputAdornment position='end'>
+                                                           <IconButton
+                                                               aria-label='toggle password visibility'
+                                                               onClick={handleClickShowPassword}
+                                                               onMouseDown={handleMouseDownPassword}>
+                                                               {values.showPassword
+                                                                   ? <img src={Visibility}
+                                                                          width='16' height='16' alt="Visibility"/>
+                                                                   : <img src={VisibilityOff}
+                                                                          width='16' height='16' alt="VisibilityOff"/>}
+                                                           </IconButton>
+                                                       </InputAdornment>
+                                                   ),
+                                               }}
+                                               {...formik.getFieldProps('password')}/>
 
-                        <Button type={'submit'} variant='contained'>Register</Button>
+                                    <TextField className={s.textField}
+                                               id='standard-basic'
+                                               variant='standard'
+                                               label='Confirm password'
+                                               type={values.showConfirmPassword ? 'text' : 'password'}
+                                               error={!!(formik.touched.confirmPassword && formik.errors.confirmPassword)}
+                                               helperText={formik.errors.confirmPassword}
+                                               InputProps={{
+                                                   endAdornment: (
+                                                       <InputAdornment position='end'>
+                                                           <IconButton
+                                                               aria-label='toggle password visibility'
+                                                               onClick={handleClickShowConfirmPassword}
+                                                               onMouseDown={handleMouseDownPassword}>
+                                                               {values.showConfirmPassword
+                                                                   ? <img src={Visibility}
+                                                                          width='16' height='16' alt="Visibility"/>
+                                                                   : <img src={VisibilityOff}
+                                                                          width='16' height='16' alt="Visibility"/>}
+                                                           </IconButton>
+                                                       </InputAdornment>
+                                                   ),
+                                               }}
+                                               {...formik.getFieldProps('confirmPassword')}/>
+                                </FormGroup>
 
-                        <div className={s.navigateToLogin}>
-                            Already have an account?
-                            <NavLink to={'/login'}>
-                                <Button variant='text'>Sign in</Button>
-                            </NavLink>
-                        </div>
-                    </FormControl>
-                </form>
+                                <Button type={'submit'} variant='contained'>Register</Button>
 
-            </Grid>
-        </Grid>
+                                <div className={s.navigateToLogin}>
+                                    Already have an account?
+                                    <NavLink to={'/login'}>
+                                        <Button variant='text'>Sign in</Button>
+                                    </NavLink>
+                                </div>
+                            </FormControl>
+                        </form>
+
+                    </Grid>
+                </Grid>
+            </Paper>
+        </div>
     )
 }
