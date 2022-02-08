@@ -151,15 +151,14 @@ export const LoginPage = React.memo(() => {
                                             {...formik.getFieldProps('rememberMe')}/>}
                                     />
                                 </FormGroup>
-                                    <Button type={'submit'}
-                                            sx={{width: '100%'}}
-                                            variant={'contained'}>
-                                        Login
-                                    </Button>
+                                <Button type={'submit'}
+                                        sx={{width: '100%'}}
+                                        variant={'contained'}>
+                                    Login
+                                </Button>
 
                                 <Container className={s.signUp}>
-                                    <Typography variant={'subtitle1'}
-                                               >
+                                    <Typography variant={'subtitle1'}>
                                         Don't have an account?
                                     </Typography>
 
