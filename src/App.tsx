@@ -15,7 +15,7 @@ import {ForgotPage} from './features/Pages/ForgotPage/ForgotPage';
 import {CheckSuccess} from './features/Pages/ForgotPage/CheckSuccess/CheckSuccess';
 import {ProfilePage} from './features/Pages/ProfilePage/ProfilePage';
 import {ErrorPage} from './features/Pages/ErrorPage/ErrorPage';
-import {ErrorSnackbar} from './features/Pages/ErrorSnackBar';
+import {ErrorSnackbar} from './features/ErrorSnackbar/ErrorSnackBar';
 
 
 

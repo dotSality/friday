@@ -20,7 +20,7 @@ export const cardsAPI = {
         return instance.delete<{info: string, error: string}>(`/auth/me`)
     },
     authMe () {
-        return instance.post<LoginResponseType, {}>(`/auth/me`)
+        return instance.post<LoginResponseType>(`/auth/me`)
     },
     changeUserData (userData: UserDataType) {
         return instance.put(`auth/me`, userData)
@@ -30,7 +30,7 @@ export const cardsAPI = {
 
 // types
 
-type UserDataType = {
+export type UserDataType = {
     name?:string
     avatar?:string
 }

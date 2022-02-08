@@ -1,15 +1,14 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
-import {Navigate, useLocation} from 'react-router-dom';
-import {useAppSelector} from '../../../bll/store';
+import React, {useEffect, useState} from 'react';
+import {Navigate} from 'react-router-dom';
+import {useAppDispatch, useAppSelector} from '../../../bll/store';
 import {changeUserDataTC, ProfileType} from '../../../bll/profile-reducer';
 import {logoutTC} from '../../../bll/login-reducer';
-import {useDispatch} from 'react-redux';
 import {PATH} from '../../../utils/paths';
 import s from './ProfilePage.module.scss'
 import UserPhoto from '../../../common/img/photo_2022-02-06_16-28-54.png'
 import Button from '@mui/material/Button/Button';
-import {EditableSpan} from '../../../Components/Super/SuperEditableSpan/SuperEditableSpan';
 import {initializeApp} from '../../../bll/app-reducer';
+import {EditableSpan} from '../../EditableSpan/EditableSpan';
 
 
 export const ProfilePage = React.memo(() => {
@@ -22,8 +21,7 @@ export const ProfilePage = React.memo(() => {
     const isInitialized = useAppSelector<boolean>(state => state.app.isInitialized)
     const {avatar, name, email} = user
 
-    const location = useLocation()
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     useEffect(() => {
             dispatch(initializeApp())
