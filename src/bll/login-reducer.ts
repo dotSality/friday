@@ -15,8 +15,10 @@ export const loginTC = createAsyncThunk(
             dispatch(setUserProfile(data))
             dispatch(setAppStatus('succeeded'))
         } catch (e: any) {
-            const error = e.response ? e.response.data.error : (e.message + ', Try later')
-                dispatch(setAppError(error))
+            const error = e.response
+                ? e.response.data.error
+                : (e.message + ', Try later')
+            dispatch(setAppError(error))
         }
     }
 )
@@ -26,10 +28,16 @@ export const logoutTC = createAsyncThunk(
     'login/loginTC',
     async (_, {dispatch}) => {
         try {
+            dispatch(setAppStatus('loading'))
             await cardsAPI.logout()
+            dispatch(setAppStatus('succeeded'))
             dispatch(isLoggedIn(false))
         } catch (e: any) {
-
+            const error = e.response
+                ? e.response.data.error
+                : (e.message + ', Try later')
+            dispatch(setAppError(error))
+            dispatch(setAppStatus('failed'))
         }
     }
 )

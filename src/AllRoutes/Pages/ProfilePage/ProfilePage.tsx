@@ -1,10 +1,15 @@
 import React from 'react';
-import {Navigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import {useDispatch} from "react-redux";
+
 import {useAppSelector} from '../../../bll/store';
 import UserPhoto from './../../../common/img/photo_2022-02-06_16-28-54.png'
 import {ProfileType} from '../../../bll/profile-reducer';
 import {logoutTC} from "../../../bll/login-reducer";
-import {useDispatch} from "react-redux";
+
+import Container from "@mui/material/Container/Container";
+import {Button} from "@mui/material";
+
 
 
 export const ProfilePage = () => {
@@ -12,17 +17,19 @@ export const ProfilePage = () => {
     const isLoggedIn = useAppSelector<boolean>(state => state.login.isLoggedIn)
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const logoutHandler = () => {
         dispatch(logoutTC())
     }
 
     if (!isLoggedIn) {
-        return <Navigate to={'login'}/>
+        navigate('login')
     }
 
+
     return (
-        <div>
+        <Container>
             <div>
                 {user.avatar ? user.avatar : <img style={{height: '200px', width: '200px'}} src={UserPhoto} alt=""/>}
 
@@ -37,7 +44,7 @@ export const ProfilePage = () => {
                 {user.publicCardPacksCount}
             </div>
 
-            <button onClick={logoutHandler}>Log out</button>
-        </div>
+            <Button onClick={logoutHandler}>Log out</Button>
+        </Container>
     );
 };
