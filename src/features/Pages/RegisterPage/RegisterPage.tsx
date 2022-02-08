@@ -1,5 +1,5 @@
 import React from 'react'
-import {Navigate, NavLink} from 'react-router-dom';
+import {Navigate, NavLink, useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {useFormik} from 'formik';
 import {RootStateType} from '../../../bll/store';
@@ -10,6 +10,7 @@ import Visibility from './../../../common/img/eye.svg';
 import VisibilityOff from './../../../common/img/eye_off.svg';
 import Paper from "@mui/material/Paper/Paper";
 import Typography from "@mui/material/Typography/Typography";
+import {PATH} from "../../../utils/paths";
 
 type FormikErrorType = {
     email?: string
@@ -22,6 +23,7 @@ export const RegisterPage = () => {
     const error = useSelector<RootStateType, string>(state => state.register.error)
     const isRegistrationSuccess = useSelector<RootStateType, boolean>(state => state.register.isRegistrationSuccess)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
 
     interface State {
@@ -96,7 +98,6 @@ export const RegisterPage = () => {
 
                                 <Typography variant={'h4'} className={s.typographyLabel}>
                                     Sign Up
-
                                 </Typography>
                                 <div className={s.descriptionForm}> create a new account</div>
 
@@ -169,9 +170,7 @@ export const RegisterPage = () => {
 
                                 <div className={s.navigateToLogin}>
                                     Already have an account?
-                                    <NavLink to={'/login'}>
-                                        <Button variant='text'>Sign in</Button>
-                                    </NavLink>
+                                    <Button onClick={() => navigate(PATH.LOGIN)}>Sign in</Button>
                                 </div>
                             </FormControl>
                         </form>
