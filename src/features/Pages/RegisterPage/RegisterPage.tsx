@@ -1,16 +1,17 @@
 import React from 'react'
-import {Navigate, NavLink, useNavigate} from 'react-router-dom';
+import {Navigate, useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {useFormik} from 'formik';
 import {RootStateType} from '../../../bll/store';
 import {registrationTC} from '../../../bll/register-reducer';
-import {Button, TextField, FormControl, FormGroup, FormLabel, Grid, InputAdornment, IconButton} from '@mui/material';
+import {Button, TextField, FormControl, FormGroup, Grid, InputAdornment, IconButton} from '@mui/material';
 import s from './RegisterPage.module.css'
 import Visibility from './../../../common/img/eye.svg';
 import VisibilityOff from './../../../common/img/eye_off.svg';
 import Paper from "@mui/material/Paper/Paper";
 import Typography from "@mui/material/Typography/Typography";
 import {PATH} from "../../../utils/paths";
+import {StatusType} from "../../../bll/app-reducer";
 
 type FormikErrorType = {
     email?: string
@@ -20,11 +21,10 @@ type FormikErrorType = {
 
 export const RegisterPage = () => {
 
-    const error = useSelector<RootStateType, string>(state => state.register.error)
+    const status = useSelector<RootStateType, StatusType>(state => state.app.status)
     const isRegistrationSuccess = useSelector<RootStateType, boolean>(state => state.register.isRegistrationSuccess)
     const dispatch = useDispatch()
     const navigate = useNavigate()
-
 
     interface State {
         showPassword: boolean
@@ -49,7 +49,6 @@ export const RegisterPage = () => {
             showConfirmPassword: !values.showConfirmPassword,
         });
     };
-
 
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
@@ -101,16 +100,13 @@ export const RegisterPage = () => {
                                 </Typography>
                                 <div className={s.descriptionForm}> create a new account</div>
 
-                                <div className={s.registrationError}>
-                                    {error &&
-                                    <div>{error}</div>}
-                                </div>
-
                                 <FormGroup className={s.formGroup}>
                                     <TextField className={s.textField}
                                                id='standard-basic'
                                                label='Email'
                                                variant='standard'
+                                               sx={{width: '100%'}}
+                                               margin={'normal'}
                                                error={!!(formik.touched.email && formik.errors.email)}
                                                helperText={formik.errors.email}
                                                {...formik.getFieldProps('email')}/>
@@ -119,6 +115,8 @@ export const RegisterPage = () => {
                                                id='standard-basic'
                                                variant='standard'
                                                label='Password'
+                                               sx={{width: '100%'}}
+                                               margin={'normal'}
                                                type={values.showPassword ? 'text' : 'password'}
                                                error={!!(formik.touched.password && formik.errors.password)}
                                                helperText={formik.errors.password}
@@ -144,6 +142,8 @@ export const RegisterPage = () => {
                                                id='standard-basic'
                                                variant='standard'
                                                label='Confirm password'
+                                               sx={{width: '100%'}}
+                                               margin={'normal'}
                                                type={values.showConfirmPassword ? 'text' : 'password'}
                                                error={!!(formik.touched.confirmPassword && formik.errors.confirmPassword)}
                                                helperText={formik.errors.confirmPassword}
@@ -166,7 +166,9 @@ export const RegisterPage = () => {
                                                {...formik.getFieldProps('confirmPassword')}/>
                                 </FormGroup>
 
-                                <Button type={'submit'} variant='contained'>Register</Button>
+                                <Button
+                                    disabled={!!(formik.errors.email || formik.errors.password || formik.errors.confirmPassword || status === 'loading')}
+                                    type={'submit'} variant='contained'>Register</Button>
 
                                 <div className={s.navigateToLogin}>
                                     Already have an account?
