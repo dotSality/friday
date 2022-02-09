@@ -1,10 +1,12 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import TextField from '@mui/material/TextField';
+import EditIcon from '@mui/icons-material/Edit';
+import IconButton from '@mui/material/IconButton/IconButton';
 
 type EditableSpanPropsType = {
     value: string
     onChange: (newValue: string) => void
-    onBlur: (newValue:string) => void
+    onBlur: (newValue: string) => void
 
 }
 
@@ -28,5 +30,9 @@ export const EditableSpan = React.memo(function (props: EditableSpanPropsType) {
 
     return editMode
         ? <TextField value={title} onChange={changeTitle} autoFocus onBlur={activateViewMode}/>
-        : <span onDoubleClick={activateEditMode}>{props.value}</span>
+        : <span onDoubleClick={activateEditMode}>{props.value}
+            <IconButton>
+                        <EditIcon/>
+                    </IconButton></span>
+
 });
