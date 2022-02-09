@@ -20,11 +20,9 @@ type FormikErrorType = {
 
 export const RegisterPage = () => {
 
-    const error = useSelector<RootStateType, string>(state => state.register.error)
     const isRegistrationSuccess = useSelector<RootStateType, boolean>(state => state.register.isRegistrationSuccess)
     const dispatch = useDispatch()
     const navigate = useNavigate()
-
 
     interface State {
         showPassword: boolean
@@ -49,7 +47,6 @@ export const RegisterPage = () => {
             showConfirmPassword: !values.showConfirmPassword,
         });
     };
-
 
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
@@ -101,16 +98,13 @@ export const RegisterPage = () => {
                                 </Typography>
                                 <div className={s.descriptionForm}> create a new account</div>
 
-                                <div className={s.registrationError}>
-                                    {error &&
-                                    <div>{error}</div>}
-                                </div>
-
                                 <FormGroup className={s.formGroup}>
                                     <TextField className={s.textField}
                                                id='standard-basic'
                                                label='Email'
                                                variant='standard'
+                                               sx={{width: '100%'}}
+                                               margin={'normal'}
                                                error={!!(formik.touched.email && formik.errors.email)}
                                                helperText={formik.errors.email}
                                                {...formik.getFieldProps('email')}/>
@@ -119,6 +113,8 @@ export const RegisterPage = () => {
                                                id='standard-basic'
                                                variant='standard'
                                                label='Password'
+                                               sx={{width: '100%'}}
+                                               margin={'normal'}
                                                type={values.showPassword ? 'text' : 'password'}
                                                error={!!(formik.touched.password && formik.errors.password)}
                                                helperText={formik.errors.password}
@@ -144,6 +140,8 @@ export const RegisterPage = () => {
                                                id='standard-basic'
                                                variant='standard'
                                                label='Confirm password'
+                                               sx={{width: '100%'}}
+                                               margin={'normal'}
                                                type={values.showConfirmPassword ? 'text' : 'password'}
                                                error={!!(formik.touched.confirmPassword && formik.errors.confirmPassword)}
                                                helperText={formik.errors.confirmPassword}

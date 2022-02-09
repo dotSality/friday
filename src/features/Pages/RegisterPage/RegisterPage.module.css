@@ -1,13 +1,6 @@
-.registrationError {
-    height: 30px;
-    color: red;
-    text-align: center;
-}
-
 .navigateToLogin {
     padding-top: 20px;
     margin: 0 auto;
-    /*padding: 20px 0 0 10px;*/
 }
 
 .formGroup {
@@ -53,7 +46,7 @@
 }
 
 .formControl {
-    width: 130%
+    width: 120%
 }
 
 .typographyLabel{
