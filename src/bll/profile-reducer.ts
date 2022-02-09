@@ -2,12 +2,11 @@ import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {cardsAPI, LoginResponseType, UserDataType} from '../dal/api';
 
 
-
 const profileSlice = createSlice({
     name: 'profile',
     initialState: {} as InitStateType,
     reducers: {
-        setUserProfile:(state,action:PayloadAction<LoginResponseType>)=> {
+        setUserProfile: (state, action: PayloadAction<LoginResponseType>) => {
             return action.payload
         }
     }
@@ -16,14 +15,19 @@ const profileSlice = createSlice({
 
 export const changeUserDataTC = createAsyncThunk(
     'profile/changeUserData',
-    async (userData:UserDataType, {dispatch}) => {
-        await cardsAPI.changeUserData(userData)
+    async (userData: UserDataType, {dispatch}) => {
+        try {
+            await cardsAPI.changeUserData(userData)
+        } catch (e: any) {
+
+        }
+
     }
 )
 
 type InitStateType = ProfileType
 
-export type ProfileType = Pick<LoginResponseType,'name' | 'avatar' | 'publicCardPacksCount' | 'email' >
+export type ProfileType = Pick<LoginResponseType, 'name' | 'avatar' | 'publicCardPacksCount' | 'email'>
 
 export const {setUserProfile} = profileSlice.actions
 
