@@ -1,22 +1,20 @@
-import React, {useEffect, useState} from 'react';
-import {Navigate} from 'react-router-dom';
+import React, {useCallback, useEffect, useState} from 'react';
+import {Navigate, useNavigate} from 'react-router-dom';
+
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+
 import {useAppDispatch, useAppSelector} from '../../../bll/store';
 import {changeUserDataTC, ProfileType} from '../../../bll/profile-reducer';
 import {initializeApp} from '../../../bll/app-reducer';
-import {PATH} from '../../../utils/paths';
 import {EditableSpan} from '../../EditableSpan/EditableSpan';
-import s from './ProfilePage.module.scss'
 import UserPhoto from '../../../common/img/photo_2022-02-06_16-28-54.png'
-import Box from '@mui/material/Box/Box';
 import Avatar from '@mui/material/Avatar/Avatar';
-import IconButton from '@mui/material/IconButton/IconButton';
-import EditIcon from '@mui/icons-material/Edit';
+import {PATH} from '../../../utils/paths';
+
 
 export const ProfilePage = React.memo(() => {
 
@@ -28,6 +26,7 @@ export const ProfilePage = React.memo(() => {
         const {avatar, name, email} = user
 
         const dispatch = useAppDispatch()
+        const navigate = useNavigate()
 
         useEffect(() => {
             dispatch(initializeApp())
@@ -41,18 +40,21 @@ export const ProfilePage = React.memo(() => {
         }, [name, avatar])
 
 
-        const onBlurHandler = async (newValue: string) => {
+        const onBlurHandler = useCallback( async (newValue: string) => {
             await dispatch(changeUserDataTC({name: newValue, avatar: myAvatar}))
-        }
+        },[])
 
-        const changeNameHandler = (newValue: string) => {
+        const changeNameHandler = useCallback((newValue: string) => {
             setMyName(newValue)
-        }
+        },[])
+
+        const navigateToMainHandler = useCallback(() => {
+            navigate(PATH.MAIN)
+        },[])
 
         if (!isLoggedIn) {
             return <Navigate to={PATH.LOGIN}/>
         }
-
 
         return (
 
@@ -70,6 +72,11 @@ export const ProfilePage = React.memo(() => {
                         {email ? email : 'Not email'}
                     </Typography>
                 </CardContent>
+                <CardActions sx={{justifyContent:'center'}}>
+                    <Button onClick={navigateToMainHandler}
+                            sx={{color:'black'}}
+                        size="small">OK</Button>
+                </CardActions>
             </Card>
         );
     }
