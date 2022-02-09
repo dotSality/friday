@@ -55,6 +55,15 @@ export const LoginPage = React.memo(() => {
             event.preventDefault();
         };
 
+        const navigateToForgotClickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+            e.preventDefault()
+            navigate(PATH.FORGOT)
+        }
+        const navigateToRegisterClickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+            e.preventDefault()
+            navigate(PATH.REGISTER)
+        }
+
         const formik = useFormik({
             initialValues: {
                 email: '',
@@ -142,7 +151,7 @@ export const LoginPage = React.memo(() => {
                                     <Typography className={s.text}
                                                 variant={'subtitle2'}
                                                 sx={{cursor: 'pointer'}}
-                                                onClick={() => navigate(PATH.FORGOT)}>
+                                                onClick={navigateToForgotClickHandler}>
                                         Forgot password
                                     </Typography>
                                     <FormControlLabel
@@ -162,7 +171,7 @@ export const LoginPage = React.memo(() => {
                                         Don't have an account?
                                     </Typography>
 
-                                    <Button onClick={() => navigate(PATH.REGISTER)}>Sign Up</Button>
+                                    <Button onClick={navigateToRegisterClickHandler}>Sign Up</Button>
                                 </Container>
                             </FormControl>
                         </form>
@@ -172,3 +181,5 @@ export const LoginPage = React.memo(() => {
         </div>
     }
 )
+
+

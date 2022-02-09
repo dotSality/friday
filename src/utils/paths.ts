@@ -6,5 +6,6 @@ export const PATH = {
     FORGOT: '/forgot',
     CHECK_SUCCESS: '/check-success',
     CREATE_PASS: '/create-pass',
+    PROFILE:'/profile',
     TEST: '/test'
 }

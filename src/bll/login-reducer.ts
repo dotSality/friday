@@ -19,6 +19,7 @@ export const loginTC = createAsyncThunk(
                 ? e.response.data.error
                 : (e.message + ', Try later')
             dispatch(setAppError(error))
+            dispatch(setAppStatus('failed'))
         }
     }
 )
@@ -45,7 +46,6 @@ export const logoutTC = createAsyncThunk(
 
 const initialState: InitStateType = {
     isLoggedIn: false,
-    error: null
 }
 
 const loginSlice = createSlice({
@@ -62,7 +62,6 @@ const loginSlice = createSlice({
 //types
 type InitStateType = {
     isLoggedIn: boolean
-    error: string | null
 }
 
 //actions

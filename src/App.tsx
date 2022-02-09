@@ -16,12 +16,14 @@ import {CheckSuccess} from './features/Pages/ForgotPage/CheckSuccess/CheckSucces
 import {ProfilePage} from './features/Pages/ProfilePage/ProfilePage';
 import {ErrorPage} from './features/Pages/ErrorPage/ErrorPage';
 import {ErrorSnackbar} from './features/ErrorSnackbar/ErrorSnackBar';
-
+import {Header} from "./features/Header/Header";
+import {Packs} from "./features/Packs/Packs";
 
 
 function App() {
 
     const isInitialized = useAppSelector<boolean>(state => state.app.isInitialized)
+    const isLoggedIn = useAppSelector<boolean>(state => state.login.isLoggedIn)
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -35,14 +37,17 @@ function App() {
     }
 
     return (
+
         <div className={s.app}>
+            {isLoggedIn &&  <Header/>}
             <Routes>
                 <Route path={PATH.LOGIN} element={<LoginPage/>}/>
+                <Route path={PATH.MAIN} element={<Packs/>}/>
                 <Route path={PATH.REGISTER} element={<RegisterPage/>}/>
                 <Route path={PATH.CREATE_PASS + '/:token'} element={<NewPassCreate/>}/>
                 <Route path={PATH.FORGOT} element={<ForgotPage/>}/>
                 <Route path={PATH.CHECK_SUCCESS} element={<CheckSuccess/>}/>
-                <Route path={PATH.MAIN} element={<ProfilePage/>}/>
+                <Route path={PATH.PROFILE} element={<ProfilePage/>}/>
                 <Route path={PATH.ERROR} element={<ErrorPage/>}/>
             </Routes>
             <ErrorSnackbar/>
