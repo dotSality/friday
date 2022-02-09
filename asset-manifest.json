@@ -1,16 +1,19 @@
 {
   "files": {
-    "main.css": "/friday/static/css/main.04b09e6d.css",
-    "main.js": "/friday/static/js/main.5dab76c3.js",
+    "main.css": "/friday/static/css/main.a293496d.css",
+    "main.js": "/friday/static/js/main.8797d270.js",
     "static/js/787.117e2898.chunk.js": "/friday/static/js/787.117e2898.chunk.js",
     "static/media/photo_2022-02-06_16-28-54.png": "/friday/static/media/photo_2022-02-06_16-28-54.45407dae0406905244c1.png",
+    "static/media/mail-letter.svg": "/friday/static/media/mail-letter.3f61fc259f0981566a9b.svg",
+    "static/media/eye_off.svg": "/friday/static/media/eye_off.e8d7346b27464b5d71f4a1e57eca8b93.svg",
     "index.html": "/friday/index.html",
-    "main.04b09e6d.css.map": "/friday/static/css/main.04b09e6d.css.map",
-    "main.5dab76c3.js.map": "/friday/static/js/main.5dab76c3.js.map",
+    "static/media/eye.svg": "/friday/static/media/eye.0433fe31c21e46ad8174fdbc181c81e4.svg",
+    "main.a293496d.css.map": "/friday/static/css/main.a293496d.css.map",
+    "main.8797d270.js.map": "/friday/static/js/main.8797d270.js.map",
     "787.117e2898.chunk.js.map": "/friday/static/js/787.117e2898.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.04b09e6d.css",
-    "static/js/main.5dab76c3.js"
+    "static/css/main.a293496d.css",
+    "static/js/main.8797d270.js"
   ]
 }
