@@ -38,7 +38,9 @@ export const initializeApp = createAsyncThunk(
             dispatch(isLoggedIn(true))
             dispatch(setUserProfile(data))
         } catch (e: any) {
-            const error = e.response ? e.response.data.error : (e.message + ', Try later')
+            const error = e.response
+                ? e.response.data.error
+                : (e.message + ', Try later')
             dispatch(setAppError(error))
             dispatch(isLoggedIn(false))
         } finally {
@@ -57,6 +59,7 @@ type InitStateType = {
 
 export type StatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
+//actions
 export const {setAppError, setAppStatus, setAppInitialized} = appSlice.actions
 
 export const appReducer = appSlice.reducer
