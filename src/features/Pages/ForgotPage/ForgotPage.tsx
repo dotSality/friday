@@ -8,7 +8,7 @@ import {useFormik} from "formik"
 import {Navigate, NavLink} from "react-router-dom"
 import s from './ForgotPage.module.scss'
 import {useAppDispatch, useAppSelector} from '../../../bll/store';
-import {sendInstructions} from '../../../bll/pass-recover-reducer';
+import {sendInstructions} from '../../../bll/pass-reducer';
 import {PATH} from '../../../utils/paths';
 import {CircularProgress} from '@mui/material';
 import React from 'react';
@@ -42,7 +42,7 @@ export const ForgotPage = () => {
             <Paper elevation={2} className={s.container}>
 
                 <form onSubmit={formik.handleSubmit} className={s.form}>
-                    <Typography variant={'h4'}>
+                    <Typography variant={'h5'}>
                         Forgot your password?
                     </Typography>
                     <TextField

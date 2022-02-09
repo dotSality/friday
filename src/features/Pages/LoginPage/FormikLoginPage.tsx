@@ -17,6 +17,7 @@ import {PATH} from "../../../utils/paths";
 import Visibility from "../../../common/img/eye.svg";
 import VisibilityOff from "../../../common/img/eye_off.svg";
 import s from './Login.module.scss'
+import Fab from '@mui/material/Fab/Fab';
 
 
 type FormikErrorType = {
@@ -138,33 +139,40 @@ export const LoginPage = React.memo(() => {
                                                         onMouseDown={handleMouseDownPassword}>
                                                         {values.showPassword
                                                             ? <img src={Visibility}
-                                                                   width='16' height='16' alt="Visibility"/>
+                                                                width='16' height='16' alt="Visibility"/>
                                                             : <img src={VisibilityOff}
-                                                                   width='16' height='16' alt="VisibilityOff"/>}
+                                                                width='16' height='16' alt="VisibilityOff"/>}
                                                     </IconButton>
                                                 </InputAdornment>
                                             ),
                                         }}
                                         {...formik.getFieldProps('password')}
                                     />
+                                    <Container sx={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+                                        <FormControlLabel
+                                            sx={{width: 'fit-content'}}
+                                            label={'Remember me'}
+                                            control={
+                                                <Checkbox
+                                                    {...formik.getFieldProps('rememberMe')}/>}
+                                        />
+                                        <Typography className={s.text}
+                                            variant={'subtitle2'}
+                                            sx={{cursor: 'pointer'}}
+                                            onClick={navigateToForgotClickHandler}>
+                                            Forgot password
+                                        </Typography>
 
-                                    <Typography className={s.text}
-                                                variant={'subtitle2'}
-                                                sx={{cursor: 'pointer'}}
-                                                onClick={navigateToForgotClickHandler}>
-                                        Forgot password
-                                    </Typography>
-                                    <FormControlLabel
-                                        label={'Remember me'}
-                                        control={<Checkbox
-                                            {...formik.getFieldProps('rememberMe')}/>}
-                                    />
+                                    </Container>
                                 </FormGroup>
-                                <Button type={'submit'}
-                                        sx={{width: '100%'}}
-                                        variant={'contained'}>
+                                <Fab sx={{alignSelf: 'center', padding: '0 40px', width: '50%'}}
+                                    type={'submit'}
+                                    variant="extended"
+                                    size="medium"
+                                    color={'primary'}
+                                    aria-label="add">
                                     Login
-                                </Button>
+                                </Fab>
 
                                 <Container className={s.signUp}>
                                     <Typography variant={'subtitle1'}>

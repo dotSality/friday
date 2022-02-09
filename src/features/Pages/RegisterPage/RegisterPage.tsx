@@ -12,6 +12,7 @@ import Paper from "@mui/material/Paper/Paper";
 import Typography from "@mui/material/Typography/Typography";
 import {PATH} from "../../../utils/paths";
 import {StatusType} from "../../../bll/app-reducer";
+import Fab from '@mui/material/Fab/Fab';
 
 type FormikErrorType = {
     email?: string
@@ -166,9 +167,15 @@ export const RegisterPage = () => {
                                                {...formik.getFieldProps('confirmPassword')}/>
                                 </FormGroup>
 
-                                <Button
+                                <Fab sx={{alignSelf: 'center', padding: '0 40px', width: '70%'}}
                                     disabled={!!(formik.errors.email || formik.errors.password || formik.errors.confirmPassword || status === 'loading')}
-                                    type={'submit'} variant='contained'>Register</Button>
+                                    type={'submit'}
+                                    variant="extended"
+                                    size="medium"
+                                    color={'primary'}
+                                    aria-label="add">
+                                    Register
+                                </Fab>
 
                                 <div className={s.navigateToLogin}>
                                     Already have an account?

@@ -58,4 +58,4 @@ const passRecoverSlice = createSlice({
     }
 })
 
-export const passRecoverReducer = passRecoverSlice.reducer
+export const passReducer = passRecoverSlice.reducer

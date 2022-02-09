@@ -1,7 +1,7 @@
 import c from './../../../common/styles/Container.module.scss'
 import s from './NewPassCreate.module.scss';
 import Paper from '@mui/material/Paper/Paper';
-import {Navigate, useNavigate, useParams} from 'react-router-dom';
+import {Navigate, useParams} from 'react-router-dom';
 import Typography from '@mui/material/Typography/Typography';
 import {useFormik} from 'formik';
 import {CircularProgress, IconButton, InputAdornment, TextField} from '@mui/material';
@@ -11,7 +11,7 @@ import React, {useState} from 'react';
 import Fab from '@mui/material/Fab/Fab';
 import Container from '@mui/material/Container/Container';
 import {useAppDispatch, useAppSelector} from '../../../bll/store';
-import {sendNewPassword} from '../../../bll/pass-recover-reducer';
+import {sendNewPassword} from '../../../bll/pass-reducer';
 import {PATH} from '../../../utils/paths';
 
 type FormikValuesType = {
@@ -49,8 +49,8 @@ export const NewPassCreate = () => {
         validate: (values: FormikValuesType) => {
             const errors: Partial<FormikValuesType> = {};
             if (!values.password) errors.password = 'Password is required'
-            else if (values.password.length < 5)
-                errors.password = 'Password must be more than 5 characters'
+            else if (values.password.length < 7)
+                errors.password = 'Password must be more than 7 characters'
             if (values.password !== values.confirmPassword)
                 errors.confirmPassword = 'Passwords are incorrect'
             return errors
