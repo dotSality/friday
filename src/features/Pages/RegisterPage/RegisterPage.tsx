@@ -1,10 +1,10 @@
 import React from 'react'
-import {Navigate, NavLink, useNavigate} from 'react-router-dom';
+import {Navigate, useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {useFormik} from 'formik';
 import {RootStateType} from '../../../bll/store';
 import {registrationTC} from '../../../bll/register-reducer';
-import {Button, TextField, FormControl, FormGroup, FormLabel, Grid, InputAdornment, IconButton} from '@mui/material';
+import {Button, TextField, FormControl, FormGroup, Grid, InputAdornment, IconButton} from '@mui/material';
 import s from './RegisterPage.module.css'
 import Visibility from './../../../common/img/eye.svg';
 import VisibilityOff from './../../../common/img/eye_off.svg';
@@ -166,7 +166,9 @@ export const RegisterPage = () => {
                                                {...formik.getFieldProps('confirmPassword')}/>
                                 </FormGroup>
 
-                                <Button type={'submit'} variant='contained'>Register</Button>
+                                <Button
+                                    disabled={!!(formik.errors.email || formik.errors.password || formik.errors.confirmPassword)}
+                                    type={'submit'} variant='contained'>Register</Button>
 
                                 <div className={s.navigateToLogin}>
                                     Already have an account?
