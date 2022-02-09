@@ -11,6 +11,7 @@ import VisibilityOff from './../../../common/img/eye_off.svg';
 import Paper from "@mui/material/Paper/Paper";
 import Typography from "@mui/material/Typography/Typography";
 import {PATH} from "../../../utils/paths";
+import {StatusType} from "../../../bll/app-reducer";
 
 type FormikErrorType = {
     email?: string
@@ -20,6 +21,7 @@ type FormikErrorType = {
 
 export const RegisterPage = () => {
 
+    const status = useSelector<RootStateType, StatusType>(state => state.app.status)
     const isRegistrationSuccess = useSelector<RootStateType, boolean>(state => state.register.isRegistrationSuccess)
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -165,7 +167,7 @@ export const RegisterPage = () => {
                                 </FormGroup>
 
                                 <Button
-                                    disabled={!!(formik.errors.email || formik.errors.password || formik.errors.confirmPassword)}
+                                    disabled={!!(formik.errors.email || formik.errors.password || formik.errors.confirmPassword || status === 'loading')}
                                     type={'submit'} variant='contained'>Register</Button>
 
                                 <div className={s.navigateToLogin}>

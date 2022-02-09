@@ -29,6 +29,7 @@ export const registrationTC = (email: string, password: string) => async (dispat
         const error = e.response
             ? e.response.data.error
             : (e.message + ', Try later')
+        dispatch(setAppStatus('succeeded'))
         dispatch(setAppError(error))
     }
 }
