@@ -7,7 +7,7 @@ type EditableSpanPropsType = {
     value: string
     onChange: (newValue: string) => void
     onBlur: (newValue: string) => void
-
+    onKeyPress: (newValue: string) => void
 }
 
 export const EditableSpan = React.memo(function (props: EditableSpanPropsType) {
@@ -31,7 +31,7 @@ export const EditableSpan = React.memo(function (props: EditableSpanPropsType) {
     const onKeyPressHandler = (e:KeyboardEvent<HTMLDivElement>) => {
         if(e.key === 'Enter'){
             setEditMode(false);
-            props.onChange(title);
+            props.onKeyPress(title);
             setTitle('')
         }
     }

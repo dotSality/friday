@@ -40,7 +40,10 @@ export const ProfilePage = React.memo(() => {
         }, [name, avatar])
 
 
-        const onBlurHandler = useCallback( async (newValue: string) => {
+        const onBlurSendUserData = useCallback( async (newValue: string) => {
+            await dispatch(changeUserDataTC({name: newValue, avatar: myAvatar}))
+        },[])
+        const onKeyPressSendUserData = useCallback( async (newValue: string) => {
             await dispatch(changeUserDataTC({name: newValue, avatar: myAvatar}))
         },[])
 
@@ -64,7 +67,8 @@ export const ProfilePage = React.memo(() => {
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
                         <EditableSpan
-                            onBlur={onBlurHandler}
+                            onKeyPress={onKeyPressSendUserData}
+                            onBlur={onBlurSendUserData}
                             onChange={changeNameHandler}
                             value={myName}/>
                     </Typography>
