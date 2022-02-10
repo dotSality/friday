@@ -19,7 +19,7 @@ import VisibilityOff from '../../../common/img/eye_off.svg';
 import s from './Login.module.scss'
 import Fab from '@mui/material/Fab/Fab';
 import {StatusType} from '../../../bll/app-reducer';
-import LoadingStatusBackdrop from '../../LoadingModal/BackDrop';
+import LoadingStatusBackdrop from '../../LoadingBackDrop/BackDrop';
 
 
 type FormikErrorType = {

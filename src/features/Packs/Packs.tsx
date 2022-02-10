@@ -2,7 +2,7 @@ import {Navigate} from "react-router-dom";
 import {PATH} from "../../utils/paths";
 import React from "react";
 import {useAppSelector} from "../../bll/store";
-import SimpleBackdrop from '../LoadingModal/BackDrop';
+import SimpleBackdrop from '../LoadingBackDrop/BackDrop';
 
 
 export  const Packs =() => {

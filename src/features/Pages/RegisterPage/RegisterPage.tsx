@@ -13,7 +13,7 @@ import Typography from "@mui/material/Typography/Typography";
 import {PATH} from "../../../utils/paths";
 import {StatusType} from "../../../bll/app-reducer";
 import Fab from '@mui/material/Fab/Fab';
-import LoadingStatusBackdrop from '../../LoadingModal/BackDrop';
+import LoadingStatusBackdrop from '../../LoadingBackDrop/BackDrop';
 
 type FormikErrorType = {
     email?: string

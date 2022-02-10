@@ -12,7 +12,7 @@ import {sendInstructions} from '../../../bll/pass-reducer';
 import {PATH} from '../../../utils/paths';
 import {CircularProgress} from '@mui/material';
 import React from 'react';
-import LoadingStatusBackdrop from '../../LoadingModal/BackDrop';
+import LoadingStatusBackdrop from '../../LoadingBackDrop/BackDrop';
 
 
 type FormikValuesType = {

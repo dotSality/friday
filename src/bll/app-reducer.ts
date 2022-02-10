@@ -43,10 +43,6 @@ export const initializeApp = createAsyncThunk(
             dispatch(setUserId(data._id))
             dispatch(setUserProfile(data))
         } catch (e: any) {
-            const error = e.response
-                ? e.response.data.error
-                : (e.message + ', Try later')
-            dispatch(setAppError(error))
             dispatch(isLoggedIn(false))
         } finally {
             dispatch(setAppInitialized(true))
