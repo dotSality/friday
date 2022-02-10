@@ -11,9 +11,9 @@
     width: 173px;
     height: 63px;
     text-decoration: none;
-    color: #f4f1f1;
+    color: #ffffff;
     transition-delay: 0.1s;
-    opacity: 0.4;
+    opacity: 0.9;
 }
 
 .navLink:hover {
