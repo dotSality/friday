@@ -43,8 +43,7 @@ export const EditableSpan = React.memo(function (props: EditableSpanPropsType) {
         : <span onDoubleClick={activateEditMode}
 
         >{props.value}
-            <IconButton onClick={activateEditMode}
-            sx={{paddingLeft: '20px'}}>
+            <IconButton onClick={activateEditMode}>
                 <EditIcon/>
             </IconButton>
     </span>

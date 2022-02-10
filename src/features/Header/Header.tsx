@@ -56,8 +56,7 @@ export const Header = () => {
 
     return (
         <AppBar position="fixed" sx={{backgroundColor: 'gray', width: '100%'}}>
-            <Container maxWidth="xl"  >
-                <Toolbar disableGutters>
+                <Toolbar sx={{padding: '0 2%'}} disableGutters>
                     <Typography
                         onClick={() => navigate(PATH.MAIN)}
                         variant="h6"
@@ -119,7 +118,6 @@ export const Header = () => {
                         </Menu>
                     </Box>
                 </Toolbar>
-            </Container>
         </AppBar>
     );
 };
