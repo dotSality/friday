@@ -68,7 +68,7 @@ export const Header = () => {
                     </Typography>
                     <div className={s.navContainer}>
                         <NavLink to={PATH.MAIN} className={s.navLink}
-                                 style={({isActive}) => ({borderBottom: isActive ? ' 4px solid #f7f7f7' : ''})}>
+                                 style={({isActive}) => ({borderBottom: isActive ? ' 4px solid #f7f7f7' : '', color: isActive ? '#0e0e11' : ''})}>
                             <div className={s.navLinkContext}>
                                 <img src={CardsImg} className={s.cardsImg} alt={'cards image'}/>
                                 <span>Packs list</span>
@@ -76,7 +76,7 @@ export const Header = () => {
                         </NavLink>
 
                         <NavLink to={PATH.PROFILE} className={s.navLink}
-                                 style={({isActive}) => ({borderBottom: isActive ? ' 4px solid #f7f7f7' : ''})}>
+                                 style={({isActive}) => ({borderBottom: isActive ? ' 4px solid #f7f7f7' : '', color: isActive ? '#0e0e11' : ''})}>
                             <div className={s.navLinkContext}>
                                 <img src={UserImg} className={s.useImg} alt={'user image'}/>
                                 <span>Profile</span>
