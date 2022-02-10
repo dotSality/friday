@@ -75,7 +75,7 @@ export const ProfilePage = React.memo(() => {
                 <CardActions sx={{justifyContent:'center'}}>
                     <Button onClick={navigateToMainHandler}
                             sx={{color:'black'}}
-                        size="small">OK</Button>
+                        size="small"> НУ OK</Button>
                 </CardActions>
             </Card>
         );
