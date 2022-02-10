@@ -2,6 +2,7 @@ import {Navigate} from "react-router-dom";
 import {PATH} from "../../utils/paths";
 import React from "react";
 import {useAppSelector} from "../../bll/store";
+import SimpleBackdrop from '../LoadingModal/BackDrop';
 
 
 export  const Packs =() => {
@@ -13,5 +14,7 @@ export  const Packs =() => {
 
     return <div style={{minHeight: '91vh'}}>
         PACKS
+
+
     </div>
 }
