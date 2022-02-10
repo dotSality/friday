@@ -7,7 +7,8 @@ import {setUserProfile} from './profile-reducer';
 const initialState: InitStateType = {
     error: null,
     status: 'idle',
-    isInitialized: false
+    isInitialized: false,
+    _id: '',
 }
 
 
@@ -23,6 +24,9 @@ const appSlice = createSlice({
         },
         setAppInitialized: (state, action: PayloadAction<boolean>) => {
             state.isInitialized = action.payload
+        },
+        setUserId: (state, action: PayloadAction<string>) => {
+            state._id = action.payload
         }
     }
 })
@@ -36,6 +40,7 @@ export const initializeApp = createAsyncThunk(
             dispatch(setAppStatus('loading'))
             const {data} = await cardsAPI.authMe()
             dispatch(isLoggedIn(true))
+            dispatch(setUserId(data._id))
             dispatch(setUserProfile(data))
         } catch (e: any) {
             const error = e.response
@@ -55,11 +60,12 @@ type InitStateType = {
     error: string | null
     status: StatusType
     isInitialized: boolean
+    _id: string
 }
 
 export type StatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 
 //actions
-export const {setAppError, setAppStatus, setAppInitialized} = appSlice.actions
+export const {setAppError, setAppStatus, setAppInitialized, setUserId} = appSlice.actions
 
 export const appReducer = appSlice.reducer

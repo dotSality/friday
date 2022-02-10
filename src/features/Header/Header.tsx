@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Link, useNavigate} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 
 import AppBar from "@mui/material/AppBar/AppBar"
 import Avatar from "@mui/material/Avatar/Avatar"
@@ -17,6 +17,9 @@ import {ProfileType} from "../../bll/profile-reducer";
 import UserPhoto from "../../common/img/photo_2022-02-06_16-28-54.png";
 import {logoutTC} from "../../bll/login-reducer";
 import {PATH} from "../../utils/paths";
+import s from './Header.module.css'
+import CardsImg from '../../common/img/cards.png'
+import UserImg from '../../common/img/user.png'
 
 
 const settings = ['Profile', 'Logout'];
@@ -52,8 +55,8 @@ export const Header = () => {
 
 
     return (
-        <AppBar position="fixed" sx={{backgroundColor: 'gray', width:'100%'}}>
-            <Container maxWidth="xl">
+        <AppBar position="fixed" sx={{backgroundColor: 'gray', width: '100%'}}>
+            <Container maxWidth="xl"  >
                 <Toolbar disableGutters>
                     <Typography
                         onClick={() => navigate(PATH.MAIN)}
@@ -62,9 +65,25 @@ export const Header = () => {
                         component="div"
                         sx={{mr: 2, display: {xs: 'none', md: 'flex', cursor: "pointer"}}}
                     >
-                            Cards
+                        Cards
                     </Typography>
+                    <div className={s.navContainer}>
+                        <NavLink to={PATH.MAIN} className={s.navLink}
+                                 style={({isActive}) => ({borderBottom: isActive ? ' 4px solid #f7f7f7' : ''})}>
+                            <div className={s.navLinkContext}>
+                                <img src={CardsImg} className={s.cardsImg} alt={'cards image'}/>
+                                <span>Packs list</span>
+                            </div>
+                        </NavLink>
 
+                        <NavLink to={PATH.PROFILE} className={s.navLink}
+                                 style={({isActive}) => ({borderBottom: isActive ? ' 4px solid #f7f7f7' : ''})}>
+                            <div className={s.navLinkContext}>
+                                <img src={UserImg} className={s.useImg} alt={'user image'}/>
+                                <span>Profile</span>
+                            </div>
+                        </NavLink>
+                    </div>
                     <Box sx={{flexGrow: 1, display: 'flex', justifyContent: 'flex-end'}}>
                         {isLoggedIn &&
                         <Tooltip title="Open settings">
