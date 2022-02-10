@@ -17,7 +17,7 @@ export default function LoadingStatusBackdrop() {
                 open={open}
                 onClick={handleClose}
             >
-                <CircularProgress color="inherit" />
+                <CircularProgress color="inherit" size={80}/>
             </Backdrop>
         </div>
     );

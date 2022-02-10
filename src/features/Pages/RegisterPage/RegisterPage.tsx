@@ -13,6 +13,7 @@ import Typography from "@mui/material/Typography/Typography";
 import {PATH} from "../../../utils/paths";
 import {StatusType} from "../../../bll/app-reducer";
 import Fab from '@mui/material/Fab/Fab';
+import LoadingStatusBackdrop from '../../LoadingModal/BackDrop';
 
 type FormikErrorType = {
     email?: string
@@ -87,7 +88,8 @@ export const RegisterPage = () => {
         return <Navigate to={'/'}/>
     }
 
-    return (
+    return <>
+        {status === 'loading' ? (<div><LoadingStatusBackdrop/></div>) : (
         <div className={s.mainContainer}>
             <Paper elevation={2} className={s.container}>
                 <Grid container justifyContent={'center'}>
@@ -168,7 +170,6 @@ export const RegisterPage = () => {
                                 </FormGroup>
 
                                 <Fab sx={{alignSelf: 'center', padding: '0 40px', width: '70%'}}
-                                    disabled={!!(formik.errors.email || formik.errors.password || formik.errors.confirmPassword || status === 'loading')}
                                     type={'submit'}
                                     variant="extended"
                                     size="medium"
@@ -188,5 +189,6 @@ export const RegisterPage = () => {
                 </Grid>
             </Paper>
         </div>
-    )
+            )}
+    </>
 }

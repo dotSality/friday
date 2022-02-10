@@ -3,10 +3,25 @@ import s from './CheckSuccess.module.scss';
 import Paper from '@mui/material/Paper/Paper';
 import {useAppSelector} from '../../../../bll/store';
 import Typography from '@mui/material/Typography/Typography';
+import {useEffect} from 'react';
+import {Navigate, useNavigate} from 'react-router-dom';
+import {PATH} from '../../../../utils/paths';
 
 export const CheckSuccess = () => {
 
+    const navigate = useNavigate()
+
+
     const {email} = useAppSelector(state => state.passRecover)
+
+
+    useEffect(() => {
+        const id = setTimeout(() => {
+            navigate(PATH.LOGIN)
+        }, 3000)
+        return () => clearTimeout(id)
+    }, [])
+
 
     return (
         <div className={c.mainContainer}>
