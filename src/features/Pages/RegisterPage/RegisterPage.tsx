@@ -167,12 +167,11 @@ export const RegisterPage = () => {
                          aria-label="add">
                         Register
                     </Fab>
-                    <div className={s.navigateToLogin}>
-                        Already have an account?
+                    <div className={s.signIn}>
+                        <span className={s.descriptionSignIn}>Already have an account?</span>
                         <Button sx={{paddingBottom: '2px'}} onClick={() => navigate(PATH.LOGIN)}>Sign in</Button>
                     </div>
                 </form>
             </Paper>
         )}</div>
-
 }
