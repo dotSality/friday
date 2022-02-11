@@ -1,19 +1,76 @@
-.container {
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  width: 100%;
   height: 100%;
-  padding: 50px 40px;
-  justify-content: flex-start !important;
 
-  .form {
+  .container {
+    background-color: rgba(222, 223, 255, 0.58);
+    height: 70%;
+    width: 70%;
+    position: relative;
     display: flex;
     flex-direction: column;
-    height: 100%;
+    justify-content: flex-start;
+    align-items: center;
 
-    .contentContainer {
-      height: 100%;
+    // height media querries
+
+    @media screen and (min-height: 768px) {
+      height: 537px;
+    }
+
+    @media screen and (max-height: 660px) {
+      height: 90%;
+    }
+
+    @media screen and (max-height: 660px) {
+      height: 80%;
+    }
+
+    @media screen and (max-height: 570px) {
+      height: 500px;
+    }
+
+    // width media querries
+
+    @media screen and (min-width: 800px) {
+      width: 537px;
+    }
+
+    @media screen and (max-width: 600px) {
+      width: 80%;
+    }
+
+    @media screen and (max-width: 500px) {
+      width: 87.5%;
+    }
+
+    @media screen and (max-width: 400px) {
+      width: 95%;
+    }
+
+    .form {
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      justify-content: space-around;
+      height: 100%;
+      width: 85%;
+
+      @media screen and (max-width: 440px) {
+        width: 90%;
+      }
+
+      .contentContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
     }
   }
+
 }

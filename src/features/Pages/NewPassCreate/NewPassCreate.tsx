@@ -1,10 +1,9 @@
-import c from './../../../common/styles/Container.module.scss'
 import s from './NewPassCreate.module.scss';
 import Paper from '@mui/material/Paper/Paper';
 import {Navigate, useParams} from 'react-router-dom';
 import Typography from '@mui/material/Typography/Typography';
 import {useFormik} from 'formik';
-import {CircularProgress, IconButton, InputAdornment, TextField} from '@mui/material';
+import {CircularProgress, IconButton, InputAdornment, TextField, useMediaQuery} from '@mui/material';
 import Visibility from '../../../common/img/eye.svg';
 import VisibilityOff from '../../../common/img/eye_off.svg';
 import React, {useState} from 'react';
@@ -25,6 +24,8 @@ type StateType = {
 }
 
 export const NewPassCreate = () => {
+
+    const maxWidth = useMediaQuery('(min-width:357px)');
 
     const {token} = useParams()
     const dispatch = useAppDispatch()
@@ -64,10 +65,10 @@ export const NewPassCreate = () => {
         return <Navigate to={PATH.LOGIN}/>
     }
 
-    return <div className={c.mainContainer}>
+    return <div className={s.mainContainer}>
 
-        <Paper elevation={2} className={`${c.container} ${s.container}`}>
-            <Typography variant={'h5'} sx={{textAlign: 'center'}}>
+        <Paper elevation={2} className={s.container}>
+            <Typography variant={'h5'} sx={{margin: '20px 0', textAlign: 'center'}}>
                 Create new password
             </Typography>
             <form onSubmit={formik.handleSubmit} className={s.form}>
@@ -136,8 +137,8 @@ export const NewPassCreate = () => {
                 </Container>
                 {status === 'loading'
                     ? <CircularProgress sx={{alignSelf: 'center'}} color="secondary"/>
-                    : <Fab sx={{padding: '0 40px', margin: '0 20px 50px'}} type={'submit'}
-                        variant="extended" size="medium" color={'primary'} aria-label="add">
+                    : <Fab sx={{padding: maxWidth ? '0 40px' : '0 20px', margin: '0 20px 50px'}} type={'submit'}
+                        variant="extended" size={maxWidth ? "medium" : 'small'} color={'primary'} aria-label="add">
                         Create new password
                     </Fab>}
 

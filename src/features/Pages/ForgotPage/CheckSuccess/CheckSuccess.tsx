@@ -1,10 +1,9 @@
-import c from './../../../../common/styles/Container.module.scss';
 import s from './CheckSuccess.module.scss';
 import Paper from '@mui/material/Paper/Paper';
 import {useAppSelector} from '../../../../bll/store';
 import Typography from '@mui/material/Typography/Typography';
 import {useEffect} from 'react';
-import {Navigate, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import {PATH} from '../../../../utils/paths';
 
 export const CheckSuccess = () => {
@@ -24,8 +23,8 @@ export const CheckSuccess = () => {
 
 
     return (
-        <div className={c.mainContainer}>
-            <Paper elevation={2} className={`${c.container} ${s.container}`}>
+        <div className={s.mainContainer}>
+            <Paper elevation={2} className={s.container}>
                 <div className={s.item}>
                     <div className={s.imageContainer}>
                         <div className={s.image}></div>
