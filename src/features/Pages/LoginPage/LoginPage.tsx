@@ -31,7 +31,7 @@ type FormikErrorType = {
 
 export const LoginPage = React.memo(() => {
 
-        const maxWidth = useMediaQuery('(max-width:420px)');
+        const maxWidth = useMediaQuery('(max-width:421px)');
 
         const isLoggedIn = useAppSelector<boolean>(state => state.login.isLoggedIn)
         const status = useAppSelector<StatusType>(state => state.app.status)
@@ -166,7 +166,7 @@ export const LoginPage = React.memo(() => {
                                                 {...formik.getFieldProps('rememberMe')}/>}
                                     />
                                     <Typography className={s.text}
-                                        variant={'subtitle2'}
+                                        variant={'subtitle1'}
                                         sx={{cursor: 'pointer'}}
                                         onClick={navigateToForgotClickHandler}>
                                         Forgot password
