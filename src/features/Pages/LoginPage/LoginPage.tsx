@@ -6,7 +6,7 @@ import {useFormik} from 'formik';
 import Paper from '@mui/material/Paper/Paper';
 import Typography from '@mui/material/Typography/Typography';
 import TextField from '@mui/material/TextField/TextField';
-import {Checkbox, FormControl, FormControlLabel, FormGroup, Grid, IconButton, InputAdornment, useMediaQuery} from '@mui/material';
+import {Checkbox, FormControlLabel, FormGroup, IconButton, InputAdornment, useMediaQuery} from '@mui/material';
 import Container from '@mui/material/Container/Container';
 import Button from '@mui/material/Button/Button';
 
@@ -31,7 +31,7 @@ type FormikErrorType = {
 
 export const LoginPage = React.memo(() => {
 
-        const maxWidth = useMediaQuery('(max-width:342px)');
+        const maxWidth = useMediaQuery('(max-width:366px)');
 
         const isLoggedIn = useAppSelector<boolean>(state => state.login.isLoggedIn)
         const status = useAppSelector<StatusType>(state => state.app.status)

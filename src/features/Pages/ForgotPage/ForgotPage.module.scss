@@ -11,36 +11,43 @@
   .container {
     background-color: rgba(222, 223, 255, 0.58);
     height: 70%;
-    width: 30%;
+    width: 70%;
     position: relative;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    padding: 0 20%;
 
-    @media screen and (max-width: 950px) {
-      width: 45%;
+    // height media querries
+
+    @media screen and (min-height: 768px) {
+      height: 537px;
     }
 
-    @media screen and (max-width: 850px) {
-      width: 50%;
+    @media screen and (max-height: 660px) {
+      height: 90%;
     }
 
-    @media screen and (max-width: 750px) {
-      width: 55%;
+    @media screen and (max-height: 660px) {
+      height: 80%;
     }
 
-    @media screen and (max-width: 650px) {
-      width: 60%;
+    @media screen and (max-height: 570px) {
+      height: 500px;
     }
 
-    @media screen and (max-width: 550px) {
-      width: 70%;
+    // width media querries
+
+    @media screen and (min-width: 800px) {
+      width: 537px;
     }
 
-    @media screen and (max-width: 450px) {
+    @media screen and (max-width: 600px) {
       width: 80%;
+    }
+
+    @media screen and (max-width: 500px) {
+      width: 87.5%;
     }
 
     @media screen and (max-width: 400px) {

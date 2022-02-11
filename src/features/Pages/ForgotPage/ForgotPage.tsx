@@ -10,7 +10,7 @@ import s from './ForgotPage.module.scss'
 import {useAppDispatch, useAppSelector} from '../../../bll/store';
 import {sendInstructions} from '../../../bll/pass-reducer';
 import {PATH} from '../../../utils/paths';
-import {CircularProgress} from '@mui/material';
+import {CircularProgress, useMediaQuery} from '@mui/material';
 import React from 'react';
 import LoadingStatusBackdrop from '../../LoadingBackDrop/BackDrop';
 
@@ -20,6 +20,8 @@ type FormikValuesType = {
 }
 
 export const ForgotPage = () => {
+
+    const maxWidth = useMediaQuery('(min-width:370px)');
 
     const {status} = useAppSelector(state => state.app)
     const {success} = useAppSelector(state => state.passRecover)
@@ -38,43 +40,47 @@ export const ForgotPage = () => {
         return <Navigate to={PATH.CHECK_SUCCESS}/>
     }
 
-    return(
+    return (
         <>
             {status === 'loading' ? (<div><LoadingStatusBackdrop/></div>) :
-        (<div className={s.mainContainer}>
-            <Paper elevation={2} className={s.container}>
+                (<div className={s.mainContainer}>
+                    <Paper elevation={2} className={s.container}>
 
-                <form onSubmit={formik.handleSubmit} className={s.form}>
-                    <Typography variant={'h5'}>
-                        Forgot your password?
-                    </Typography>
-                    <TextField
-                        sx={{width: '100%'}}
-                        id="outlined-basic"
-                        label="E-mail"
-                        variant={'standard'}
-                        {...formik.getFieldProps('email')}
-                    />
+                        <form onSubmit={formik.handleSubmit} className={s.form}>
+                            <Typography variant={maxWidth ? 'h5' : 'h6'}>
+                                Forgot your password?
+                            </Typography>
+                            <TextField
+                                sx={{width: '100%'}}
+                                id="outlined-basic"
+                                label="E-mail"
+                                variant={'standard'}
+                                {...formik.getFieldProps('email')}
+                            />
 
-                    <Typography variant={'subtitle1'} sx={{opacity: '50%'}}>
-                        Enter your email address and we will send you further instructions
-                    </Typography>
-                    <Fab sx={{padding: '0 40px'}} type={'submit'} variant="extended" size="medium" color={'primary'}
-                         aria-label="add">
-                        Send instructions</Fab>
-                    <Container className={s.remember}>
-                        <Typography variant={'subtitle1'} sx={{opacity: '50%'}}>
-                            Remember your password?
-                        </Typography>
+                            <Typography variant={maxWidth ? 'subtitle1' : 'subtitle2'} sx={{opacity: '50%'}}>
+                                Enter your email address and we will send you further instructions
+                            </Typography>
+                            <Fab sx={{padding: maxWidth ? '0 40px' : '0 30px', fontSize: maxWidth ? '' : 'small'}}
+                                type={'submit'}
+                                variant="extended"
+                                size={maxWidth ? "medium" : 'small'}
+                                color={'primary'}
+                                aria-label="add">
+                                Send instructions</Fab>
+                            <Container className={s.remember}>
+                                <Typography variant={maxWidth ? 'subtitle1' : 'subtitle2'} sx={{opacity: '50%'}}>
+                                    Remember your password?
+                                </Typography>
 
-                        <NavLink to={PATH.LOGIN} className={s.backLink}>
-                            <Button>Back to login</Button>
-                        </NavLink>
-                    </Container>
-                </form>
+                                <NavLink to={PATH.LOGIN} className={s.backLink}>
+                                    <Button>Back to login</Button>
+                                </NavLink>
+                            </Container>
+                        </form>
 
-            </Paper>
-        </div>)
+                    </Paper>
+                </div>)
             }
         </>
     )
