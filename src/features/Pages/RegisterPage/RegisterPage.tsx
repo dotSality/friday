@@ -141,7 +141,7 @@ export const RegisterPage = () => {
                                 margin={'normal'}
                                 type={values.showConfirmPassword ? 'text' : 'password'}
                                 error={!!(formik.touched.confirmPassword && formik.errors.confirmPassword)}
-                                helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
+                                helperText={formik.errors.confirmPassword}
                                 InputProps={{
                                     endAdornment: (
                                         <InputAdornment position='end'>

@@ -83,10 +83,14 @@
       }
 
       .signUp {
-        padding-top: 40px;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
+        justify-content: space-between;
         align-items: center;
+
+        .descriptionSignUp {
+          padding-right: 5px;
+        }
       }
 
       .text {
