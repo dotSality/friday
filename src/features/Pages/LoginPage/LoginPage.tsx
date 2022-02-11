@@ -31,7 +31,7 @@ type FormikErrorType = {
 
 export const LoginPage = React.memo(() => {
 
-        const maxWidth = useMediaQuery('(max-width:366px)');
+        const maxWidth = useMediaQuery('(max-width:420px)');
 
         const isLoggedIn = useAppSelector<boolean>(state => state.login.isLoggedIn)
         const status = useAppSelector<StatusType>(state => state.app.status)
@@ -105,7 +105,6 @@ export const LoginPage = React.memo(() => {
                 <div className={s.mainContainer}>
                     <Paper elevation={2} className={s.container}>
                         <form onSubmit={formik.handleSubmit} className={s.form}>
-                            {/*<FormControl className={s.formControl}>*/}
                             <Typography variant={'h4'} className={s.typography}>
                                 Sign in
                             </Typography>
@@ -192,7 +191,6 @@ export const LoginPage = React.memo(() => {
                                 <Button onClick={navigateToRegisterClickHandler}>Sign Up</Button>
 
                             </Container>
-                            {/*</FormControl>*/}
                         </form>
                     </Paper>
                 </div>

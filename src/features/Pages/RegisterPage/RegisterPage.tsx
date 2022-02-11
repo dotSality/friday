@@ -4,8 +4,8 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useFormik} from 'formik';
 import {RootStateType} from '../../../bll/store';
 import {registrationTC} from '../../../bll/register-reducer';
-import {Button, TextField, FormControl, FormGroup, Grid, InputAdornment, IconButton} from '@mui/material';
-import s from './RegisterPage.module.css'
+import {Button, FormControl, FormGroup, IconButton, InputAdornment, TextField, useMediaQuery} from '@mui/material';
+import s from './RegisterPage.module.scss'
 import Visibility from './../../../common/img/eye.svg';
 import VisibilityOff from './../../../common/img/eye_off.svg';
 import Paper from "@mui/material/Paper/Paper";
@@ -88,107 +88,91 @@ export const RegisterPage = () => {
         return <Navigate to={'/'}/>
     }
 
-    return <>
+    return <div className={s.mainContainer}>
         {status === 'loading' ? (<div><LoadingStatusBackdrop/></div>) : (
-        <div className={s.mainContainer}>
             <Paper elevation={2} className={s.container}>
-                <Grid container justifyContent={'center'}>
-                    <Grid item justifyContent={'center'}>
+                <form onSubmit={formik.handleSubmit} className={s.form}>
+                        <Typography variant={'h4'} className={s.typographyLabel}>
+                            Sign Up
+                        </Typography>
+                        <div className={s.descriptionForm}> create a new account</div>
 
-                        <form onSubmit={formik.handleSubmit} className={s.form}>
-                            <FormControl className={s.formControl}>
+                            <TextField className={s.textField}
+                                id='standard-basic'
+                                label='Email'
+                                variant='standard'
+                                sx={{width: '100%'}}
+                                margin={'normal'}
+                                error={!!(formik.touched.email && formik.errors.email)}
+                                helperText={formik.errors.email}
+                                {...formik.getFieldProps('email')}/>
 
-                                <Typography variant={'h4'} className={s.typographyLabel}>
-                                    Sign Up
-                                </Typography>
-                                <div className={s.descriptionForm}> create a new account</div>
-
-                                <FormGroup className={s.formGroup}>
-                                    <TextField className={s.textField}
-                                               id='standard-basic'
-                                               label='Email'
-                                               variant='standard'
-                                               sx={{width: '100%'}}
-                                               margin={'normal'}
-                                               error={!!(formik.touched.email && formik.errors.email)}
-                                               helperText={formik.errors.email}
-                                               {...formik.getFieldProps('email')}/>
-
-                                    <TextField className={s.textField}
-                                               id='standard-basic'
-                                               variant='standard'
-                                               label='Password'
-                                               sx={{width: '100%'}}
-                                               margin={'normal'}
-                                               type={values.showPassword ? 'text' : 'password'}
-                                               error={!!(formik.touched.password && formik.errors.password)}
-                                               helperText={formik.errors.password}
-                                               InputProps={{
-                                                   endAdornment: (
-                                                       <InputAdornment position='end'>
-                                                           <IconButton
-                                                               aria-label='toggle password visibility'
-                                                               onClick={handleClickShowPassword}
-                                                               onMouseDown={handleMouseDownPassword}>
-                                                               {values.showPassword
-                                                                   ? <img src={Visibility}
-                                                                          width='16' height='16' alt="Visibility"/>
-                                                                   : <img src={VisibilityOff}
-                                                                          width='16' height='16' alt="VisibilityOff"/>}
-                                                           </IconButton>
-                                                       </InputAdornment>
-                                                   ),
-                                               }}
-                                               {...formik.getFieldProps('password')}/>
-
-                                    <TextField className={s.textField}
-                                               id='standard-basic'
-                                               variant='standard'
-                                               label='Confirm password'
-                                               sx={{width: '100%'}}
-                                               margin={'normal'}
-                                               type={values.showConfirmPassword ? 'text' : 'password'}
-                                               error={!!(formik.touched.confirmPassword && formik.errors.confirmPassword)}
-                                               helperText={formik.errors.confirmPassword}
-                                               InputProps={{
-                                                   endAdornment: (
-                                                       <InputAdornment position='end'>
-                                                           <IconButton
-                                                               aria-label='toggle password visibility'
-                                                               onClick={handleClickShowConfirmPassword}
-                                                               onMouseDown={handleMouseDownPassword}>
-                                                               {values.showConfirmPassword
-                                                                   ? <img src={Visibility}
-                                                                          width='16' height='16' alt="Visibility"/>
-                                                                   : <img src={VisibilityOff}
-                                                                          width='16' height='16' alt="Visibility"/>}
-                                                           </IconButton>
-                                                       </InputAdornment>
-                                                   ),
-                                               }}
-                                               {...formik.getFieldProps('confirmPassword')}/>
-                                </FormGroup>
-
-                                <Fab sx={{alignSelf: 'center', padding: '0 40px', width: '70%'}}
-                                    type={'submit'}
-                                    variant="extended"
-                                    size="medium"
-                                    color={'primary'}
-                                    aria-label="add">
-                                    Register
-                                </Fab>
-
-                                <div className={s.navigateToLogin}>
-                                    Already have an account?
-                                    <Button onClick={() => navigate(PATH.LOGIN)}>Sign in</Button>
-                                </div>
-                            </FormControl>
-                        </form>
-
-                    </Grid>
-                </Grid>
+                            <TextField className={s.textField}
+                                id='standard-basic'
+                                variant='standard'
+                                label='Password'
+                                sx={{width: '100%'}}
+                                margin={'normal'}
+                                type={values.showPassword ? 'text' : 'password'}
+                                error={!!(formik.touched.password && formik.errors.password)}
+                                helperText={formik.errors.password}
+                                InputProps={{
+                                    endAdornment: (
+                                        <InputAdornment position='end'>
+                                            <IconButton
+                                                aria-label='toggle password visibility'
+                                                onClick={handleClickShowPassword}
+                                                onMouseDown={handleMouseDownPassword}>
+                                                {values.showPassword
+                                                    ? <img src={Visibility}
+                                                        width='16' height='16' alt="Visibility"/>
+                                                    : <img src={VisibilityOff}
+                                                        width='16' height='16' alt="VisibilityOff"/>}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    ),
+                                }}
+                                {...formik.getFieldProps('password')}/>
+                            <TextField className={s.textField}
+                                id='standard-basic'
+                                variant='standard'
+                                label='Confirm password'
+                                sx={{width: '100%'}}
+                                margin={'normal'}
+                                type={values.showConfirmPassword ? 'text' : 'password'}
+                                error={!!(formik.touched.confirmPassword && formik.errors.confirmPassword)}
+                                helperText={formik.errors.confirmPassword}
+                                InputProps={{
+                                    endAdornment: (
+                                        <InputAdornment position='end'>
+                                            <IconButton
+                                                aria-label='toggle password visibility'
+                                                onClick={handleClickShowConfirmPassword}
+                                                onMouseDown={handleMouseDownPassword}>
+                                                {values.showConfirmPassword
+                                                    ? <img src={Visibility}
+                                                        width='16' height='16' alt="Visibility"/>
+                                                    : <img src={VisibilityOff}
+                                                        width='16' height='16' alt="Visibility"/>}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    ),
+                                }}
+                                {...formik.getFieldProps('confirmPassword')}/>
+                        <Fab sx={{alignSelf: 'center', padding: '0 40px', width: '70%'}}
+                            type={'submit'}
+                            variant="extended"
+                            size="medium"
+                            color={'primary'}
+                            aria-label="add">
+                            Register
+                        </Fab>
+                        <div className={s.navigateToLogin}>
+                            Already have an account?
+                            <Button sx={{paddingBottom: '2px'}} onClick={() => navigate(PATH.LOGIN)}>Sign in</Button>
+                        </div>
+                </form>
             </Paper>
-        </div>
-            )}
-    </>
+        )}</div>
+
 }
