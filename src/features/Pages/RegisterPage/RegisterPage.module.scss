@@ -58,6 +58,11 @@
       justify-content: space-around;
       align-items: center;
       width: 75%;
+      padding: 5% 0;
+
+      .textField {
+        height: 60px;
+      }
 
       .navigateToLogin {
         display: flex;

@@ -76,6 +76,7 @@ export const NewPassCreate = () => {
 
                 <Container className={s.contentContainer}>
                     <TextField
+                        className={s.textField}
                         sx={{width: '100%'}}
                         margin={'normal'}
                         id='outlined-basic'
@@ -103,6 +104,7 @@ export const NewPassCreate = () => {
                         {...formik.getFieldProps('password')}/>
 
                     <TextField
+                        className={s.textField}
                         sx={{width: '100%'}}
                         margin={'normal'}
                         id='outlined-second'

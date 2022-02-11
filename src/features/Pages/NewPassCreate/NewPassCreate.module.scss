@@ -69,6 +69,10 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+
+        .textField {
+          height: 60px;
+        }
       }
     }
   }
