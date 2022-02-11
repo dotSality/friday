@@ -104,7 +104,7 @@ export const RegisterPage = () => {
                                 sx={{width: '100%'}}
                                 margin={'normal'}
                                 error={!!(formik.touched.email && formik.errors.email)}
-                                helperText={formik.errors.email}
+                                helperText={formik.touched.email && formik.errors.email}
                                 {...formik.getFieldProps('email')}/>
 
                             <TextField className={s.textField}
@@ -141,7 +141,7 @@ export const RegisterPage = () => {
                                 margin={'normal'}
                                 type={values.showConfirmPassword ? 'text' : 'password'}
                                 error={!!(formik.touched.confirmPassword && formik.errors.confirmPassword)}
-                                helperText={formik.errors.confirmPassword}
+                                helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
                                 InputProps={{
                                     endAdornment: (
                                         <InputAdornment position='end'>
