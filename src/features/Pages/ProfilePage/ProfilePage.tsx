@@ -42,20 +42,20 @@ export const ProfilePage = React.memo(() => {
         }, [name, avatar])
 
 
-        const onBlurSendUserData = useCallback(async (newValue: string) => {
+        const onBlurSendUserData = async (newValue: string) => {
             await dispatch(changeUserDataTC({name: newValue, avatar: myAvatar}))
-        }, [])
-        const onKeyPressSendUserData = useCallback(async (newValue: string) => {
+        }
+        const onKeyPressSendUserData = async (newValue: string) => {
             await dispatch(changeUserDataTC({name: newValue, avatar: myAvatar}))
-        }, [])
+        }
 
-        const changeNameHandler = useCallback((newValue: string) => {
+        const changeNameHandler =(newValue: string) => {
             setMyName(newValue)
-        }, [])
+        }
 
-        const navigateToMainHandler = useCallback(() => {
+        const navigateToMainHandler =() => {
             navigate(PATH.MAIN)
-        }, [])
+        }
 
         if (!isLoggedIn) {
             return <Navigate to={PATH.LOGIN}/>

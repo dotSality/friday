@@ -1,4 +1,4 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import React, {ChangeEvent, KeyboardEvent, useCallback, useState} from 'react';
 import TextField from '@mui/material/TextField';
 import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/material/IconButton/IconButton';
@@ -10,31 +10,33 @@ type EditableSpanPropsType = {
     onKeyPress: (newValue: string) => void
 }
 
-export const EditableSpan = React.memo(function (props: EditableSpanPropsType) {
-    console.log('EditableSpan called');
+export const EditableSpan = React.memo( ({value,onChange,onKeyPress,onBlur}:EditableSpanPropsType) => {
+
     let [editMode, setEditMode] = useState(false);
-    let [title, setTitle] = useState(props.value);
+    let [title, setTitle] = useState(value);
 
     const activateEditMode = () => {
         setEditMode(true);
-        setTitle(props.value);
+        setTitle(value);
     }
-    const activateViewMode = () => {
+
+    const activateViewMode = useCallback(() => {
         setEditMode(false);
-        props.onChange(title);
-        props.onBlur(title)
-    }
+        onChange(title);
+        onBlur(title)
+    },[title])
+
     const changeTitle = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
     }
 
-    const onKeyPressHandler = (e:KeyboardEvent<HTMLDivElement>) => {
-        if(e.key === 'Enter'){
+    const onKeyPressHandler = useCallback((e: KeyboardEvent<HTMLDivElement>) => {
+        if (e.key === 'Enter') {
             setEditMode(false);
-            props.onKeyPress(title);
+            onKeyPress(title);
             setTitle('')
         }
-    }
+    },[title])
 
     return editMode
         ? <TextField value={title}
@@ -49,9 +51,7 @@ export const EditableSpan = React.memo(function (props: EditableSpanPropsType) {
                          }
                      }}
         />
-        : <span onDoubleClick={activateEditMode}
-
-        >{props.value}
+        : <span onDoubleClick={activateEditMode}>{value}
             <IconButton onClick={activateEditMode}>
                 <EditIcon/>
             </IconButton>
