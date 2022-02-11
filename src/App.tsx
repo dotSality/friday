@@ -6,7 +6,7 @@ import {useAppSelector} from "./bll/store";
 import s from './App.module.scss'
 import {Route, Routes} from 'react-router-dom';
 import {PATH} from './utils/paths';
-import {LoginPage} from './features/Pages/LoginPage/FormikLoginPage';
+import {LoginPage} from './features/Pages/LoginPage/LoginPage';
 import {RegisterPage} from './features/Pages/RegisterPage/RegisterPage';
 import {NewPassCreate} from './features/Pages/NewPassCreate/NewPassCreate';
 import {ForgotPage} from './features/Pages/ForgotPage/ForgotPage';
