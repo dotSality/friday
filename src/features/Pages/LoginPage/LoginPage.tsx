@@ -85,8 +85,8 @@ export const LoginPage = React.memo(() => {
                 }
                 if (!values.password) {
                     errors.password = 'password is required'
-                } else if (values.password.length < 5) {
-                    errors.password = 'Must be 5 characters or more'
+                } else if (values.password.length < 7) {
+                    errors.password = 'Must be 7 characters or more'
                 }
                 return errors;
             },
@@ -143,9 +143,9 @@ export const LoginPage = React.memo(() => {
                                                     onMouseDown={handleMouseDownPassword}>
                                                     {values.showPassword
                                                         ? <img src={Visibility}
-                                                            width="16" height="16" alt="Visibility"/>
+                                                               width="16" height="16" alt="Visibility"/>
                                                         : <img src={VisibilityOff}
-                                                            width="16" height="16" alt="VisibilityOff"/>}
+                                                               width="16" height="16" alt="VisibilityOff"/>}
                                                 </IconButton>
                                             </InputAdornment>
                                         ),
@@ -166,31 +166,27 @@ export const LoginPage = React.memo(() => {
                                                 {...formik.getFieldProps('rememberMe')}/>}
                                     />
                                     <Typography className={s.text}
-                                        variant={'subtitle1'}
-                                        sx={{cursor: 'pointer'}}
-                                        onClick={navigateToForgotClickHandler}>
+                                                variant={'subtitle1'}
+                                                sx={{cursor: 'pointer'}}
+                                                onClick={navigateToForgotClickHandler}>
                                         Forgot password
                                     </Typography>
 
                                 </Container>
                             </FormGroup>
                             <Fab sx={{alignSelf: 'center', padding: '0 40px', width: '50%'}}
-                                type={'submit'}
-                                variant="extended"
-                                size="medium"
-                                color={'primary'}
-                                aria-label="add">
+                                 type={'submit'}
+                                 variant="extended"
+                                 size="medium"
+                                 color={'primary'}
+                                 aria-label="add">
                                 Login
                             </Fab>
 
-                            <Container className={s.signUp}>
-                                <Typography variant={'subtitle1'}>
-                                    Don't have an account?
-                                </Typography>
-
-                                <Button onClick={navigateToRegisterClickHandler}>Sign Up</Button>
-
-                            </Container>
+                            <div className={s.signUp}>
+                                <span className={s.descriptionSignUp}>Don't have an account?</span>
+                                <Button sx={{paddingBottom: '2px'}} onClick={navigateToRegisterClickHandler}>Sign Up</Button>
+                            </div>
                         </form>
                     </Paper>
                 </div>

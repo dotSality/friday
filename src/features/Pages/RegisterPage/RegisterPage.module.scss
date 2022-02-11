@@ -59,11 +59,15 @@
       align-items: center;
       width: 75%;
 
-      .navigateToLogin {
+      .signIn {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+
+        .descriptionSignIn{
+          padding-right: 5px;
+        }
 
         @media screen and (max-width: 353px){
           flex-direction: column;
