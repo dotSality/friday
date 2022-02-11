@@ -1,7 +1,5 @@
 import {useEffect} from 'react'
 import {useDispatch} from 'react-redux'
-
-import {CircularProgress} from "@mui/material";
 import {initializeApp} from "./bll/app-reducer";
 import {useAppSelector} from "./bll/store";
 
@@ -18,6 +16,7 @@ import {ErrorPage} from './features/Pages/ErrorPage/ErrorPage';
 import {ErrorSnackbar} from './features/ErrorSnackbar/ErrorSnackBar';
 import {Header} from "./features/Header/Header";
 import {Packs} from "./features/Packs/Packs";
+import LoadingStatusBackdrop from "./features/LoadingBackDrop/BackDrop";
 
 
 function App() {
@@ -31,8 +30,8 @@ function App() {
     }, [])
 
     if (!isInitialized) {
-        return <div style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
-            <CircularProgress color={'primary'}/>
+        return <div>
+            <LoadingStatusBackdrop />
         </div>
     }
 

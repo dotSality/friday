@@ -9,7 +9,6 @@ import Menu from "@mui/material/Menu/Menu"
 import MenuItem from "@mui/material/MenuItem/MenuItem"
 import Toolbar from "@mui/material/Toolbar/Toolbar"
 import Tooltip from "@mui/material/Tooltip/Tooltip"
-import Container from "@mui/material/Container/Container";
 import Typography from "@mui/material/Typography/Typography";
 
 import {useAppDispatch, useAppSelector} from "../../bll/store";
@@ -31,7 +30,7 @@ export const Header = () => {
 
     const isLoggedIn = useAppSelector<boolean>(state => state.login.isLoggedIn)
     const user = useAppSelector<ProfileType>(state => state.profile)
-    const {avatar} = user
+    const {avatar, name} = user
 
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
@@ -56,7 +55,7 @@ export const Header = () => {
 
     return (
         <AppBar position="fixed" sx={{backgroundColor: 'gray', width: '100%'}}>
-                <Toolbar sx={{padding: '0 2%'}} disableGutters>
+                <Toolbar sx={{padding: '0 2%', display:'flex', justifyContent: 'space-between'}} disableGutters>
                     <Typography
                         onClick={() => navigate(PATH.MAIN)}
                         variant="h6"
@@ -83,13 +82,18 @@ export const Header = () => {
                             </div>
                         </NavLink>
                     </div>
-                    <Box sx={{flexGrow: 1, display: 'flex', justifyContent: 'flex-end'}}>
+                    <Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center'}}>
                         {isLoggedIn &&
+                            <div>
+                                <Typography variant="subtitle1" component="span" sx={{marginRight:'10px'}}>
+                                    {name ? name : 'user name'}
+                                </Typography>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
                                 <Avatar alt="user photo" src={avatar ? avatar : UserPhoto}/>
                             </IconButton>
                         </Tooltip>
+                            </div>
                         }
                         <Menu
                             sx={{mt: '45px'}}

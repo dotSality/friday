@@ -20,7 +20,7 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 
 export function ErrorSnackbar() {
     const {passChanged} = useAppSelector(state => state.passRecover)
-    const error = useAppSelector<string | null>(state => state.app.error)
+    const {error} = useAppSelector(state => state.app)
     const dispatch = useDispatch()
 
 
