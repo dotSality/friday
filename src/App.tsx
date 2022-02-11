@@ -1,10 +1,12 @@
 import {useEffect} from 'react'
 import {useDispatch} from 'react-redux'
+import {Route, Routes} from 'react-router-dom';
+
 import {initializeApp} from "./bll/app-reducer";
 import {useAppSelector} from "./bll/store";
 
 import s from './App.module.scss'
-import {Route, Routes} from 'react-router-dom';
+
 import {PATH} from './utils/paths';
 import {LoginPage} from './features/Pages/LoginPage/FormikLoginPage';
 import {RegisterPage} from './features/Pages/RegisterPage/RegisterPage';
