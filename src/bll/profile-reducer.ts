@@ -14,7 +14,7 @@ const profileSlice = createSlice({
         setUserData: (state, action: PayloadAction<LoginResponseType>) => {
             return action.payload
         }
-    }
+    },
 })
 
 
@@ -22,7 +22,7 @@ export const changeUserDataTC = createAsyncThunk(
     'profile/changeUserData',
     async (userData: UserDataType, {dispatch}) => {
         try {
-            dispatch(setAppStatus('loading'))
+            dispatch(setAppStatus({status: 'loading'}))
             const {data} = await cardsAPI.changeUserData(userData)
             dispatch(setUserData(data.updatedUser))
         } catch (e: any) {
@@ -31,7 +31,7 @@ export const changeUserDataTC = createAsyncThunk(
                 : (e.message + ', more details in the console');
             dispatch(setAppError(error))
         } finally {
-            dispatch(setAppStatus('succeeded'))
+            dispatch(setAppStatus({status: 'succeeded'}))
         }
     }
 )

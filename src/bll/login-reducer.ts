@@ -5,45 +5,6 @@ import {setUserProfile} from './profile-reducer';
 import {setAppError, setAppStatus} from "./app-reducer";
 
 
-export const loginTC = createAsyncThunk(
-    'login/loginTC',
-    async (params: { email: string, password: string, rememberMe: boolean }, {dispatch}) => {
-        try {
-            dispatch(setAppStatus('loading'))
-            let {data} = await cardsAPI.login(params.email, params.password, params.rememberMe)
-            dispatch(isLoggedIn(true))
-            dispatch(setUserProfile(data))
-            dispatch(setAppStatus('succeeded'))
-        } catch (e: any) {
-            const error = e.response
-                ? e.response.data.error
-                : (e.message + ', Try later')
-            dispatch(setAppError(error))
-            dispatch(setAppStatus('failed'))
-        }
-    }
-)
-
-
-export const logoutTC = createAsyncThunk(
-    'login/loginTC',
-    async (_, {dispatch}) => {
-        try {
-            dispatch(setAppStatus('loading'))
-            await cardsAPI.logout()
-            dispatch(setAppStatus('succeeded'))
-            dispatch(isLoggedIn(false))
-        } catch (e: any) {
-            const error = e.response
-                ? e.response.data.error
-                : (e.message + ', Try later')
-            dispatch(setAppError(error))
-            dispatch(setAppStatus('failed'))
-        }
-    }
-)
-
-
 const initialState: InitStateType = {
     isLoggedIn: false,
 }
@@ -52,11 +13,50 @@ const loginSlice = createSlice({
     name: 'login',
     initialState,
     reducers: {
-        isLoggedIn: (state, action: PayloadAction<boolean>) => {
-            state.isLoggedIn = action.payload
+        isLoggedIn: (state, action: PayloadAction<{ isLoggedIn: boolean }>) => {
+            state.isLoggedIn = action.payload.isLoggedIn
         },
     },
 })
+
+
+//Thunk
+export const loginTC = createAsyncThunk(
+    'login/loginTC',
+    async (params: { email: string, password: string, rememberMe: boolean }, {dispatch}) => {
+        try {
+            dispatch(setAppStatus({status: 'loading'}))
+            let {data} = await cardsAPI.login(params.email, params.password, params.rememberMe)
+            dispatch(isLoggedIn({isLoggedIn: true}))
+            dispatch(setUserProfile(data))
+            dispatch(setAppStatus({status: 'succeeded'}))
+        } catch (e: any) {
+            const error = e.response
+                ? e.response.data.error
+                : (e.message + ', Try later')
+            dispatch(setAppError(error))
+            dispatch(setAppStatus({status: 'failed'}))
+        }
+    }
+)
+
+export const logoutTC = createAsyncThunk(
+    'login/loginTC',
+    async (_, {dispatch}) => {
+        try {
+            dispatch(setAppStatus({status: 'loading'}))
+            await cardsAPI.logout()
+            dispatch(setAppStatus({status: 'succeeded'}))
+            dispatch(isLoggedIn({isLoggedIn: false}))
+        } catch (e: any) {
+            const error = e.response
+                ? e.response.data.error
+                : (e.message + ', Try later')
+            dispatch(setAppError(error))
+            dispatch(setAppStatus({status: 'failed'}))
+        }
+    }
+)
 
 
 //types

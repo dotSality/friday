@@ -21,15 +21,15 @@ export const {setRegistrationSuccess} = registerSlice.actions;
 
 export const registrationTC = (email: string, password: string) => async (dispatch: Dispatch) => {
     try {
-        dispatch(setAppStatus('loading'))
+        dispatch(setAppStatus({status:'loading'}))
         await cardsAPI.registration(email, password)
-        dispatch(setAppStatus('succeeded'))
+        dispatch(setAppStatus({status:'succeeded'}))
         dispatch(setRegistrationSuccess({isRegistrationSuccess: true}))
     } catch (e: any) {
         const error = e.response
             ? e.response.data.error
             : (e.message + ', Try later')
-        dispatch(setAppStatus('succeeded'))
+        dispatch(setAppStatus({status:'succeeded'}))
         dispatch(setAppError(error))
     }
 }
