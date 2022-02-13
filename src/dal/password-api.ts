@@ -1,9 +1,5 @@
-import axios, {AxiosResponse} from 'axios';
-
-const instance = axios.create({
-    baseURL: "https://neko-back.herokuapp.com/2.0",
-    withCredentials: true,
-})
+import {instance} from './instance';
+import {AxiosResponse} from 'axios';
 
 export const passwordAPI = {
     recover(data: RecoverRequestType) {

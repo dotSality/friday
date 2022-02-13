@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 
-import {cardsAPI, LoginResponseType, UserDataType} from '../dal/api';
+import {authAPI, LoginResponseType, UserDataType} from '../dal/authApi';
 import {setAppError, setAppStatus} from "./app-reducer";
 
 
@@ -23,7 +23,7 @@ export const changeUserDataTC = createAsyncThunk(
     async (userData: UserDataType, {dispatch}) => {
         try {
             dispatch(setAppStatus('loading'))
-            const {data} = await cardsAPI.changeUserData(userData)
+            const {data} = await authAPI.changeUserData(userData)
             dispatch(setUserData(data.updatedUser))
         } catch (e: any) {
             const error = e.response
