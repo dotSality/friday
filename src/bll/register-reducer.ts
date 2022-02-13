@@ -10,8 +10,8 @@ const registerSlice = createSlice({
     name: 'register',
     initialState,
     reducers: {
-        setRegistrationSuccess(state, action: PayloadAction<{ isRegistrationSuccess: boolean }>) {
-            state.isRegistrationSuccess = action.payload.isRegistrationSuccess
+        setRegistrationSuccess(state, action: PayloadAction<boolean >) {
+            state.isRegistrationSuccess = action.payload
         },
     }
 })
@@ -21,15 +21,15 @@ export const {setRegistrationSuccess} = registerSlice.actions;
 
 export const registrationTC = (email: string, password: string) => async (dispatch: Dispatch) => {
     try {
-        dispatch(setAppStatus({status:'loading'}))
+        dispatch(setAppStatus('loading'))
         await authAPI.registration(email, password)
-        dispatch(setAppStatus({status:'succeeded'}))
-        dispatch(setRegistrationSuccess({isRegistrationSuccess: true}))
+        dispatch(setAppStatus('succeeded'))
+        dispatch(setRegistrationSuccess(true))
     } catch (e: any) {
         const error = e.response
             ? e.response.data.error
             : (e.message + ', Try later')
-        dispatch(setAppStatus({status:'succeeded'}))
+        dispatch(setAppStatus('succeeded'))
         dispatch(setAppError(error))
     }
 }

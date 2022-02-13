@@ -7,7 +7,7 @@ export const sendInstructions = createAsyncThunk('forgot/sendInstructions', asyn
     dispatch,
     rejectWithValue
 }) => {
-    dispatch(setAppStatus({status: 'loading'}))
+    dispatch(setAppStatus('loading'))
     try {
         let res = await passwordAPI.recover({
             email, from: 'Best INCUBATOR IT-team',
@@ -16,23 +16,24 @@ export const sendInstructions = createAsyncThunk('forgot/sendInstructions', asyn
                         <a href='http://localhost:3000/friday#${PATH.CREATE_PASS}/$token$'>link</a>
                       </div>\``
         })
-        dispatch(setAppStatus({status: 'succeeded'}))
+        dispatch(setAppStatus('succeeded'))
         return {success: res.data.success, email}
     } catch (e: any) {
-        dispatch(setAppStatus({status: 'failed'}))
-        rejectWithValue(e.response.data)
+        dispatch(setAppStatus('failed'))
+        dispatch(setAppError(e.response.data.error))
+        return rejectWithValue(e.response.data)
     }
 })
 
 export const sendNewPassword = createAsyncThunk('forgot/sendNewPassword',
     async (data: NewPassRequestType, {dispatch, rejectWithValue}) => {
-        dispatch(setAppStatus({status: 'loading'}))
+        dispatch(setAppStatus('loading'))
         try {
             let res = await passwordAPI.setNewPass(data)
-            dispatch(setAppStatus({status: 'succeeded'}))
-            dispatch(setAppError({error: res.data.info}))
+            dispatch(setAppStatus('succeeded'))
+            dispatch(setAppError(res.data.info))
         } catch (e: any) {
-            dispatch(setAppStatus({status: 'failed'}))
+            dispatch(setAppStatus('failed'))
             return rejectWithValue({})
         }
     })

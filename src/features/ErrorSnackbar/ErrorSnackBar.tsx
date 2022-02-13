@@ -28,7 +28,7 @@ export function ErrorSnackbar() {
         if (reason === 'clickaway') {
             return;
         }
-        dispatch(setAppError({error:null}))
+        dispatch(setAppError(null))
     };
 
     const isOpen = error !== null

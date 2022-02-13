@@ -13,8 +13,8 @@ const loginSlice = createSlice({
     name: 'login',
     initialState,
     reducers: {
-        isLoggedIn: (state, action: PayloadAction<{ isLoggedIn: boolean }>) => {
-            state.isLoggedIn = action.payload.isLoggedIn
+        isLoggedIn: (state, action: PayloadAction< boolean>) => {
+            state.isLoggedIn = action.payload
         },
     },
 })
@@ -25,17 +25,17 @@ export const loginTC = createAsyncThunk(
     'login/loginTC',
     async (params: { email: string, password: string, rememberMe: boolean }, {dispatch}) => {
         try {
-            dispatch(setAppStatus({status: 'loading'}))
+            dispatch(setAppStatus('loading'))
             let {data} = await authAPI.login(params.email, params.password, params.rememberMe)
-            dispatch(isLoggedIn({isLoggedIn: true}))
+            dispatch(isLoggedIn(true))
             dispatch(setUserProfile(data))
-            dispatch(setAppStatus({status: 'succeeded'}))
+            dispatch(setAppStatus('succeeded'))
         } catch (e: any) {
             const error = e.response
                 ? e.response.data.error
                 : (e.message + ', Try later')
             dispatch(setAppError(error))
-            dispatch(setAppStatus({status: 'failed'}))
+            dispatch(setAppStatus('failed'))
         }
     }
 )
@@ -44,16 +44,16 @@ export const logoutTC = createAsyncThunk(
     'login/loginTC',
     async (_, {dispatch}) => {
         try {
-            dispatch(setAppStatus({status: 'loading'}))
+            dispatch(setAppStatus('loading'))
             await authAPI.logout()
-            dispatch(setAppStatus({status: 'succeeded'}))
-            dispatch(isLoggedIn({isLoggedIn: false}))
+            dispatch(setAppStatus('succeeded'))
+            dispatch(isLoggedIn(false))
         } catch (e: any) {
             const error = e.response
                 ? e.response.data.error
                 : (e.message + ', Try later')
             dispatch(setAppError(error))
-            dispatch(setAppStatus({status: 'failed'}))
+            dispatch(setAppStatus('failed'))
         }
     }
 )

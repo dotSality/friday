@@ -2,7 +2,7 @@ import {instance} from './instance';
 
 
 export const cardsAPI = {
-    getPack() {
+    getPack(packName?: string, min?: number, max?: number, sortPacks?: string, page?: number, pageCount?: number, user_id?: string) {
         return instance.get<ResponseType>(`/cards/pack`)
     }
 }

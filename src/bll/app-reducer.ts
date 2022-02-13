@@ -16,14 +16,14 @@ const appSlice = createSlice({
     name: 'app',
     initialState,
     reducers: {
-        setAppError: (state, action: PayloadAction<{ error: string | null }>) => {
-            state.error = action.payload.error
+        setAppError: (state, action: PayloadAction<string | null>) => {
+            state.error = action.payload
         },
-        setAppStatus: (state, action: PayloadAction<{ status: StatusType }>) => {
-            state.status = action.payload.status
+        setAppStatus: (state, action: PayloadAction<StatusType>) => {
+            state.status = action.payload
         },
-        setAppInitialized: (state, action: PayloadAction<{ isInitialized: boolean }>) => {
-            state.isInitialized = action.payload.isInitialized
+        setAppInitialized: (state, action: PayloadAction<boolean>) => {
+            state.isInitialized = action.payload
         },
     },
     extraReducers: builder => {
@@ -33,7 +33,6 @@ const appSlice = createSlice({
             }
         })
     }
-
 })
 
 
@@ -42,16 +41,16 @@ export const initializeApp = createAsyncThunk(
     'app/initializeApp',
     async (_, {dispatch}) => {
         try {
-            dispatch(setAppStatus({status: 'loading'}))
+            dispatch(setAppStatus('loading'))
             const {data} = await authAPI.authMe()
-            dispatch(isLoggedIn({isLoggedIn: true}))
+            dispatch(isLoggedIn(true))
             dispatch(setUserProfile(data))
             return {id: data._id}
         } catch (e: any) {
-            dispatch(isLoggedIn({isLoggedIn: false}))
+            dispatch(isLoggedIn(false))
         } finally {
-            dispatch(setAppInitialized({isInitialized: true}))
-            dispatch(setAppStatus({status: 'succeeded'}))
+            dispatch(setAppInitialized(true))
+            dispatch(setAppStatus('succeeded'))
         }
     }
 )

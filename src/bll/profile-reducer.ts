@@ -22,7 +22,7 @@ export const changeUserDataTC = createAsyncThunk(
     'profile/changeUserData',
     async (userData: UserDataType, {dispatch}) => {
         try {
-            dispatch(setAppStatus({status: 'loading'}))
+            dispatch(setAppStatus('loading'))
             const {data} = await authAPI.changeUserData(userData)
             dispatch(setUserData(data.updatedUser))
         } catch (e: any) {
@@ -31,7 +31,7 @@ export const changeUserDataTC = createAsyncThunk(
                 : (e.message + ', more details in the console');
             dispatch(setAppError(error))
         } finally {
-            dispatch(setAppStatus({status: 'succeeded'}))
+            dispatch(setAppStatus('succeeded'))
         }
     }
 )
