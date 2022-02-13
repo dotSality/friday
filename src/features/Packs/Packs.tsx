@@ -24,6 +24,6 @@ export const Packs = () => {
 
     return (
         <div style={{alignItems: 'center', color: 'white'}}>
-            {cardPacks.map(el => (<Pack/>))}
+            {cardPacks.map(el => (<Pack key={el.name} cardPack={el}/>))}
         </div>)
 }
