@@ -1,5 +1,5 @@
 import {createSlice, Dispatch, PayloadAction} from '@reduxjs/toolkit';
-import {cardsAPI} from "../dal/api";
+import {authAPI} from "../dal/authApi";
 import {setAppError, setAppStatus} from "./app-reducer";
 
 const initialState = {
@@ -22,7 +22,7 @@ export const {setRegistrationSuccess} = registerSlice.actions;
 export const registrationTC = (email: string, password: string) => async (dispatch: Dispatch) => {
     try {
         dispatch(setAppStatus('loading'))
-        await cardsAPI.registration(email, password)
+        await authAPI.registration(email, password)
         dispatch(setAppStatus('succeeded'))
         dispatch(setRegistrationSuccess({isRegistrationSuccess: true}))
     } catch (e: any) {

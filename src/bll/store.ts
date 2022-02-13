@@ -7,6 +7,7 @@ import {loginReducer} from './login-reducer';
 import {passReducer} from './pass-reducer';
 import {profileReducer} from './profile-reducer';
 import {appReducer} from "./app-reducer";
+import {cardsReducer} from './cards-reducer';
 
 const reducers = combineReducers({
     login: loginReducer,
@@ -14,6 +15,7 @@ const reducers = combineReducers({
     passRecover: passReducer,
     profile: profileReducer,
     app:appReducer,
+    cards:cardsReducer,
 })
 
 export const store = configureStore({
