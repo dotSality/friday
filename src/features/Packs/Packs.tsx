@@ -20,6 +20,7 @@ export const Packs = () => {
             packName: value,
         }))
     }, '')
+
     const onInputChangeHandler = (e: ChangeEvent<HTMLInputElement>) => setValue(e.currentTarget.value)
     const onPageChange = (page:number) => dispatch(fetchCards({page}))
 
