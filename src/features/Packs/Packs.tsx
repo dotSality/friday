@@ -6,6 +6,7 @@ import {fetchCards} from '../../bll/cards-reducer';
 import {useDispatch} from 'react-redux';
 import {CardPacksType} from '../../dal/cards-api';
 import {Pack} from './Pack/Pack';
+import {TablePacks} from './Pack/Table/Table';
 
 
 export const Packs = () => {
@@ -24,6 +25,6 @@ export const Packs = () => {
 
     return (
         <div style={{alignItems: 'center', color: 'white'}}>
-            {cardPacks.map(el => (<Pack key={el._id} cardPack={el}/>))}
+          <TablePacks/>
         </div>)
 }
