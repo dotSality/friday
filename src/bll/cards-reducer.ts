@@ -5,20 +5,28 @@ import {setAppStatus} from './app-reducer';
 const cardsSlice = createSlice({
         name: 'cards',
         initialState: {
-            packs: [] as CardPackType[],
+            cardPacks: [] as CardPackType[],
             isLoaded: false,
+            cardPacksTotalCount: 0 as number,
+            maxCardsCount: 0 as number,
+            minCardsCount: 0 as number,
+            page: 0 as number,
+            pageCount: 10 as number
         },
         reducers: {
-            clearPacksData: (state, action: PayloadAction) => {
-                state.packs = []
+            clearPacksData(state, action: PayloadAction<{}>) {
+                state.cardPacks = []
                 state.isLoaded = false
             }
         },
         extraReducers: builder => {
             builder.addCase(fetchCards.fulfilled, (state, action) => {
                 if (action.payload) {
-                    state.packs = action.payload
-                    state.isLoaded = true
+                    return {...action.payload, isLoaded: true}
+                    // state.packs = action.payload.cardPacks
+                    // state.cardPacksTotalCount = action.payload.cardPacksTotalCount
+                    // state.isLoaded = true
+                    // state.page = action.payload.page
                 }
             })
         }
@@ -31,8 +39,8 @@ export const fetchCards = createAsyncThunk(
         dispatch(setAppStatus('loading'))
         try {
             const res = await cardsAPI.getPack(data)
-            console.log(res)
-            return res.data.cardPacks
+            console.log(res.data)
+            return res.data
         } catch (e: any) {
             dispatch(setAppStatus('failed'))
             return rejectWithValue({})
@@ -40,6 +48,6 @@ export const fetchCards = createAsyncThunk(
     }
 )
 
-export const {clearPacksData} = cardsSlice.actions
+export const clearPacksData = cardsSlice.actions
 
 export const cardsReducer = cardsSlice.reducer
