@@ -1,7 +1,6 @@
-import {createAsyncThunk, createSlice, PayloadAction, ThunkDispatch} from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {CardPackType, cardsAPI, PayloadType} from '../dal/cards-api';
 import {setAppStatus} from './app-reducer';
-import {RootStateType} from './store';
 
 const cardsSlice = createSlice({
         name: 'cards',
@@ -10,7 +9,7 @@ const cardsSlice = createSlice({
             isLoaded: false,
         },
         reducers: {
-            clearPacksData(state, action: PayloadAction<{}>) {
+            clearPacksData: (state, action: PayloadAction) => {
                 state.packs = []
                 state.isLoaded = false
             }
@@ -32,6 +31,7 @@ export const fetchCards = createAsyncThunk(
         dispatch(setAppStatus('loading'))
         try {
             const res = await cardsAPI.getPack(data)
+            console.log(res)
             return res.data.cardPacks
         } catch (e: any) {
             dispatch(setAppStatus('failed'))
@@ -40,6 +40,6 @@ export const fetchCards = createAsyncThunk(
     }
 )
 
-export const clearPacksData = cardsSlice.actions
+export const {clearPacksData} = cardsSlice.actions
 
 export const cardsReducer = cardsSlice.reducer

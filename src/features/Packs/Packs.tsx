@@ -2,7 +2,7 @@ import {Navigate} from 'react-router-dom';
 import {PATH} from '../../utils/paths';
 import React, {ChangeEvent, useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../bll/store';
-import {fetchCards} from '../../bll/cards-reducer';
+import {clearPacksData, fetchCards} from '../../bll/cards-reducer';
 import {Pack} from './Pack/Pack';
 import {TextField} from '@mui/material';
 import s from '../Pages/LoginPage/LoginPage.module.scss';
@@ -18,10 +18,16 @@ export const Packs = () => {
         dispatch(fetchCards({
             packName: value,
         }))
-        console.log('fetch')
     }, '')
     const onInputChangeHandler = (e: ChangeEvent<HTMLInputElement>) => setValue(e.currentTarget.value)
-    console.log('render')
+
+    useEffect(() => {
+        return () => {
+            dispatch(clearPacksData())
+        }
+    }, [])
+
+
 
     const mappedPacks = packs.map(el => (<Pack key={el._id} cardPack={el}/>))
 
