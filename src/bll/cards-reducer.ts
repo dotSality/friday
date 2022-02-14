@@ -14,7 +14,7 @@ const cardsSlice = createSlice({
             pageCount: 10 as number
         },
         reducers: {
-            clearPacksData(state, action: PayloadAction<{}>) {
+            clearPacksData(state) {
                 state.cardPacks = []
                 state.isLoaded = false
             }
@@ -23,10 +23,6 @@ const cardsSlice = createSlice({
             builder.addCase(fetchCards.fulfilled, (state, action) => {
                 if (action.payload) {
                     return {...action.payload, isLoaded: true}
-                    // state.packs = action.payload.cardPacks
-                    // state.cardPacksTotalCount = action.payload.cardPacksTotalCount
-                    // state.isLoaded = true
-                    // state.page = action.payload.page
                 }
             })
         }
@@ -48,6 +44,6 @@ export const fetchCards = createAsyncThunk(
     }
 )
 
-export const clearPacksData = cardsSlice.actions
+export const {clearPacksData} = cardsSlice.actions
 
 export const cardsReducer = cardsSlice.reducer

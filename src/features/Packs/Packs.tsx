@@ -2,7 +2,7 @@ import {Navigate} from 'react-router-dom';
 import {PATH} from '../../utils/paths';
 import React, {ChangeEvent, useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../bll/store';
-import {fetchCards} from '../../bll/cards-reducer';
+import {clearPacksData, fetchCards} from '../../bll/cards-reducer';
 import {Pack} from './Pack/Pack';
 import {TextField} from '@mui/material';
 import s from '../Pages/LoginPage/LoginPage.module.scss';
