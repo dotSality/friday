@@ -8,22 +8,24 @@ import {TextField} from '@mui/material';
 import s from '../Pages/LoginPage/LoginPage.module.scss';
 import {useDebounce} from '../../utils/debounce';
 import loader from '../../common/img/loader.gif';
+import {Pagination} from "../Pagination/Pagination";
 
 export const Packs = () => {
     const isLoggedIn = useAppSelector<boolean>(state => state.login.isLoggedIn)
-    const {packs, isLoaded} = useAppSelector(state => state.cards)
+    const {cardPacks, isLoaded} = useAppSelector(state => state.cards)
     const dispatch = useAppDispatch()
 
     let [value, setValue] = useDebounce<string>(() => {
         dispatch(fetchCards({
             packName: value,
         }))
-        console.log('fetch')
     }, '')
     const onInputChangeHandler = (e: ChangeEvent<HTMLInputElement>) => setValue(e.currentTarget.value)
-    console.log('render')
+    const onPageChange = (page:number) => dispatch(fetchCards({page}))
 
-    const mappedPacks = packs.map(el => (<Pack key={el._id} cardPack={el}/>))
+
+    const mappedPacks = cardPacks.map(el => (<Pack key={el._id} cardPack={el}/>))
+
 
     if (!isLoggedIn) {
         return <Navigate to={PATH.LOGIN}/>
@@ -43,6 +45,7 @@ export const Packs = () => {
                     id="outlined-basic"
                     variant="standard"
                 /> {mappedPacks}
+                <Pagination portionSize={10} onSetNewPage={onPageChange}/>
             </div>
         </div>
     )
