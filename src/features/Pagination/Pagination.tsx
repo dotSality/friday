@@ -1,6 +1,8 @@
 import {useAppSelector} from "../../bll/store";
 import {FC, useState} from "react";
 import s from'./Pagination.module.css'
+import {PATH} from '../../utils/paths';
+import {useNavigate} from 'react-router-dom';
 
 
 type PropsType = {
@@ -10,9 +12,10 @@ type PropsType = {
 
 export const Pagination: FC<PropsType> = ({portionSize, onSetNewPage}) => {
 
-    const cardPacksTotalCount = useAppSelector<number>(state => state.cards.cardPacksTotalCount)
-    const pageCount = useAppSelector<number>(state => state.cards.pageCount)
-    const currentPage = useAppSelector<number>(state => state.cards.page)
+    const cardPacksTotalCount = useAppSelector<number>(state => state.packs.cardPacksTotalCount)
+    const pageCount = useAppSelector<number>(state => state.packs.pageCount)
+    const currentPage = useAppSelector<number>(state => state.packs.page)
+
 
     let [portionNumber, setPortionNumber] = useState(1)
 

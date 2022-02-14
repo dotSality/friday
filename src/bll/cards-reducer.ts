@@ -1,49 +1,50 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {CardPackType, cardsAPI, PayloadType} from '../dal/cards-api';
 import {setAppStatus} from './app-reducer';
+import {cardsAPI} from '../dal/cards-api';
 
 const cardsSlice = createSlice({
-        name: 'cards',
-        initialState: {
-            cardPacks: [] as CardPackType[],
-            isLoaded: false,
-            cardPacksTotalCount: 0 as number,
-            maxCardsCount: 0 as number,
-            minCardsCount: 0 as number,
-            page: 0 as number,
-            pageCount: 10 as number
-        },
-        reducers: {
-            clearPacksData(state) {
-                state.cardPacks = []
-                state.isLoaded = false
-            }
-        },
-        extraReducers: builder => {
-            builder.addCase(fetchCards.fulfilled, (state, action) => {
-                if (action.payload) {
-                    return {...action.payload, isLoaded: true}
-                }
-            })
+    name: 'cards',
+    initialState: {
+        cards: null as CardsType[] | null,
+        packId: null as string | null,
+    },
+    reducers: {
+        setPackId(state, action: PayloadAction<string>) {
+            state.packId = action.payload
         }
     },
-)
-
-export const fetchCards = createAsyncThunk(
-    'cards/fetchCards',
-    async (data: PayloadType, {dispatch,rejectWithValue}) => {
-        dispatch(setAppStatus('loading'))
-        try {
-            const res = await cardsAPI.getPack(data)
-            console.log(res.data)
-            return res.data
-        } catch (e: any) {
-            dispatch(setAppStatus('failed'))
-            return rejectWithValue({})
-        }
+    extraReducers: builder => {
+        builder.addCase(fetchCards.fulfilled, (state, action) => {
+            if (action.payload) state.cards = action.payload.cards
+        })
     }
-)
+})
 
-export const {clearPacksData} = cardsSlice.actions
+export const fetchCards = createAsyncThunk('fetchCard', async (packId: string, {dispatch}) => {
+    try {
+        dispatch(setAppStatus('loading'))
+        let res = await cardsAPI.getCards(packId, {pageCount: 10})
+        console.log(res)
+        return res.data
+    } catch (e) {
+
+    }
+})
 
 export const cardsReducer = cardsSlice.reducer
+export const {setPackId} = cardsSlice.actions
+
+export type CardsType = {
+    answer: string,
+    question: string,
+    cardsPack_id: string,
+    grade: number,
+    rating: number,
+    shots: number,
+    type: string,
+    user_id: string,
+    created: string,
+    updated: string,
+    __v: number;
+    _id: string,
+}

@@ -1,8 +1,8 @@
-import {Navigate} from 'react-router-dom';
+import {Navigate, Routes, useNavigate} from 'react-router-dom';
 import {PATH} from '../../utils/paths';
 import React, {ChangeEvent, useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../bll/store';
-import {clearPacksData, fetchCards} from '../../bll/cards-reducer';
+import {clearPacksData, fetchPacks} from '../../bll/packs-reducer';
 import {Pack} from './Pack/Pack';
 import {TextField} from '@mui/material';
 import s from '../Pages/LoginPage/LoginPage.module.scss';
@@ -11,13 +11,16 @@ import loader from '../../common/img/loader.gif';
 import {Pagination} from "../Pagination/Pagination";
 
 export const Packs = () => {
+
     const isLoggedIn = useAppSelector<boolean>(state => state.login.isLoggedIn)
-    const {cardPacks, isLoaded} = useAppSelector(state => state.cards)
+    const {cardPacks, isLoaded} = useAppSelector(state => state.packs)
     const dispatch = useAppDispatch()
+    const packsOnPage = 10
 
     let [value, setValue] = useDebounce<string>(() => {
-        dispatch(fetchCards({
+        dispatch(fetchPacks({
             packName: value,
+            pageCount: packsOnPage,
         }))
     }, '')
     const onInputChangeHandler = (e: ChangeEvent<HTMLInputElement>) => setValue(e.currentTarget.value)
@@ -29,11 +32,10 @@ export const Packs = () => {
     }, [])
 
 
-    const onPageChange = (page:number) => dispatch(fetchCards({page}))
+    const onPageChange = (page:number) => dispatch(fetchPacks({page, pageCount: packsOnPage}))
 
 
     const mappedPacks = cardPacks.map(el => (<Pack key={el._id} cardPack={el}/>))
-
 
     if (!isLoggedIn) {
         return <Navigate to={PATH.LOGIN}/>
@@ -53,7 +55,7 @@ export const Packs = () => {
                     id="outlined-basic"
                     variant="standard"
                 /> {mappedPacks}
-                <Pagination portionSize={10} onSetNewPage={onPageChange}/>
+                <Pagination portionSize={packsOnPage} onSetNewPage={onPageChange}/>
             </div>
         </div>
     )

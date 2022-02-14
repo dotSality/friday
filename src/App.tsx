@@ -19,6 +19,7 @@ import {ErrorSnackbar} from './features/ErrorSnackbar/ErrorSnackBar';
 import {Header} from "./features/Header/Header";
 import {Packs} from "./features/Packs/Packs";
 import LoadingStatusBackdrop from "./features/LoadingBackDrop/BackDrop";
+import {Cards} from './features/Cards/Cards';
 
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
             <Routes>
                 <Route path={PATH.LOGIN} element={<LoginPage/>}/>
                 <Route path={PATH.MAIN} element={<Packs/>}/>
+                <Route path={PATH.CARDS + '/:cardsPack_id'} element={<Cards/>}/>
                 <Route path={PATH.REGISTER} element={<RegisterPage/>}/>
                 <Route path={PATH.CREATE_PASS + '/:token'} element={<NewPassCreate/>}/>
                 <Route path={PATH.FORGOT} element={<ForgotPage/>}/>

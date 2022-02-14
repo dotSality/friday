@@ -7,5 +7,6 @@ export const PATH = {
     CHECK_SUCCESS: '/check-success',
     CREATE_PASS: '/create-pass',
     PROFILE:'/profile',
-    TEST: '/test'
+    PACKS: '/packs',
+    CARDS: '/cards'
 }
