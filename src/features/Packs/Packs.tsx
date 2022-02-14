@@ -35,7 +35,6 @@ export const Packs = () => {
 
     const mappedPacks = cardPacks.map(el => (<Pack key={el._id} cardPack={el}/>))
 
-
     if (!isLoggedIn) {
         return <Navigate to={PATH.LOGIN}/>
     }

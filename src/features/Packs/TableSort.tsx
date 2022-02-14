@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { alpha } from '@mui/material/styles';
+import React from 'react';
+import {alpha} from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -19,7 +19,8 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
-import { visuallyHidden } from '@mui/utils';
+import {visuallyHidden} from '@mui/utils';
+import {useAppSelector} from "../../bll/store";
 
 interface Data {
     name: string;
@@ -45,12 +46,12 @@ function createData(
     };
 }
 
-const rows = [
-    createData('Pack1', 4, '14.02.22', 'Nastya', 'learn'),
-    createData('Pack2', 37, '13.02.22', 'Vlad', 'learn'),
-    createData('Pack3', 18, '21.03.21', 'Vova', 'learn'),
-    createData('Pack4', 0, '20.03.21', 'Maksim', 'learn'),
-];
+// const rows = [
+//     createData('Pack1', 4, '14.02.22', 'Nastya', 'learn'),
+//     createData('Pack2', 37, '13.02.22', 'Vlad', 'learn'),
+//     createData('Pack3', 18, '21.03.21', 'Vova', 'learn'),
+//     createData('Pack4', 0, '20.03.21', 'Maksim', 'learn'),
+// ];
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
     if (b[orderBy] < a[orderBy]) {
@@ -140,7 +141,7 @@ interface EnhancedTableProps {
 }
 
 function EnhancedTableHead(props: EnhancedTableProps) {
-    const { onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } =
+    const {onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort} =
         props;
     const createSortHandler =
         (property: keyof Data) => (event: React.MouseEvent<unknown>) => {
@@ -192,13 +193,13 @@ interface EnhancedTableToolbarProps {
 }
 
 const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
-    const { numSelected } = props;
+    const {numSelected} = props;
 
     return (
         <Toolbar
             sx={{
-                pl: { sm: 2 },
-                pr: { xs: 1, sm: 1 },
+                pl: {sm: 2},
+                pr: {xs: 1, sm: 1},
                 ...(numSelected > 0 && {
                     bgcolor: (theme) =>
                         alpha(theme.palette.primary.main, theme.palette.action.activatedOpacity),
@@ -207,7 +208,7 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
         >
             {numSelected > 0 ? (
                 <Typography
-                    sx={{ flex: '1 1 100%' }}
+                    sx={{flex: '1 1 100%'}}
                     color="inherit"
                     variant="subtitle1"
                     component="div"
@@ -216,7 +217,7 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
                 </Typography>
             ) : (
                 <Typography
-                    sx={{ flex: '1 1 100%' }}
+                    sx={{flex: '1 1 100%'}}
                     variant="h6"
                     id="tableTitle"
                     component="div"
@@ -227,13 +228,13 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
             {numSelected > 0 ? (
                 <Tooltip title="Delete">
                     <IconButton>
-                        <DeleteIcon />
+                        <DeleteIcon/>
                     </IconButton>
                 </Tooltip>
             ) : (
                 <Tooltip title="Filter list">
                     <IconButton>
-                        <FilterListIcon />
+                        <FilterListIcon/>
                     </IconButton>
                 </Tooltip>
             )}
@@ -248,6 +249,11 @@ export default function EnhancedTable() {
     const [page, setPage] = React.useState(0);
     const [dense, setDense] = React.useState(false);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+    const {cardPacks, isLoaded} = useAppSelector(state => state.cards)
+    const rows = cardPacks.map(el => {
+        return createData(el.name, el.cardsCount, el.updated.split('').slice(0,9).join(''), el.user_name, 'learn')
+    })
 
     const handleRequestSort = (
         event: React.MouseEvent<unknown>,
@@ -307,12 +313,12 @@ export default function EnhancedTable() {
         page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
     return (
-        <Box sx={{ width: '100%' }}>
-            <Paper sx={{ width: '100%', mb: 2 }}>
-                <EnhancedTableToolbar numSelected={selected.length} />
+        <Box sx={{width: '100%'}}>
+            <Paper sx={{width: '100%', mb: 2}}>
+                <EnhancedTableToolbar numSelected={selected.length}/>
                 <TableContainer>
                     <Table
-                        sx={{ minWidth: 750 }}
+                        sx={{minWidth: 750}}
                         aria-labelledby="tableTitle"
                         size={dense ? 'small' : 'medium'}
                     >
@@ -373,7 +379,7 @@ export default function EnhancedTable() {
                                         height: (dense ? 33 : 53) * emptyRows,
                                     }}
                                 >
-                                    <TableCell colSpan={6} />
+                                    <TableCell colSpan={6}/>
                                 </TableRow>
                             )}
                         </TableBody>
@@ -390,7 +396,7 @@ export default function EnhancedTable() {
                 />
             </Paper>
             <FormControlLabel
-                control={<Switch checked={dense} onChange={handleChangeDense} />}
+                control={<Switch checked={dense} onChange={handleChangeDense}/>}
                 label="Dense padding"
             />
         </Box>
