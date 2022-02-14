@@ -1,9 +1,18 @@
 import {instance} from './instance';
 
 
+export type PayloadType = {
+    packName?: string,
+    min?: number,
+    max?: number,
+    sortPacks?: string,
+    page?: number,
+    pageCount?: number,
+    user_id?: string
+};
 export const cardsAPI = {
-    getPack(packName?: string, min?: number, max?: number, sortPacks?: string, page?: number, pageCount?: number, user_id?: string) {
-        return instance.get<ResponseType>(`/cards/pack`)
+    getPack(data: PayloadType) {
+        return instance.get<ResponseType>(`/cards/pack`, {params: data})
     }
 }
 
