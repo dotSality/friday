@@ -9,6 +9,7 @@ import s from '../Pages/LoginPage/LoginPage.module.scss';
 import {useDebounce} from '../../utils/debounce';
 import loader from '../../common/img/loader.gif';
 import {Pagination} from "../Pagination/Pagination";
+import EnhancedTable from "./TableSort";
 
 export const Packs = () => {
 
@@ -46,6 +47,7 @@ export const Packs = () => {
     return (
         <div style={{alignItems: 'center', color: 'white'}}>
             <div>
+                <EnhancedTable/>
                 <TextField
                     className={s.textField}
                     value={value}
