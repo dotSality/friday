@@ -29,9 +29,10 @@ const cardsSlice = createSlice({
     extraReducers: builder => {
         builder.addCase(fetchCards.fulfilled, (state, action) => {
             if (action.payload) {
-                state.cardsData = action.payload
+                debugger
+                state.cardsData = action.payload.data
                 state.isLoaded = true
-                state.packId = action.payload.cards[0].cardsPack_id
+                state.packId = action.payload.packId
             }
         });
         builder.addCase(deleteCard.fulfilled, (state, action) => {
@@ -49,7 +50,7 @@ export const fetchCards = createAsyncThunk('cards/fetchCards',
             dispatch(setAppStatus('loading'))
             let res = await cardsAPI.getCards(packId, data)
             dispatch(setAppStatus('succeeded'))
-            return res.data
+            return {packId, data: res.data}
         } catch (e) {
 
         }

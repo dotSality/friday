@@ -10,7 +10,7 @@ import {Navigate, useParams} from 'react-router-dom';
 import {PATH} from '../../utils/paths';
 
 export const Cards = () => {
-
+    debugger
     const {cardsPack_id} = useParams()
     const {cardsData, packId, isLoaded} = useAppSelector(state => state.cards)
     const {status} = useAppSelector(state => state.app)
