@@ -21,14 +21,14 @@ export const Packs = () => {
     let [value, setValue] = useDebounce<string>(() => {
         dispatch(fetchCards({
             packName: value,
+            pageCount: 10
         }))
     }, '')
 
     const onInputChangeHandler = (e: ChangeEvent<HTMLInputElement>) => setValue(e.currentTarget.value)
-    const onPageChange = (page:number) => dispatch(fetchCards({page}))
-    const onChangePageCount = (pageCount:number) => {
-        dispatch(fetchCards({pageCount}))
-    }
+    const onPageChange = (page:number) => dispatch(fetchCards({page, pageCount}))
+    const onChangePageCount = (pageCount:number) => dispatch(fetchCards({pageCount}))
+
 
 
     const mappedPacks = cardPacks.map(el => (<Pack key={el._id} cardPack={el}/>))
@@ -40,7 +40,7 @@ export const Packs = () => {
 
     if (!isLoaded) return <img src={loader} alt="aaaa"/>
 
-    return (
+    return (<>
         <div style={{alignItems: 'center', color: 'white'}}>
             <div>
                 <TextField
@@ -60,5 +60,6 @@ export const Packs = () => {
 
             </div>
         </div>
+        </>
     )
 }
