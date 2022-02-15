@@ -7,9 +7,9 @@ import {TextField} from '@mui/material';
 import s from '../Pages/LoginPage/LoginPage.module.scss';
 import {useDebounce} from '../../utils/debounce';
 import loader from '../../common/img/loader.gif';
-import {CustomMuiPagination} from "../Pagination/CustomMuiPagination";
-import {CustomMuiSelect} from "../Select/CustomMuiSelect";
-import {clearPacksData, fetchPacks} from '../../bll/packs-reducer';
+import {CustomMuiPagination} from '../Pagination/CustomMuiPagination';
+import {CustomMuiSelect} from '../Select/CustomMuiSelect';
+import {createPack, fetchPacks,clearPacksData} from '../../bll/packs-reducer';
 
 export const Packs = () => {
 
@@ -44,6 +44,9 @@ export const Packs = () => {
 
     const mappedPacks = cardPacks.map(el => (<Pack key={el._id} cardPack={el}/>))
 
+   const handler =()=>{
+        dispatch(createPack('Vlad'))
+   }
 
     if (!isLoggedIn) {
         return <Navigate to={PATH.LOGIN}/>
@@ -51,31 +54,32 @@ export const Packs = () => {
 
     if (!isLoaded) return <img src={loader} alt="aaaa"/>
 
-    return (
-        <div style={{alignItems: 'center', color: 'white'}}>
-            <div>
-                <TextField
-                    className={s.textField}
-                    value={value}
-                    onChange={onInputChangeHandler}
-                    sx={{width: '200px'}}
-                    margin={'normal'}
-                    id="outlined-basic"
-                    variant="standard"
-                /> {mappedPacks}
-                <div style={{display: 'flex', justifyContent: 'space-around'}}>
-                    <CustomMuiPagination
-                        totalItemsCount={cardPacksTotalCount}
-                        pageCount={pageCount}
-                        currentPage={currentPage}
-                        onSetNewPage={onPageChange}
-                        disabled={status === 'loading'}
-                    />
-                    <CustomMuiSelect value={pageCount} onChangeOptions={onChangePageCount}/>
+    return (<>
+            <div style={{alignItems: 'center', color: 'white'}}>
+                <button onClick={handler}>ADDDD</button>
+                <div>
+                    <TextField
+                        className={s.textField}
+                        value={value}
+                        onChange={onInputChangeHandler}
+                        sx={{width: '200px'}}
+                        margin={'normal'}
+                        id="outlined-basic"
+                        variant="standard"
+                    /> {mappedPacks}
+                    <div style={{display: 'flex', justifyContent: 'space-around'}}>
+                        <CustomMuiPagination
+                            totalItemsCount={cardPacksTotalCount}
+                            pageCount={pageCount}
+                            currentPage={currentPage}
+                            onSetNewPage={onPageChange}
+                            disabled={status === 'loading'}
+                        />
+                        <CustomMuiSelect value={pageCount} onChangeOptions={onChangePageCount}/>
+
+                    </div>
                 </div>
-
             </div>
-        </div>
-
+        </>
     )
 }

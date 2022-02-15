@@ -1,7 +1,8 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {authAPI} from "../dal/authApi";
 import {isLoggedIn} from "./login-reducer";
-import {setUserProfile} from './profile-reducer';
+import {changeUserDataTC, setUserProfile} from './profile-reducer';
+import {sendNewPassword} from './pass-reducer';
 
 
 const initialState: InitStateType = {

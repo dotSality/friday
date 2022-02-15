@@ -13,6 +13,15 @@ export type PayloadType = {
 export const packsApi = {
     getPack(data: PayloadType) {
         return instance.get<ResponseType>(`/cards/pack`, {params: data})
+    },
+    addPack(name: string) {
+        return instance.post<AddPackResponseType>(`/cards/pack`, {cardsPack: {name}})
+    },
+    deletePack(id: string) {
+        return instance.delete<ResponseType>(`/cards/pack?id=${id}`, {})
+    },
+    updatePack(name: string, _id: string) {
+        return instance.put<ResponseType>(`/cards/pack`, {cardsPack: {name,_id}})
     }
 }
 
@@ -45,3 +54,8 @@ type ResponseType = {
     page: number
     pageCount: number
 }
+
+export type AddPackResponseType = {
+    newCardsPack: CardPackType;
+};
+
