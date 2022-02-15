@@ -250,9 +250,9 @@ export default function EnhancedTable() {
     const [dense, setDense] = React.useState(false);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-    const {cardPacks, isLoaded} = useAppSelector(state => state.cards)
+    const {cardPacks, isLoaded} = useAppSelector(state => state.packs)
     const rows = cardPacks.map(el => {
-        return createData(el.name, el.cardsCount, el.updated.split('').slice(0,9).join(''), el.user_name, 'learn')
+        return createData(el.name, el.cardsCount, el.updated.split('').slice(0, 9).join(''), el.user_name, 'learn')
     })
 
     const handleRequestSort = (

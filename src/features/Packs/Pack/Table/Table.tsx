@@ -7,7 +7,6 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {useAppSelector} from '../../../../bll/store';
-import {CardPacksType} from '../../../../dal/cards-api';
 import {Table} from '@mui/material';
 
 
@@ -33,8 +32,26 @@ const StyledTableRow = styled(TableRow)(({theme}) => ({
 
 
 export const TablePacks = () => {
+debugger
+    const packs = useAppSelector(state => state.packs.cardPacks)
 
-    const packs = useAppSelector<CardPacksType>(state => state.cards)
+    let mappedElements = packs.map((row) => (
+        <StyledTableRow key={row.name}>
+            <StyledTableCell component="th" scope="row">
+                {row.name}
+            </StyledTableCell>
+            <StyledTableCell align="right">{row.cardsCount}</StyledTableCell>
+            <StyledTableCell align="right">{row.updated}</StyledTableCell>
+            <StyledTableCell align="right">{row.user_name}</StyledTableCell>
+            <StyledTableCell align="right">
+                <div>
+                    <button>Delete</button>
+                    <button>Edit</button>
+                    <button>Learn</button>
+                </div>
+            </StyledTableCell>
+        </StyledTableRow>
+    ));
 
 
     return (
@@ -50,23 +67,7 @@ export const TablePacks = () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {packs.map((row) => (
-                        <StyledTableRow key={row.name}>
-                            <StyledTableCell component="th" scope="row">
-                                {row.name}
-                            </StyledTableCell>
-                            <StyledTableCell align="right">{row.cardsCount}</StyledTableCell>
-                            <StyledTableCell align="right">{row.updated}</StyledTableCell>
-                            <StyledTableCell align="right">{row.user_name}</StyledTableCell>
-                            <StyledTableCell align="right">
-                                <div>
-                                    <button>Delete</button>
-                                    <button>Edit</button>
-                                    <button>Learn</button>
-                                </div>
-                            </StyledTableCell>
-                        </StyledTableRow>
-                    ))}
+                    {mappedElements}
                 </TableBody>
             </Table>
         </TableContainer>

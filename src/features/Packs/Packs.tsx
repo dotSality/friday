@@ -10,6 +10,7 @@ import {useDebounce} from '../../utils/debounce';
 import loader from '../../common/img/loader.gif';
 import {CustomMuiPagination} from "../Pagination/CustomMuiPagination";
 import {CustomMuiSelect} from "../Select/CustomMuiSelect";
+import {fetchPacks} from '../../bll/packs-reducer';
 
 export const Packs = () => {
 
@@ -21,19 +22,19 @@ export const Packs = () => {
         cardPacksTotalCount,
         pageCount,
         page: currentPage
-    } = useAppSelector(state => state.cards)
+    } = useAppSelector(state => state.packs)
     const dispatch = useAppDispatch()
 
     let [value, setValue] = useDebounce<string>(() => {
-        dispatch(fetchCards({
+        dispatch(fetchPacks({
             packName: value,
             pageCount: 10
         }))
     }, '')
 
     const onInputChangeHandler = (e: ChangeEvent<HTMLInputElement>) => setValue(e.currentTarget.value)
-    const onPageChange = (page: number) => dispatch(fetchCards({page, pageCount}))
-    const onChangePageCount = (pageCount: number) => dispatch(fetchCards({pageCount}))
+    const onPageChange = (page: number) => dispatch(fetchPacks({page, pageCount}))
+    const onChangePageCount = (pageCount: number) => dispatch(fetchPacks({pageCount}))
 
 
     const mappedPacks = cardPacks.map(el => (<Pack key={el._id} cardPack={el}/>))
@@ -66,7 +67,6 @@ export const Packs = () => {
                             disabled={status === 'loading'}
                         />
                         <CustomMuiSelect value={pageCount} onChangeOptions={onChangePageCount}/>
-                        {/*<Pagination portionSize={10} onSetNewPage={onPageChange}/>*/}
                     </div>
 
                 </div>

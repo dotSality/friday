@@ -35,6 +35,7 @@ export const fetchPacks = createAsyncThunk(
         dispatch(setAppStatus('loading'))
         try {
             const res = await packsApi.getPack(data)
+            dispatch(setAppStatus('succeeded'))
             return res.data
         } catch (e: any) {
             dispatch(setAppStatus('failed'))
