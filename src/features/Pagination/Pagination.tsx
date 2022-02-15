@@ -13,7 +13,7 @@ export const Pagination: FC<PropsType> = ({portionSize, onSetNewPage}) => {
     const {cardPacksTotalCount, pageCount, page: currentPage} = useAppSelector(state => state.cards)
 
     let [portionNumber, setPortionNumber] = useState(1)
-    let [inputPage, setInputPage] = useState<number | string>('')
+
 
 
     const totalAmountOfPages = Math.ceil(cardPacksTotalCount / pageCount)
@@ -31,22 +31,6 @@ export const Pagination: FC<PropsType> = ({portionSize, onSetNewPage}) => {
 
     const onPageChanged = (page: number) => {
         onSetNewPage(page)
-    }
-    const onSetNewPageFromInput = (e: ChangeEvent<HTMLInputElement>) => {
-        const value = e.currentTarget.value
-        setInputPage(value)
-    }
-
-    const onSetNewPageByEnter = (e: KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter') {
-            onSetNewPage(+inputPage)
-            setInputPage('')
-        }
-    }
-
-    const onSetNewPageByButton = (inputPage: number) => {
-        onSetNewPage(inputPage)
-        setInputPage('')
     }
 
     useEffect(() => {
@@ -83,20 +67,6 @@ export const Pagination: FC<PropsType> = ({portionSize, onSetNewPage}) => {
                     onSetNewPage(portionSize + currentPage)
                 }}>next</button>}
             </div>
-            <input style={{
-                border: '1px solid',
-                width: '40px',
-                marginLeft: '20px',
-                marginRight: '5px'
-            }}
-                   onChange={onSetNewPageFromInput}
-                   value={inputPage}
-                   placeholder={'page'}
-                   onKeyPress={onSetNewPageByEnter}/>
-            <button onClick={() => {
-                onSetNewPageByButton(+inputPage)
-            }}>＞
-            </button>
         </div>
     )
 }

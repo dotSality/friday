@@ -1,42 +1,43 @@
-import {Navigate, Routes, useNavigate} from 'react-router-dom';
+import {Navigate} from 'react-router-dom';
 import {PATH} from '../../utils/paths';
-import React, {ChangeEvent, useEffect} from 'react';
+import React, {ChangeEvent} from 'react';
 import {useAppDispatch, useAppSelector} from '../../bll/store';
-import {clearPacksData, fetchPacks} from '../../bll/packs-reducer';
+import {fetchCards} from '../../bll/cards-reducer';
 import {Pack} from './Pack/Pack';
 import {TextField} from '@mui/material';
 import s from '../Pages/LoginPage/LoginPage.module.scss';
 import {useDebounce} from '../../utils/debounce';
 import loader from '../../common/img/loader.gif';
-import {Pagination} from "../Pagination/Pagination";
-import EnhancedTable from "./TableSort";
+import {CustomMuiPagination} from "../Pagination/CustomMuiPagination";
+import {CustomMuiSelect} from "../Select/CustomMuiSelect";
 
 export const Packs = () => {
 
     const isLoggedIn = useAppSelector<boolean>(state => state.login.isLoggedIn)
-    const {cardPacks, isLoaded} = useAppSelector(state => state.packs)
+    const {status} = useAppSelector(state => state.app)
+    const {
+        cardPacks,
+        isLoaded,
+        cardPacksTotalCount,
+        pageCount,
+        page: currentPage
+    } = useAppSelector(state => state.cards)
     const dispatch = useAppDispatch()
-    const packsOnPage = 10
 
     let [value, setValue] = useDebounce<string>(() => {
-        dispatch(fetchPacks({
+        dispatch(fetchCards({
             packName: value,
-            pageCount: packsOnPage,
+            pageCount: 10
         }))
     }, '')
+
     const onInputChangeHandler = (e: ChangeEvent<HTMLInputElement>) => setValue(e.currentTarget.value)
-
-    useEffect(() => {
-        return () => {
-            dispatch(clearPacksData())
-        }
-    }, [])
-
-
-    const onPageChange = (page:number) => dispatch(fetchPacks({page, pageCount: packsOnPage}))
+    const onPageChange = (page: number) => dispatch(fetchCards({page, pageCount}))
+    const onChangePageCount = (pageCount: number) => dispatch(fetchCards({pageCount}))
 
 
     const mappedPacks = cardPacks.map(el => (<Pack key={el._id} cardPack={el}/>))
+
 
     if (!isLoggedIn) {
         return <Navigate to={PATH.LOGIN}/>
@@ -44,21 +45,32 @@ export const Packs = () => {
 
     if (!isLoaded) return <img src={loader} alt="aaaa"/>
 
-    return (
-        <div style={{alignItems: 'center', color: 'white'}}>
-            <div>
-                <EnhancedTable/>
-                <TextField
-                    className={s.textField}
-                    value={value}
-                    onChange={onInputChangeHandler}
-                    sx={{width: '200px'}}
-                    margin={'normal'}
-                    id="outlined-basic"
-                    variant="standard"
-                /> {mappedPacks}
-                <Pagination portionSize={packsOnPage} onSetNewPage={onPageChange}/>
+    return (<>
+            <div style={{alignItems: 'center', color: 'white'}}>
+                <div>
+                    <TextField
+                        className={s.textField}
+                        value={value}
+                        onChange={onInputChangeHandler}
+                        sx={{width: '200px'}}
+                        margin={'normal'}
+                        id="outlined-basic"
+                        variant="standard"
+                    /> {mappedPacks}
+                    <div style={{display: 'flex', justifyContent: 'space-around'}}>
+                        <CustomMuiPagination
+                            totalItemsCount={cardPacksTotalCount}
+                            pageCount={pageCount}
+                            currentPage={currentPage}
+                            onSetNewPage={onPageChange}
+                            disabled={status === 'loading'}
+                        />
+                        <CustomMuiSelect value={pageCount} onChangeOptions={onChangePageCount}/>
+                        {/*<Pagination portionSize={10} onSetNewPage={onPageChange}/>*/}
+                    </div>
+
+                </div>
             </div>
-        </div>
+        </>
     )
 }
