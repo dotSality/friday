@@ -28,3 +28,4 @@ export type GetCardsResponseType = {
     token: string,
     tokenDeathTime: number,
 }
+
