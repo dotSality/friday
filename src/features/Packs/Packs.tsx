@@ -33,8 +33,8 @@ export const Packs = () => {
     }, '')
 
     const onInputChangeHandler = (e: ChangeEvent<HTMLInputElement>) => setValue(e.currentTarget.value)
-    const onPageChange = (page: number) => dispatch(fetchPacks({page, pageCount}))
-    const onChangePageCount = (pageCount: number) => dispatch(fetchPacks({pageCount}))
+    const onPageChange = (page: number) => dispatch(fetchPacks({packName: value, page, pageCount}))
+    const onChangePageCount = (pageCount: number) => dispatch(fetchPacks({packName: value, pageCount}))
 
 
     const mappedPacks = cardPacks.map(el => (<Pack key={el._id} cardPack={el}/>))
