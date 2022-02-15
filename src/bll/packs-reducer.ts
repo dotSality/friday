@@ -31,7 +31,7 @@ const cardsSlice = createSlice({
 
 export const fetchPacks = createAsyncThunk(
     'cards/fetchCards',
-    async (data: PayloadType, {dispatch,rejectWithValue}) => {
+    async (data: PayloadType, {dispatch, rejectWithValue}) => {
         dispatch(setAppStatus('loading'))
         try {
             const res = await packsApi.getPack(data)

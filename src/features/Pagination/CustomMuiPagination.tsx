@@ -33,6 +33,7 @@ export const CustomMuiPagination: FC<PropsType> = React.memo(({
                     variant={'outlined'}
                     boundaryCount={2}
                 />
+
             </>
         )
     }

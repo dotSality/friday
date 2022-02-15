@@ -3,7 +3,7 @@ import {CardPackType} from '../../../dal/packs-api';
 import {useAppDispatch} from '../../../bll/store';
 import {setPackId} from '../../../bll/cards-reducer';
 import {PATH} from '../../../utils/paths';
-import {useNavigate} from 'react-router-dom';
+import {NavLink, useNavigate} from 'react-router-dom';
 
 type PropsType = {
     cardPack: CardPackType
@@ -21,7 +21,9 @@ export const Pack: FC<PropsType> = ({cardPack}) => {
 
     return (
         <div style={{display: 'flex', justifyContent: 'space-between', maxWidth: '670px', width: '100%'}}>
-            <div style={{width: '140px', marginRight: '10px'}}>{name}</div>
+            <NavLink to={PATH.CARDS + `/${_id}`}>
+                <div style={{width: '140px', marginRight: '10px'}}>{name}</div>
+            </NavLink>
             <div style={{width: '40px', marginRight: '10px'}}>{cardsCount}</div>
             <div style={{width: '100px', marginRight: '10px'}}>{updated.split('').slice(0, 9).join('')}</div>
             <div style={{width: '100px', marginRight: '10px', overflow: 'hidden'}}>{user_name}</div>

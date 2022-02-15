@@ -1,8 +1,7 @@
 import {Navigate} from 'react-router-dom';
 import {PATH} from '../../utils/paths';
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../bll/store';
-import {fetchCards} from '../../bll/cards-reducer';
 import {Pack} from './Pack/Pack';
 import {TextField} from '@mui/material';
 import s from '../Pages/LoginPage/LoginPage.module.scss';
@@ -10,7 +9,7 @@ import {useDebounce} from '../../utils/debounce';
 import loader from '../../common/img/loader.gif';
 import {CustomMuiPagination} from "../Pagination/CustomMuiPagination";
 import {CustomMuiSelect} from "../Select/CustomMuiSelect";
-import {fetchPacks} from '../../bll/packs-reducer';
+import {clearPacksData, fetchPacks} from '../../bll/packs-reducer';
 
 export const Packs = () => {
 
@@ -32,6 +31,12 @@ export const Packs = () => {
         }))
     }, '')
 
+    useEffect(() => {
+        return () => {
+            dispatch(clearPacksData())
+        }
+    }, [])
+
     const onInputChangeHandler = (e: ChangeEvent<HTMLInputElement>) => setValue(e.currentTarget.value)
     const onPageChange = (page: number) => dispatch(fetchPacks({packName: value, page, pageCount}))
     const onChangePageCount = (pageCount: number) => dispatch(fetchPacks({packName: value, pageCount}))
@@ -46,31 +51,31 @@ export const Packs = () => {
 
     if (!isLoaded) return <img src={loader} alt="aaaa"/>
 
-    return (<>
-            <div style={{alignItems: 'center', color: 'white'}}>
-                <div>
-                    <TextField
-                        className={s.textField}
-                        value={value}
-                        onChange={onInputChangeHandler}
-                        sx={{width: '200px'}}
-                        margin={'normal'}
-                        id="outlined-basic"
-                        variant="standard"
-                    /> {mappedPacks}
-                    <div style={{display: 'flex', justifyContent: 'space-around'}}>
-                        <CustomMuiPagination
-                            totalItemsCount={cardPacksTotalCount}
-                            pageCount={pageCount}
-                            currentPage={currentPage}
-                            onSetNewPage={onPageChange}
-                            disabled={status === 'loading'}
-                        />
-                        <CustomMuiSelect value={pageCount} onChangeOptions={onChangePageCount}/>
-                    </div>
-
+    return (
+        <div style={{alignItems: 'center', color: 'white'}}>
+            <div>
+                <TextField
+                    className={s.textField}
+                    value={value}
+                    onChange={onInputChangeHandler}
+                    sx={{width: '200px'}}
+                    margin={'normal'}
+                    id="outlined-basic"
+                    variant="standard"
+                /> {mappedPacks}
+                <div style={{display: 'flex', justifyContent: 'space-around'}}>
+                    <CustomMuiPagination
+                        totalItemsCount={cardPacksTotalCount}
+                        pageCount={pageCount}
+                        currentPage={currentPage}
+                        onSetNewPage={onPageChange}
+                        disabled={status === 'loading'}
+                    />
+                    <CustomMuiSelect value={pageCount} onChangeOptions={onChangePageCount}/>
                 </div>
+
             </div>
-        </>
+        </div>
+
     )
 }
