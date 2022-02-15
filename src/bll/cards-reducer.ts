@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {setAppStatus} from './app-reducer';
-import {cardsAPI, GetCardsRequestType} from '../dal/cards-api';
+import {cardsAPI, GetCardsRequestType, UpdateTaskRequestType} from '../dal/cards-api';
 
 const cardsSlice = createSlice({
     name: 'cards',
@@ -43,7 +43,7 @@ const cardsSlice = createSlice({
     }
 })
 
-export const fetchCards = createAsyncThunk('fetchCards',
+export const fetchCards = createAsyncThunk('cards/fetchCards',
     async ({packId, data}: { packId: string, data?: GetCardsRequestType }, {dispatch}) => {
         try {
             dispatch(setAppStatus('loading'))
@@ -55,7 +55,7 @@ export const fetchCards = createAsyncThunk('fetchCards',
         }
     })
 
-export const deleteCard = createAsyncThunk('deleteCard',
+export const deleteCard = createAsyncThunk('cards/deleteCard',
     async (cardId: string, {dispatch}) => {
         try {
             dispatch(setAppStatus('loading'))
@@ -65,6 +65,17 @@ export const deleteCard = createAsyncThunk('deleteCard',
             return cardId
         } catch (e: any) {
             dispatch(setAppStatus('failed'))
+        }
+    })
+
+export const updateCard = createAsyncThunk('cards/updateCard',
+    async(data: UpdateTaskRequestType, {dispatch}) => {
+        try {
+            dispatch(setAppStatus('loading'))
+            let res = cardsAPI.updateCard(data)
+            dispatch(setAppStatus('succeeded'))
+        } catch (e: any) {
+
         }
     })
 

@@ -3,13 +3,16 @@ import {CardsType} from '../bll/cards-reducer';
 
 export const cardsAPI = {
     getCards(cardsPack_id: string, data?: GetCardsRequestType) {
-        return instance.get<GetCardsResponseType>(`cards/card?cardsPack_id=${cardsPack_id}`, {params: data})
+        return instance.get<GetCardsResponseType<CardsType[]>>(`cards/card?cardsPack_id=${cardsPack_id}`, {params: data})
     },
     createCard(cardsPack_id: string, data?: CreateCardRequestType) {
         return instance.post(`cards/card?cardsPack_id=${cardsPack_id}`, data, {params: data})
     },
-    deleteCard(cardsPack_id: string) {
-        return instance.delete(`cards/card?id=${cardsPack_id}`)
+    deleteCard(cardId: string) {
+        return instance.delete(`cards/card?id=${cardId}`)
+    },
+    updateCard(data: UpdateTaskRequestType) {
+        return instance.put(`cards/card`, data)
     }
 }
 
@@ -36,8 +39,8 @@ export type GetCardsRequestType = {
     pageCount?: number,
 }
 
-export type GetCardsResponseType = {
-    cards: CardsType[],
+export type GetCardsResponseType<D> = {
+    cards: D,
     cardsTotalCount: number,
     maxGrade: number,
     minGrade: number,
@@ -46,4 +49,10 @@ export type GetCardsResponseType = {
     pageCount: number,
     token: string,
     tokenDeathTime: number,
+}
+
+export type UpdateTaskRequestType = {
+    _id: string,
+    question?: string,
+    comment?: string,
 }
