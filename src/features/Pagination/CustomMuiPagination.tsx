@@ -2,20 +2,25 @@ import React, {FC} from "react";
 
 import {Pagination} from '@mui/material'
 
-import {useAppSelector} from "../../bll/store";
-
-
 
 type PropsType = {
     onSetNewPage: (page: number) => void
+    totalItemsCount: number
+    pageCount: number
+    currentPage: number
+    disabled: boolean
 }
 
-export const CustomMuiPagination: FC<PropsType> = React.memo(({onSetNewPage,}) => {
+export const CustomMuiPagination: FC<PropsType> = React.memo(({
+                                                                  onSetNewPage,
+                                                                  pageCount,
+                                                                  currentPage,
+                                                                  totalItemsCount,
+                                                                  disabled
+                                                              }) => {
 
-        const {cardPacksTotalCount, pageCount, page: currentPage} = useAppSelector(state => state.cards)
-        const {status} = useAppSelector(state => state.app)
 
-        const totalAmountOfPages = Math.ceil(cardPacksTotalCount / pageCount)
+        const totalAmountOfPages = Math.ceil(totalItemsCount / pageCount)
         console.log(pageCount)
 
         return (
@@ -24,7 +29,7 @@ export const CustomMuiPagination: FC<PropsType> = React.memo(({onSetNewPage,}) =
                     count={totalAmountOfPages}
                     page={currentPage}
                     onChange={(_, num) => onSetNewPage(num)}
-                    disabled={status === 'loading'}
+                    disabled={disabled}
                     sx={{marginY: '15px'}}
                     variant={'outlined'}
                     boundaryCount={2}
