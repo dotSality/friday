@@ -11,7 +11,7 @@ export type PayloadType = {
     user_id?: string
 };
 export const cardsAPI = {
-    getPack(data: PayloadType) {
+    getPack(data?: PayloadType) {
         return instance.get<ResponseType>(`/cards/pack`, {params: data})
     }
 }

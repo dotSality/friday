@@ -1,6 +1,7 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {CardPackType, cardsAPI, PayloadType} from '../dal/cards-api';
 import {setAppStatus} from './app-reducer';
+import {RootStateType} from "./store";
 
 const cardsSlice = createSlice({
         name: 'cards',
@@ -35,10 +36,11 @@ const cardsSlice = createSlice({
 
 export const fetchCards = createAsyncThunk(
     'cards/fetchCards',
-    async (data: PayloadType, {dispatch,rejectWithValue}) => {
+    async (data: PayloadType, {dispatch,rejectWithValue, getState}) => {
         dispatch(setAppStatus('loading'))
         try {
             const res = await cardsAPI.getPack(data)
+            dispatch(setAppStatus('succeeded'))
             return res.data
         } catch (e: any) {
             dispatch(setAppStatus('failed'))
