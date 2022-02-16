@@ -45,7 +45,8 @@ export const Packs = () => {
     const mappedPacks = cardPacks.map(el => (<Pack key={el._id} cardPack={el}/>))
 
     const addPackHandler = () => {
-        dispatch(createPack('Sality'))
+        dispatch(createPack('Mihail Krug'))
+
     }
 
     if (!isLoggedIn) {

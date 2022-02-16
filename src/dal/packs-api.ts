@@ -18,10 +18,10 @@ export const packsApi = {
         return instance.post<AddPackResponseType>(`/cards/pack`, {cardsPack: {name}})
     },
     deletePack(id: string) {
-        return instance.delete<ResponseType>(`/cards/pack?id=${id}`, {})
+        return instance.delete<DeletePackResponseType>(`/cards/pack?id=${id}`, {})
     },
     updatePack(name: string, _id: string) {
-        return instance.put<ResponseType>(`/cards/pack`, {cardsPack: {name,_id}})
+        return instance.put<ResponseType>(`/cards/pack`, {cardsPack: {name, _id}})
     }
 }
 
@@ -58,4 +58,10 @@ type ResponseType = {
 export type AddPackResponseType = {
     newCardsPack: CardPackType;
 };
+
+export type DeletePackResponseType = {
+    deletedCardsPack: CardPackType
+
+
+}
 

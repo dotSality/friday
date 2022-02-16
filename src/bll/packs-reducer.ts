@@ -17,6 +17,12 @@ const cardsSlice = createSlice({
             clearPacksData(state) {
                 state.cardPacks = []
                 state.isLoaded = false
+            },
+            deletePack(state, action: PayloadAction<string>) {
+                state.cardPacks = state.cardPacks.filter(item => item._id !== action.payload)
+            },
+            addPack(state, action: PayloadAction<{pack : CardPackType}>) {
+                state.cardPacks.unshift({...action.payload.pack})
             }
         },
         extraReducers: builder => {
@@ -29,6 +35,8 @@ const cardsSlice = createSlice({
     },
 )
 
+
+//Thunk
 export const fetchPacks = createAsyncThunk(
     'packs/fetchCards',
     async (data: PayloadType, {dispatch, rejectWithValue}) => {
@@ -55,6 +63,8 @@ export const createPack = createAsyncThunk(
         try {
             dispatch(setAppStatus('loading'))
             const res = await packsApi.addPack(name)
+            debugger
+            dispatch(addPack({pack:res.data.newCardsPack}))
             dispatch(setAppStatus('succeeded'))
             console.log(res)
         } catch (e: any) {
@@ -74,6 +84,8 @@ export const removePack = createAsyncThunk(
             dispatch(setAppStatus('loading'))
             const res = await packsApi.deletePack(_id)
             dispatch(setAppStatus('succeeded'))
+            debugger
+            dispatch(deletePack(res.data.deletedCardsPack._id))
             console.log(res)
         } catch (e: any) {
             const error = e.response
@@ -90,7 +102,7 @@ export const updatePack = createAsyncThunk(
     async (params: { name: string, _id: string }, {dispatch}) => {
         try {
             dispatch(setAppStatus('loading'))
-            await packsApi.updatePack(params.name,params._id)
+            await packsApi.updatePack(params.name, params._id)
             dispatch(setAppStatus('succeeded'))
         } catch (e: any) {
             const error = e.response
@@ -103,6 +115,6 @@ export const updatePack = createAsyncThunk(
 )
 
 
-export const {clearPacksData} = cardsSlice.actions
+export const {clearPacksData, deletePack,addPack} = cardsSlice.actions
 
 export const packsReducer = cardsSlice.reducer
