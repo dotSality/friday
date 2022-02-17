@@ -8,7 +8,9 @@ export type PayloadType = {
     sortPacks?: string,
     page?: number,
     pageCount?: number,
-    user_id?: string
+    user_id?: string,
+    "0updated"?: string,
+    "1updated"?: string,
 };
 export const packsApi = {
     getPack(data: PayloadType) {
@@ -21,9 +23,11 @@ export const packsApi = {
         return instance.delete<ResponseType>(`/cards/pack?id=${id}`, {})
     },
     updatePack(name: string, _id: string) {
-        return instance.put<ResponseType>(`/cards/pack`, {cardsPack: {name,_id}})
-    }
+        return instance.put<ResponseType>(`/cards/pack`, {cardsPack: {name, _id}})
+    },
 }
+
+//shop?min=100&max=50000&page=1&pageCount=10&sortProducts=0price&
 
 export type CardPackType = {
     _id: string,

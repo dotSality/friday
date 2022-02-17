@@ -10,6 +10,7 @@ import loader from '../../common/img/loader.gif';
 import {CustomMuiPagination} from '../Pagination/CustomMuiPagination';
 import {CustomMuiSelect} from '../Select/CustomMuiSelect';
 import {createPack, fetchPacks, clearPacksData} from '../../bll/packs-reducer';
+import {Table} from "./Table";
 
 export const Packs = () => {
 
@@ -27,7 +28,7 @@ export const Packs = () => {
     let [value, setValue] = useDebounce<string>(() => {
         dispatch(fetchPacks({
             packName: value,
-            pageCount: 10
+            pageCount: 10,
         }))
     }, '')
 
@@ -56,7 +57,8 @@ export const Packs = () => {
 
     return (
         <div style={{alignItems: 'center', color: 'white'}}>
-            <button onClick={addPackHandler}>ADDDD</button>
+            <button onClick={addPackHandler}>ADD</button>
+            <Table cardPacks={cardPacks}/>
             <div>
                 <TextField
                     className={s.textField}

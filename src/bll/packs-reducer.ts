@@ -1,4 +1,4 @@
-import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice, Dispatch, PayloadAction} from '@reduxjs/toolkit';
 import {CardPackType, packsApi, PayloadType} from '../dal/packs-api';
 import {setAppError, setAppStatus} from './app-reducer';
 
@@ -17,7 +17,10 @@ const cardsSlice = createSlice({
             clearPacksData(state) {
                 state.cardPacks = []
                 state.isLoaded = false
-            }
+            },
+            filterPack(state, action: PayloadAction<{ cardPacks: CardPackType[] }>) {
+                state.cardPacks = action.payload.cardPacks
+            },
         },
         extraReducers: builder => {
             builder.addCase(fetchPacks.fulfilled, (state, action) => {
@@ -90,7 +93,7 @@ export const updatePack = createAsyncThunk(
     async (params: { name: string, _id: string }, {dispatch}) => {
         try {
             dispatch(setAppStatus('loading'))
-            await packsApi.updatePack(params.name,params._id)
+            await packsApi.updatePack(params.name, params._id)
             dispatch(setAppStatus('succeeded'))
         } catch (e: any) {
             const error = e.response
@@ -102,7 +105,38 @@ export const updatePack = createAsyncThunk(
     }
 )
 
+/*export const filterPack = createAsyncThunk(
+    'packs/updatePack',
+    async (params: { name: string, _id: string }, {dispatch}) => {
+        try {
+            dispatch(setAppStatus('loading'))
+            await packsApi.updatePack(params.name,params._id)
+            dispatch(setAppStatus('succeeded'))
+        } catch (e: any) {
+            const error = e.response
+                ? e.response.data.error
+                : (e.message + ', Try later')
+            dispatch(setAppError(error))
+            dispatch(setAppStatus('failed'))
+        }
+    }
+)*/
+export const filterPackTC = (data: PayloadType) => async (dispatch: Dispatch) => {
+    try {
+        dispatch(setAppStatus('loading'))
+        const res = await packsApi.getPack(data)
+        dispatch(setAppStatus('succeeded'))
+        dispatch(filterPack({cardPacks: res.data.cardPacks}))
+    } catch (e: any) {
+        const error = e.response
+            ? e.response.data.error
+            : (e.message + ', Try later')
+        dispatch(setAppStatus('succeeded'))
+        dispatch(setAppError(error))
+    }
+}
 
-export const {clearPacksData} = cardsSlice.actions
+
+export const {clearPacksData, filterPack} = cardsSlice.actions
 
 export const packsReducer = cardsSlice.reducer
