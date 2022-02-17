@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 
 import {useAppDispatch, useAppSelector} from '../../../bll/store';
 import {changeUserDataTC, ProfileType} from '../../../bll/profile-reducer';
-import {initializeApp, StatusType} from '../../../bll/app-reducer';
+import {StatusType} from '../../../bll/app-reducer';
 import {EditableSpan} from '../../EditableSpan/EditableSpan';
 import UserPhoto from '../../../common/img/photo_2022-02-06_16-28-54.png'
 import Avatar from '@mui/material/Avatar/Avatar';
@@ -29,10 +29,6 @@ export const ProfilePage = React.memo(() => {
 
         const dispatch = useAppDispatch()
         const navigate = useNavigate()
-
-        useEffect(() => {
-            dispatch(initializeApp())
-        }, [])
 
         useEffect(() => {
             setMyName(name)
@@ -55,10 +51,6 @@ export const ProfilePage = React.memo(() => {
 
         const navigateToMainHandler =() => {
             navigate(PATH.MAIN)
-        }
-
-        if (!isLoggedIn) {
-            return <Navigate to={PATH.LOGIN}/>
         }
 
         return (<>

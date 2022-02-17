@@ -44,10 +44,8 @@ export type CardPackType = {
     __v: number
 }
 
-export type CardPacksType = CardPackType[]
-
 type ResponseType = {
-    cardPacks: CardPacksType
+    cardPacks: CardPackType[]
     cardPacksTotalCount: number
     maxCardsCount: number
     minCardsCount: number
@@ -61,7 +59,5 @@ export type AddPackResponseType = {
 
 export type DeletePackResponseType = {
     deletedCardsPack: CardPackType
-
-
 }
 

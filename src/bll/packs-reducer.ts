@@ -63,7 +63,6 @@ export const createPack = createAsyncThunk(
         try {
             dispatch(setAppStatus('loading'))
             const res = await packsApi.addPack(name)
-            debugger
             dispatch(addPack({pack:res.data.newCardsPack}))
             dispatch(setAppStatus('succeeded'))
             console.log(res)
@@ -84,7 +83,6 @@ export const removePack = createAsyncThunk(
             dispatch(setAppStatus('loading'))
             const res = await packsApi.deletePack(_id)
             dispatch(setAppStatus('succeeded'))
-            debugger
             dispatch(deletePack(res.data.deletedCardsPack._id))
             console.log(res)
         } catch (e: any) {

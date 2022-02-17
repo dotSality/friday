@@ -1,6 +1,4 @@
-import {Navigate} from 'react-router-dom';
-import {PATH} from '../../utils/paths';
-import React, {ChangeEvent, useEffect} from 'react';
+import React, {ChangeEvent, memo, useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../bll/store';
 import {Pack} from './Pack/Pack';
 import {TextField} from '@mui/material';
@@ -9,11 +7,11 @@ import {useDebounce} from '../../utils/debounce';
 import loader from '../../common/img/loader.gif';
 import {CustomMuiPagination} from '../Pagination/CustomMuiPagination';
 import {CustomMuiSelect} from '../Select/CustomMuiSelect';
-import {createPack, fetchPacks, clearPacksData} from '../../bll/packs-reducer';
+import {clearPacksData, createPack, fetchPacks} from '../../bll/packs-reducer';
+import {NotAuthRedirect} from '../../hoc/NotAuthRedirect';
 
-export const Packs = () => {
+const Component = memo(() => {
 
-    const isLoggedIn = useAppSelector<boolean>(state => state.login.isLoggedIn)
     const {status} = useAppSelector(state => state.app)
     const {
         cardPacks,
@@ -45,12 +43,7 @@ export const Packs = () => {
     const mappedPacks = cardPacks.map(el => (<Pack key={el._id} cardPack={el}/>))
 
     const addPackHandler = () => {
-        dispatch(createPack('Mihail Krug'))
-
-    }
-
-    if (!isLoggedIn) {
-        return <Navigate to={PATH.LOGIN}/>
+        dispatch(createPack('Sality'))
     }
 
     if (!isLoaded) return <img src={loader} alt="aaaa"/>
@@ -82,4 +75,6 @@ export const Packs = () => {
             </div>
         </div>
     )
-}
+})
+
+export const Packs = NotAuthRedirect(Component)

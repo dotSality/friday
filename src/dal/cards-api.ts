@@ -2,11 +2,11 @@ import {instance} from './instance';
 import {CardsType} from '../bll/cards-reducer';
 
 export const cardsAPI = {
-    getCards(cardsPack_id: string, data?: GetCardsRequestType) {
-        return instance.get<GetCardsResponseType<CardsType[]>>(`cards/card?cardsPack_id=${cardsPack_id}`, {params: data})
+    getCards(data: GetCardsRequestType) {
+        return instance.get<GetCardsResponseType<CardsType[]>>(`cards/card`, {params: data})
     },
-    createCard(cardsPack_id: string, data?: CreateCardRequestType) {
-        return instance.post(`cards/card?cardsPack_id=${cardsPack_id}`, data, {params: data})
+    createCard(data: CreateCardRequestType) {
+        return instance.post(`cards/card`, {card: data})
     },
     deleteCard(cardId: string) {
         return instance.delete(`cards/card?id=${cardId}`)
@@ -17,6 +17,7 @@ export const cardsAPI = {
 }
 
 export type CreateCardRequestType = {
+    cardsPack_id: string
     question?: string,
     answer?: string,
     grade?: number,
@@ -30,6 +31,7 @@ export type CreateCardRequestType = {
 }
 
 export type GetCardsRequestType = {
+    cardsPack_id: string,
     cardQuestion?: string,
     cardAnswer?: string,
     min?: number,

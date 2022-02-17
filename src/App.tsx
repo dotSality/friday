@@ -39,7 +39,6 @@ function App() {
     }
 
     return (
-
         <div className={s.app}>
             {isLoggedIn &&  <Header/>}
             <Routes>
