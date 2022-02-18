@@ -1,6 +1,6 @@
 import React, {memo, useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../bll/store';
-import {clearCardsData, createCard, deleteCard, fetchCards, updateCard} from '../../bll/cards-reducer';
+import {CardsType, clearCardsData, createCard, deleteCard, fetchCards, updateCard} from '../../bll/cards-reducer';
 import loader from '../../common/img/loader.gif';
 import {Card} from './Card/Card';
 import s from './Cards.module.scss'
@@ -8,6 +8,7 @@ import {CustomMuiPagination} from '../Pagination/CustomMuiPagination';
 import {CustomMuiSelect} from '../Select/CustomMuiSelect';
 import {useParams} from 'react-router-dom';
 import {NotAuthRedirect} from '../../hoc/NotAuthRedirect';
+import {List} from "../List/List";
 
 const Component = memo(() => {
 
@@ -30,9 +31,16 @@ const Component = memo(() => {
         }
     }))
 
-    const onSetNewPageHandler = (value: number) => packId && dispatch(fetchCards({cardsPack_id: packId, page: value, pageCount}))
+    const onSetNewPageHandler = (value: number) => packId && dispatch(fetchCards({
+        cardsPack_id: packId,
+        page: value,
+        pageCount
+    }))
 
-    const onChangeOptionsHandler = (value: number) => packId && dispatch(fetchCards({cardsPack_id: packId, pageCount: value}))
+    const onChangeOptionsHandler = (value: number) => packId && dispatch(fetchCards({
+        cardsPack_id: packId,
+        pageCount: value
+    }))
 
     const onDeleteCardHandler = (cardId: string) => dispatch(deleteCard({
         fetchData: {
@@ -83,15 +91,23 @@ const Component = memo(() => {
             {
                 cards.length > 0
                     ? (<>
-                        {cards.map(({answer, question, updated, grade, _id}) =>
-                            <Card key={updated}
-                                updateCard={onUpdateCardHandler}
-                                deleteCard={onDeleteCardHandler}
-                                _id={_id}
-                                answer={answer}
-                                grade={grade}
-                                question={question}
-                                updated={updated}/>)}
+                        {/*{cards.map(({answer, question, updated, grade, _id}) =>*/}
+                        {/*    <Card key={updated}*/}
+                        {/*        updateCard={onUpdateCardHandler}*/}
+                        {/*        deleteCard={onDeleteCardHandler}*/}
+                        {/*        _id={_id}*/}
+                        {/*        answer={answer}*/}
+                        {/*        grade={grade}*/}
+                        {/*        question={question}*/}
+                        {/*        updated={updated}/>)}*/}
+                        <List items={cards} renderItem={(card: CardsType) => <Card key={card.updated}
+                                                                                   updateCard={onUpdateCardHandler}
+                                                                                   deleteCard={onDeleteCardHandler}
+                                                                                   _id={card._id}
+                                                                                   answer={card.answer}
+                                                                                   grade={card.grade}
+                                                                                   question={card.question}
+                                                                                   updated={card.updated}/>}/>
                         <div style={{display: 'flex', alignSelf: 'flex-start'}}>
                             <CustomMuiPagination
                                 onSetNewPage={onSetNewPageHandler}
