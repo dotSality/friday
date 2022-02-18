@@ -7,7 +7,8 @@ import {CustomMuiSelect} from '../Select/CustomMuiSelect';
 import {clearPacksData, createPack, fetchPacks, removePack, setOwn, updatePack} from '../../bll/packs-reducer';
 import {NotAuthRedirect} from '../../hoc/NotAuthRedirect';
 import {Input} from './Input/Input';
-import {GetPacksPayloadType} from '../../dal/packs-api';
+import {CardPackType, GetPacksPayloadType} from '../../dal/packs-api';
+import {List} from "../List/List";
 
 const Component = memo(() => {
 
@@ -67,22 +68,27 @@ const Component = memo(() => {
         },
     }))
 
-    const mappedPacks = cardPacks.map(el =>
-        (<Pack
-            updatePack={onUpdatePackHandler}
-            removePack={onRemovePackHandler}
-            key={el._id}
-            cardPack={el}/>))
-
-    if (!isLoaded) return <img src={loader} alt="aaaa"/>
+    if (!isLoaded) return <img src={loader} alt="loader"/>
 
     return (
         <div style={{alignItems: 'center', color: 'white'}}>
-            <div style={{display: "flex", flexDirection: "column", width: '100px', height: "50px", justifyContent: "space-between"}}>
+            <div style={{
+                display: "flex",
+                flexDirection: "column",
+                width: '100px',
+                height: "50px",
+                justifyContent: "space-between"
+            }}>
                 <button disabled={status === 'loading'} onClick={onLoggedUserPacksHandler}>
                     {own ? 'Show all packs' : 'Show my packs'}
                 </button>
-                <div style={{display: "flex", flexDirection: "row", width: '300px', height: "50px", justifyContent: "space-between"}}>
+                <div style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    width: '300px',
+                    height: "50px",
+                    justifyContent: "space-between"
+                }}>
                     <input
                         onKeyPress={onEnterPressHandler}
                         style={{height: '30px'}}
@@ -95,7 +101,14 @@ const Component = memo(() => {
             </div>
             <div>
                 <Input placeholder={'Search by title'}/>
-                {status === 'loading' ? <img src={loader} alt="aaaa"/> : mappedPacks}
+                {status === 'loading'
+                    ? <img src={loader} alt="loader"/>
+                    : <List items={cardPacks} renderItem={(cardPack: CardPackType) =>
+                        <Pack updatePack={onUpdatePackHandler}
+                              removePack={onRemovePackHandler}
+                              key={cardPack._id}
+                              cardPack={cardPack}/>}
+                    />}
                 <div style={{display: 'flex', justifyContent: 'space-around'}}>
                     <CustomMuiPagination
                         totalItemsCount={cardPacksTotalCount}
