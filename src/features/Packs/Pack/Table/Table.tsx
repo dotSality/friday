@@ -33,7 +33,7 @@ const StyledTableRow = styled(TableRow)(({theme}) => ({
 
 export const TablePacks = () => {
 debugger
-    const packs = useAppSelector(state => state.packs.cardPacks)
+    const packs = useAppSelector(state => state.packs.packs.cardPacks)
 
     let mappedElements = packs.map((row) => (
         <StyledTableRow key={row.name}>

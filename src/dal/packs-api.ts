@@ -1,7 +1,7 @@
 import {instance} from './instance';
 
 
-export type PayloadType = {
+export type GetPacksPayloadType = {
     packName?: string,
     min?: number,
     max?: number,
@@ -11,18 +11,34 @@ export type PayloadType = {
     user_id?: string
 };
 export const packsApi = {
-    getPack(data: PayloadType) {
+    getPack(data: GetPacksPayloadType) {
         return instance.get<ResponseType>(`/cards/pack`, {params: data})
     },
-    addPack(name: string) {
-        return instance.post<AddPackResponseType>(`/cards/pack`, {cardsPack: {name}})
+    addPack(data: AddPackRequestType) {
+        return instance.post<AddPackResponseType>(`/cards/pack`, {cardsPack: data})
     },
     deletePack(id: string) {
         return instance.delete<DeletePackResponseType>(`/cards/pack?id=${id}`, {})
     },
-    updatePack(name: string, _id: string) {
-        return instance.put<ResponseType>(`/cards/pack`, {cardsPack: {name, _id}})
+    updatePack(data: UpdatePackRequestType) {
+        return instance.put<ResponseType>(`/cards/pack`, {cardsPack: data})
     }
+}
+
+export type UpdatePackRequestType = {
+    _id: string,
+    name?: string,
+}
+
+export type AddPackRequestType = {
+    name?: string,
+    path?: string,
+    grade?: number,
+    shots?: number,
+    rating?: number,
+    deckCover?: string,
+    private?: boolean,
+    type?: string,
 }
 
 export type CardPackType = {

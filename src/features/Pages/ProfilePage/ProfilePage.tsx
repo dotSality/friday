@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Navigate, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -15,16 +15,16 @@ import UserPhoto from '../../../common/img/photo_2022-02-06_16-28-54.png'
 import Avatar from '@mui/material/Avatar/Avatar';
 import {PATH} from '../../../utils/paths';
 import LoadingStatusBackdrop from "../../LoadingBackDrop/BackDrop";
+import {NotAuthRedirect} from '../../../hoc/NotAuthRedirect';
 
 
-export const ProfilePage = React.memo(() => {
+const Component = React.memo(() => {
 
         const [myName, setMyName] = useState<string>('')
         const [myAvatar, setMyAvatar] = useState<string | undefined>(undefined)
 
         const user = useAppSelector<ProfileType>(state => state.profile)
         const status = useAppSelector<StatusType>(state => state.app.status)
-        const isLoggedIn = useAppSelector<boolean>(state => state.login.isLoggedIn)
         const {avatar, name, email} = user
 
         const dispatch = useAppDispatch()
@@ -82,3 +82,4 @@ export const ProfilePage = React.memo(() => {
     }
 );
 
+export const ProfilePage = NotAuthRedirect(Component)
