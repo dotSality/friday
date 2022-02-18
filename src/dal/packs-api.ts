@@ -1,5 +1,15 @@
 import {instance} from './instance';
 
+export enum sortValues {
+    nameTrue = "0name",
+    nameFalse = "1name",
+    updatedTrue = "0updated",
+    updatedFalse = "1updated",
+    cardsCountTrue = "0cardsCount",
+    cardsCountFalse = "1cardsCount",
+    gradeTrue = "0grade",
+    gradeFalse = "1grade",
+}
 
 export type GetPacksPayloadType = {
     packName?: string,

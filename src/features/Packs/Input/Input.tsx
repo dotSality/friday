@@ -1,6 +1,6 @@
 import s from '../../Pages/LoginPage/LoginPage.module.scss';
 import {TextField} from '@mui/material';
-import React, {ChangeEvent, memo, useEffect, useState} from 'react';
+import React, {ChangeEvent, memo, useCallback, useEffect, useState} from 'react';
 import {setSearchValue} from '../../../bll/packs-reducer';
 import {useAppDispatch, useAppSelector} from '../../../bll/store';
 import {useDebounce} from '../../../utils/debounce';
@@ -15,12 +15,11 @@ export const Input = memo(({placeholder}: PropsType) => {
     const dispatch = useAppDispatch()
     const [defaultValue, setValue] = useState<string>(value || '')
     const debouncedValue = useDebounce<string>(defaultValue)
-    const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => setValue(e.currentTarget.value)
+    const onChangeCallback = useCallback((e: ChangeEvent<HTMLInputElement>) => setValue(e.currentTarget.value), [])
 
     useEffect(() => {
         if (debouncedValue !== null) dispatch(setSearchValue(debouncedValue))
     }, [debouncedValue])
-
 
     return (
         <div>

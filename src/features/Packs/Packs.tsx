@@ -1,9 +1,6 @@
 import React, {ChangeEvent, KeyboardEvent, memo, useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from '../../bll/store';
 import {Pack} from './Pack/Pack';
-import {TextField} from '@mui/material';
-import s from '../Pages/LoginPage/LoginPage.module.scss';
-import {useDebounce} from '../../utils/debounce';
 import loader from '../../common/img/loader.gif';
 import {CustomMuiPagination} from '../Pagination/CustomMuiPagination';
 import {CustomMuiSelect} from '../Select/CustomMuiSelect';
@@ -98,7 +95,7 @@ const Component = memo(() => {
             </div>
             <div>
                 <Input placeholder={'Search by title'}/>
-                {mappedPacks}
+                {status === 'loading' ? <img src={loader} alt="aaaa"/> : mappedPacks}
                 <div style={{display: 'flex', justifyContent: 'space-around'}}>
                     <CustomMuiPagination
                         totalItemsCount={cardPacksTotalCount}
