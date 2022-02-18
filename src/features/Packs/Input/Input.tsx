@@ -16,7 +16,11 @@ export const Input = memo(({placeholder}: PropsType) => {
     const [defaultValue, setValue] = useState<string>(value || '')
     const debouncedValue = useDebounce<string>(defaultValue)
     const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => setValue(e.currentTarget.value)
-    if (debouncedValue) dispatch(setSearchValue(debouncedValue))
+
+    useEffect(() => {
+        if (debouncedValue !== null) dispatch(setSearchValue(debouncedValue))
+    }, [debouncedValue])
+
 
     return (
         <div>

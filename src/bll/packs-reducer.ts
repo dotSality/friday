@@ -2,7 +2,7 @@ import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {CardPackType, GetPacksPayloadType, AddPackRequestType, packsApi, UpdatePackRequestType} from '../dal/packs-api';
 import {setAppError, setAppStatus} from './app-reducer';
 
-const cardsSlice = createSlice({
+const packsSlice = createSlice({
         name: 'packs',
         initialState: {
             packs: {
@@ -13,7 +13,7 @@ const cardsSlice = createSlice({
             page: 0 as number,
             pageCount: 10 as number,
         },
-            value: '',
+            value: null as string | null,
             isLoaded: false,
             own: false,
         },
@@ -21,8 +21,6 @@ const cardsSlice = createSlice({
             clearPacksData(state) {
                 state.packs.cardPacks = []
                 state.isLoaded = false
-                state.value = ''
-                state.own = false
             },
             setOwn(state, action: PayloadAction<boolean>) {
                 state.own = action.payload
@@ -120,6 +118,6 @@ export const updatePack = createAsyncThunk(
 )
 
 
-export const {clearPacksData, setOwn, setSearchValue} = cardsSlice.actions
+export const {clearPacksData, setOwn, setSearchValue} = packsSlice.actions
 
-export const packsReducer = cardsSlice.reducer
+export const packsReducer = packsSlice.reducer

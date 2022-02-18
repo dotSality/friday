@@ -25,7 +25,7 @@ const Component = memo(() => {
     const dispatch = useAppDispatch()
 
     const fetchData: GetPacksPayloadType = {
-        packName: value,
+        packName: value || '',
         page,
         pageCount,
         user_id: own ? _id : undefined,
@@ -98,7 +98,7 @@ const Component = memo(() => {
             </div>
             <div>
                 <Input placeholder={'Search by title'}/>
-                {status === "loading" ? <img src={loader} alt="aaaa"/> : mappedPacks}
+                {mappedPacks}
                 <div style={{display: 'flex', justifyContent: 'space-around'}}>
                     <CustomMuiPagination
                         totalItemsCount={cardPacksTotalCount}
