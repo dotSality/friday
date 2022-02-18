@@ -1,7 +1,6 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {setAppStatus} from './app-reducer';
+import {setAppError, setAppStatus} from './app-reducer';
 import {cardsAPI, CreateCardRequestType, GetCardsRequestType, UpdateTaskRequestType} from '../dal/cards-api';
-import {packsApi} from '../dal/packs-api';
 
 const cardsSlice = createSlice({
     name: 'cards',
@@ -58,11 +57,10 @@ export const fetchCards = createAsyncThunk('cards/fetchCards',
         try {
             dispatch(setAppStatus('loading'))
             let res = await cardsAPI.getCards(data)
-            console.log(res)
             dispatch(setAppStatus('succeeded'))
             return {packId: data.cardsPack_id, data: res.data}
-        } catch (e) {
-
+        } catch (e: any) {
+            dispatch(setAppError(e.response.error + ' ' + e.response.in))
         }
     })
 
@@ -76,17 +74,19 @@ export const deleteCard = createAsyncThunk('cards/deleteCard',
             return cardId
         } catch (e: any) {
             dispatch(setAppStatus('failed'))
+            dispatch(setAppError(e.response.error + ' ' + e.response.in))
         }
     })
 
 export const updateCard = createAsyncThunk('cards/updateCard',
-    async (data: UpdateTaskRequestType, {dispatch}) => {
+    async ({fetchData, data}: { fetchData: GetCardsRequestType, data: UpdateTaskRequestType }, {dispatch}) => {
         try {
             dispatch(setAppStatus('loading'))
-            let res = cardsAPI.updateCard(data)
+            let res = await cardsAPI.updateCard(data)
+            await dispatch(fetchCards(fetchData))
             dispatch(setAppStatus('succeeded'))
         } catch (e: any) {
-
+            dispatch(setAppError(e.response.error + ' ' + e.response.in))
         }
     })
 
@@ -98,7 +98,7 @@ export const createCard = createAsyncThunk('cards/createCard',
             await dispatch(fetchCards(fetchData))
             dispatch(setAppStatus('succeeded'))
         } catch (e: any) {
-
+            dispatch(setAppError(e.response.error + ' ' + e.response.in))
         }
     })
 

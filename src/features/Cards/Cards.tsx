@@ -1,6 +1,6 @@
 import React, {memo, useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../bll/store';
-import {clearCardsData, createCard, deleteCard, fetchCards} from '../../bll/cards-reducer';
+import {clearCardsData, createCard, deleteCard, fetchCards, updateCard} from '../../bll/cards-reducer';
 import loader from '../../common/img/loader.gif';
 import {Card} from './Card/Card';
 import s from './Cards.module.scss'
@@ -43,6 +43,19 @@ const Component = memo(() => {
         cardId
     }))
 
+    const onUpdateCardHandler = (cardId: string) => dispatch(updateCard({
+        fetchData: {
+            cardsPack_id: packId!,
+            page,
+            pageCount,
+        },
+        data: {
+            _id: cardId,
+            question: 'Super Max',
+            comment: 'Super Comment'
+        }
+    }))
+
     useEffect(() => {
         if (packId) {
             dispatch(fetchCards({
@@ -72,6 +85,7 @@ const Component = memo(() => {
                     ? (<>
                         {cards.map(({answer, question, updated, grade, _id}) =>
                             <Card key={updated}
+                                updateCard={onUpdateCardHandler}
                                 deleteCard={onDeleteCardHandler}
                                 _id={_id}
                                 answer={answer}

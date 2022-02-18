@@ -12,7 +12,7 @@ export const cardsAPI = {
         return instance.delete(`cards/card?id=${cardId}`)
     },
     updateCard(data: UpdateTaskRequestType) {
-        return instance.put(`cards/card`, data)
+        return instance.put(`cards/card`, {card: data})
     }
 }
 

@@ -2,7 +2,8 @@ import React from 'react';
 import {useAppDispatch, useAppSelector} from '../../../bll/store';
 
 type CardPropsType = {
-    deleteCard: (_id: string) => void
+    deleteCard: (_id: string) => void,
+    updateCard: (_id: string) => void,
     question: string,
     answer: string,
     updated: string,
@@ -10,11 +11,11 @@ type CardPropsType = {
     _id: string,
 }
 
-export const Card = ({grade, updated, answer, question, _id, deleteCard}: CardPropsType) => {
+export const Card = ({grade, updated, answer, question, _id, deleteCard, updateCard}: CardPropsType) => {
 
     const {status} = useAppSelector(state => state.app)
-    const dispatch = useAppDispatch()
     const deleteCardHandler = () => deleteCard(_id)
+    const updateCardHandler = () => updateCard(_id)
 
     return (
         <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'space-between', maxWidth: '670px', width: '100%'}}>
@@ -24,7 +25,7 @@ export const Card = ({grade, updated, answer, question, _id, deleteCard}: CardPr
             <div style={{width: '50px', marginRight: '10px',}}>{grade}</div>
             <div>
                 <button onClick={deleteCardHandler} disabled={status === 'loading'}>Delete</button>
-                <button disabled={status === 'loading'}>Edit</button>
+                <button onClick={updateCardHandler} disabled={status === 'loading'}>Edit</button>
                 <button disabled={status === 'loading'}>Learn</button>
             </div>
         </div>
