@@ -1,6 +1,6 @@
 import {useEffect} from 'react'
 import {useDispatch} from 'react-redux'
-import {Route, Routes} from 'react-router-dom';
+import {Navigate, Route, Routes} from 'react-router-dom';
 
 import {initializeApp} from "./bll/app-reducer";
 import {useAppSelector} from "./bll/store";

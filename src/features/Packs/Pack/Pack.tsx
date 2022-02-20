@@ -5,7 +5,7 @@ import {setPackId} from '../../../bll/cards-reducer';
 import {PATH} from '../../../utils/paths';
 import {NavLink, useNavigate} from 'react-router-dom';
 import s from './Pack.module.scss';
-import Button from '@mui/material/Button/Button';
+import c from '../../../common/styles/Common.module.scss';
 import {EditModal} from './Modals/EditModal/EditModal';
 import {DeleteModal} from './Modals/DeleteModal/DeleteModal';
 
@@ -40,9 +40,9 @@ export const Pack: FC<PropsType> = ({cardPack, removePack, updatePack}) => {
                 <span>{user_name}</span>
             </div>
             <div>
-                <DeleteModal packName={name} onRemovePackHandler={onRemovePackHandler}/>
+                <DeleteModal isDeletable={profileId === user_id} packName={name} onRemovePackHandler={onRemovePackHandler}/>
                 <EditModal _id={_id} isEditable={profileId === user_id} updatePack={updatePack}/>
-                <Button size={'small'} variant={'text'} color={'primary'} disabled={status === 'loading'} onClick={navigateToCardPage}>Learn</Button>
+                <button className={c.button} disabled={status === 'loading'} onClick={navigateToCardPage}>Learn</button>
             </div>
         </div>
     )

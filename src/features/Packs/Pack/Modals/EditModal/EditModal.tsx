@@ -1,4 +1,5 @@
 import s from './EditModal.module.scss';
+import c from '../../../../../common/styles/Common.module.scss';
 import Typography from '@mui/material/Typography';
 import {TextField} from '@mui/material';
 import Button from '@mui/material/Button/Button';
@@ -18,7 +19,8 @@ export const EditModal = ({isEditable, updatePack, _id}: PropsType) => {
     const [active, setActive] = useState<boolean>(false)
     const [value, setValue] = useState<string>('')
     const onInputChange = (e: ChangeEvent<HTMLInputElement>) => setValue(e.currentTarget.value)
-    const setModalOn = () => setActive(true)
+    const onShowModalHandler = () => setActive(true)
+    const onHideModalHandler = () => setActive(false)
 
     const onUpdatePackHandler = () => updatePack(value, _id)
     const onEnterUpdateHandler = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -27,12 +29,12 @@ export const EditModal = ({isEditable, updatePack, _id}: PropsType) => {
 
     return (
         <>
-            <Button size={'small'} variant={'text'} color={'primary'} disabled={status === 'loading'} onClick={setModalOn}>Edit</Button>
+            <button className={c.button} disabled={status === 'loading'} onClick={onShowModalHandler}>Edit</button>
             <Modal active={active} setActive={setActive}>
                 <div className={s.modalContent}>
                     {isEditable
                         ? <>
-                            <Typography variant={'subtitle1'} className={s.title}>Edit your pack's name</Typography>
+                            <Typography variant={'h6'} className={s.title}>Edit your pack's name</Typography>
                             <div className={s.actions}>
                                 <TextField
                                     variant={'standard'}
@@ -42,13 +44,16 @@ export const EditModal = ({isEditable, updatePack, _id}: PropsType) => {
                                     placeholder={'Edit title'}
                                     onChange={onInputChange}
                                 />
-                                <Button sx={{marginTop: '20px'}} size={'small'} variant={'text'} color={'primary'} onClick={onUpdatePackHandler}>Apply</Button>
+                                <div className={s.buttons}>
+                                    <button className={c.wideButton} onClick={onHideModalHandler}>Cancel</button>
+                                    <button className={c.applyWideButton} onClick={onUpdatePackHandler}>Apply</button>
+                                </div>
                             </div>
                         </>
                         : <>
                             <div className={s.modalContent}>
-                                <span className={s.title}>That is not your pack</span>
-                                <Button size={'small'} variant={'text'} color={'primary'} onClick={() => setActive(false)}>OK</Button>
+                                <Typography variant={'h6'} className={s.title}>That is not your pack</Typography>
+                                <button className={c.wideButton} onClick={onHideModalHandler}>Got it</button>
                             </div>
                         </>}
                 </div>

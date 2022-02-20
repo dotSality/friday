@@ -1,4 +1,4 @@
-import React, {ChangeEvent, KeyboardEvent, memo, useEffect, useState} from 'react';
+import React, {memo, useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../bll/store';
 import {Pack} from './Pack/Pack';
 import loader from '../../common/img/loader.gif';
@@ -9,6 +9,8 @@ import {NotAuthRedirect} from '../../hoc/NotAuthRedirect';
 import {Input} from './Input/Input';
 import {CardPackType, GetPacksPayloadType} from '../../dal/packs-api';
 import {List} from "../List/List";
+import c from '../../common/styles/Common.module.scss';
+import {AddNewPackModal} from './Pack/Modals/AddNewPackModal/AddNewPackModal';
 
 const Component = memo(() => {
 
@@ -36,8 +38,12 @@ const Component = memo(() => {
         }
     }, [value])
 
-    const [title, setTitle] = useState<string>('')
-    const onTitleChangeHandler = (e: ChangeEvent<HTMLInputElement>) => setTitle(e.currentTarget.value)
+    const addPackHandler = (title: string) => {
+        dispatch(createPack({
+            fetchData, data:
+                {name: title}
+        }))
+    }
 
     const onPageChange = (page: number) => dispatch(fetchPacks({...fetchData, page}))
     const onChangePageCount = (pageCount: number) => dispatch(fetchPacks({...fetchData, pageCount}))
@@ -45,17 +51,6 @@ const Component = memo(() => {
     const onLoggedUserPacksHandler = async () => {
         await dispatch(fetchPacks({...fetchData, user_id: !own ? _id : undefined}));
         dispatch(setOwn(!own))
-    }
-
-    const addPackHandler = () => {
-        dispatch(createPack({
-            fetchData, data:
-                {name: title}
-        }))
-        setTitle('')
-    }
-    const onEnterPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter') addPackHandler()
     }
 
     const onRemovePackHandler = (packId: string) => dispatch(removePack({packId, fetchData}))
@@ -75,28 +70,20 @@ const Component = memo(() => {
             <div style={{
                 display: "flex",
                 flexDirection: "column",
-                width: '100px',
-                height: "50px",
                 justifyContent: "space-between"
             }}>
-                <button disabled={status === 'loading'} onClick={onLoggedUserPacksHandler}>
-                    {own ? 'Show all packs' : 'Show my packs'}
-                </button>
+
                 <div style={{
                     display: "flex",
                     flexDirection: "row",
-                    width: '300px',
-                    height: "50px",
-                    justifyContent: "space-between"
+                    justifyContent: "flex-start"
                 }}>
-                    <input
-                        onKeyPress={onEnterPressHandler}
-                        style={{height: '30px'}}
-                        placeholder={'Enter pack title'}
-                        onChange={onTitleChangeHandler}
-                        value={title}
-                    />
-                    <button disabled={status === 'loading'} onClick={addPackHandler}>ADDDD</button>
+                    <AddNewPackModal addPackHandler={addPackHandler}/>
+                    <div>
+                        <button className={c.applyWideButton} disabled={status === 'loading'} onClick={onLoggedUserPacksHandler}>
+                            {own ? 'Show all packs' : 'Show my packs'}
+                        </button>
+                    </div>
                 </div>
             </div>
             <div>
@@ -105,9 +92,9 @@ const Component = memo(() => {
                     ? <img src={loader} alt="loader"/>
                     : <List items={cardPacks} renderItem={(cardPack: CardPackType) =>
                         <Pack updatePack={onUpdatePackHandler}
-                              removePack={onRemovePackHandler}
-                              key={cardPack._id}
-                              cardPack={cardPack}/>}
+                            removePack={onRemovePackHandler}
+                            key={cardPack._id}
+                            cardPack={cardPack}/>}
                     />}
                 <div style={{display: 'flex', justifyContent: 'space-around'}}>
                     <CustomMuiPagination

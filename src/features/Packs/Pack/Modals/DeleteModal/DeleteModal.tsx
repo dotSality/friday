@@ -1,16 +1,17 @@
 import {Modal} from '../../../../Modal/Modal';
 import React, {useState} from 'react';
-import Button from '@mui/material/Button/Button';
 import {useAppSelector} from '../../../../../bll/store';
 import Typography from '@mui/material/Typography';
 import s from './DeleteModal.module.scss';
+import c from '../../../../../common/styles/Common.module.scss';
 
 type PropsType = {
     packName: string,
+    isDeletable: boolean,
     onRemovePackHandler: () => void,
 }
 
-export const DeleteModal = ({onRemovePackHandler, packName}: PropsType) => {
+export const DeleteModal = ({onRemovePackHandler, packName, isDeletable}: PropsType) => {
 
     const {status} = useAppSelector(state => state.app)
     const [active, setActive] = useState<boolean>(false)
@@ -19,23 +20,29 @@ export const DeleteModal = ({onRemovePackHandler, packName}: PropsType) => {
 
     return (
         <>
-            <Button
-                sx={{marginLeft: '10px'}}
-                size={'small'}
-                variant={'text'}
-                color={'error'}
+            <button
+                style={{marginLeft: '10px'}}
+                className={c.errorButton}
                 disabled={status === 'loading'}
-                onClick={onShowModalHandler}>Delete</Button>
+                onClick={onShowModalHandler}>Delete
+            </button>
             <Modal active={active} setActive={setActive}>
                 <div className={s.content}>
-                    <Typography variant={'h6'}>
-                        Do you really want to remove <b>{packName}</b> pack?
-                        All cards will be excluded from this course
-                    </Typography>
-                    <div className={s.buttons}>
-                        <Button size={'small'} color={'primary'} onClick={onHideModalHandler}>Cancel</Button>
-                        <Button size={'small'} color={'error'} onClick={onRemovePackHandler}>Remove</Button>
-                    </div>
+                    {isDeletable
+                        ? <>
+                            <Typography variant={'h6'}>
+                                Do you really want to remove <b>{packName}</b> pack?
+                                All cards will be excluded from this course
+                            </Typography>
+                            <div className={s.buttons}>
+                                <button className={c.wideButton} onClick={onHideModalHandler}>Cancel</button>
+                                <button className={c.wideErrorButton} onClick={onRemovePackHandler}>Remove</button>
+                            </div>
+                        </>
+                        : <>
+                            <Typography variant={'h6'} className={s.title}>That is not your pack</Typography>
+                            <button className={c.wideButton} onClick={onHideModalHandler}>Got it</button>
+                        </>}
                 </div>
             </Modal>
         </>
