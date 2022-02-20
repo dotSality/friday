@@ -4,16 +4,21 @@ import {useAppDispatch, useAppSelector} from '../../../bll/store';
 import {setPackId} from '../../../bll/cards-reducer';
 import {PATH} from '../../../utils/paths';
 import {NavLink, useNavigate} from 'react-router-dom';
+import s from './Pack.module.scss';
+import Button from '@mui/material/Button/Button';
+import {EditModal} from './Modals/EditModal/EditModal';
+import {DeleteModal} from './Modals/DeleteModal/DeleteModal';
 
 type PropsType = {
     cardPack: CardPackType
     removePack: (_id: string) => void,
-    updatePack: (_id: string) => void,
+    updatePack: (name: string, _id: string) => void,
 }
 
 export const Pack: FC<PropsType> = ({cardPack, removePack, updatePack}) => {
-    const {name, cardsCount, updated, user_name, _id,} = cardPack
+    const {name, cardsCount, updated, user_name, _id, user_id} = cardPack
     const {status} = useAppSelector(state => state.app)
+    const profileId = useAppSelector(state => state.profile._id)
 
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
@@ -22,21 +27,22 @@ export const Pack: FC<PropsType> = ({cardPack, removePack, updatePack}) => {
         navigate(PATH.CARDS + `/${_id}`)
     }
 
-    const onUpdatePackHandler = () => updatePack(_id)
     const onRemovePackHandler = () => removePack(_id)
 
     return (
-        <div style={{display: 'flex', justifyContent: 'space-between', maxWidth: '670px', width: '100%'}}>
+        <div className={s.packContainer}>
             <NavLink to={PATH.CARDS + `/${_id}`}>
                 <div style={{width: '140px', marginRight: '10px'}}>{name}</div>
             </NavLink>
-            <div style={{width: '40px', marginRight: '10px'}}>{cardsCount}</div>
-            <div style={{width: '100px', marginRight: '10px'}}>{updated.split('').slice(0, 10).join('')}</div>
-            <div style={{width: '100px', marginRight: '10px', overflow: 'hidden'}}>{user_name}</div>
+            <div className={s.packContent}>
+                <span>{cardsCount}</span>
+                <span>{updated.split('').slice(0, 10).join('')}</span>
+                <span>{user_name}</span>
+            </div>
             <div>
-                <button disabled={status === 'loading'} onClick={onRemovePackHandler}>Delete</button>
-                <button disabled={status === 'loading'} onClick={onUpdatePackHandler}>Edit</button>
-                <button disabled={status === 'loading'} onClick={navigateToCardPage}>Learn</button>
+                <DeleteModal packName={name} onRemovePackHandler={onRemovePackHandler}/>
+                <EditModal _id={_id} isEditable={profileId === user_id} updatePack={updatePack}/>
+                <Button size={'small'} variant={'text'} color={'primary'} disabled={status === 'loading'} onClick={navigateToCardPage}>Learn</Button>
             </div>
         </div>
     )

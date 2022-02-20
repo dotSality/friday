@@ -1,0 +1,17 @@
+
+.packContainer {
+  display: flex;
+  justify-content: space-around;
+  max-width: 800px;
+  width: 100%;
+  color: black;
+
+  .packContent {
+    display: flex;
+
+    & span {
+      width: 100px;
+      overflow: hidden;
+    }
+  }
+}

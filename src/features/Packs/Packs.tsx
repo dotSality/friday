@@ -60,10 +60,10 @@ const Component = memo(() => {
 
     const onRemovePackHandler = (packId: string) => dispatch(removePack({packId, fetchData}))
 
-    const onUpdatePackHandler = (packId: string) => dispatch(updatePack({
+    const onUpdatePackHandler = (name: string, packId: string) => dispatch(updatePack({
         fetchData,
         data: {
-            name: 'Misha Krug',
+            name,
             _id: packId
         },
     }))
