@@ -7,11 +7,10 @@ import {Modal} from '../../Modal/Modal';
 
 type PropsType = {
     packName: string,
-    isDeletable: boolean,
     onRemovePackHandler: () => void,
 }
 
-export const DeletePackModal = ({onRemovePackHandler, packName, isDeletable}: PropsType) => {
+export const DeletePackModal = ({onRemovePackHandler, packName}: PropsType) => {
 
     const {status} = useAppSelector(state => state.app)
     const [active, setActive] = useState<boolean>(false)
@@ -28,21 +27,14 @@ export const DeletePackModal = ({onRemovePackHandler, packName, isDeletable}: Pr
             </button>
             <Modal active={active} setActive={setActive}>
                 <div className={s.content}>
-                    {isDeletable
-                        ? <>
-                            <Typography variant={'h6'}>
-                                Do you really want to remove <b>{packName}</b> pack?
-                                All cards will be excluded from this course
-                            </Typography>
-                            <div className={s.buttons}>
-                                <button className={c.wideButton} onClick={onHideModalHandler}>Cancel</button>
-                                <button className={c.wideErrorButton} onClick={onRemovePackHandler}>Remove</button>
-                            </div>
-                        </>
-                        : <>
-                            <Typography variant={'h6'} className={s.title}>That is not your pack</Typography>
-                            <button className={c.wideButton} onClick={onHideModalHandler}>Got it</button>
-                        </>}
+                    <Typography variant={'h6'}>
+                        Do you really want to remove <b>{packName}</b> pack?
+                        All cards will be excluded from this course
+                    </Typography>
+                    <div className={s.buttons}>
+                        <button className={c.wideButton} onClick={onHideModalHandler}>Cancel</button>
+                        <button className={c.wideErrorButton} onClick={onRemovePackHandler}>Remove</button>
+                    </div>
                 </div>
             </Modal>
         </>

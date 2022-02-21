@@ -8,11 +8,10 @@ import {Modal} from '../../Modal/Modal';
 
 type PropsType = {
     _id: string;
-    isEditable: boolean;
     updatePack: (name: string, _id: string) => void,
 }
 
-export const EditPackModal = ({isEditable, updatePack, _id}: PropsType) => {
+export const EditPackModal = ({updatePack, _id}: PropsType) => {
 
     const {status} = useAppSelector(state => state.app)
     const [active, setActive] = useState<boolean>(false)
@@ -31,30 +30,21 @@ export const EditPackModal = ({isEditable, updatePack, _id}: PropsType) => {
             <button className={c.button} disabled={status === 'loading'} onClick={onShowModalHandler}>Edit</button>
             <Modal active={active} setActive={setActive}>
                 <div className={s.modalContent}>
-                    {isEditable
-                        ? <>
-                            <Typography variant={'h6'} className={s.title}>Edit your pack's name</Typography>
-                            <div className={s.actions}>
-                                <TextField
-                                    variant={'standard'}
-                                    label={'New title'}
-                                    onKeyPress={onEnterUpdateHandler}
-                                    value={value}
-                                    placeholder={'Edit title'}
-                                    onChange={onInputChange}
-                                />
-                                <div className={s.buttons}>
-                                    <button className={c.wideButton} onClick={onHideModalHandler}>Cancel</button>
-                                    <button className={c.applyWideButton} onClick={onUpdatePackHandler}>Apply</button>
-                                </div>
-                            </div>
-                        </>
-                        : <>
-                            <div className={s.modalContent}>
-                                <Typography variant={'h6'} className={s.title}>That is not your pack</Typography>
-                                <button className={c.wideButton} onClick={onHideModalHandler}>Got it</button>
-                            </div>
-                        </>}
+                    <Typography variant={'h6'} className={s.title}>Edit your pack's name</Typography>
+                    <div className={s.actions}>
+                        <TextField
+                            variant={'standard'}
+                            label={'New title'}
+                            onKeyPress={onEnterUpdateHandler}
+                            value={value}
+                            placeholder={'Edit title'}
+                            onChange={onInputChange}
+                        />
+                        <div className={s.buttons}>
+                            <button className={c.wideButton} onClick={onHideModalHandler}>Cancel</button>
+                            <button className={c.applyWideButton} onClick={onUpdatePackHandler}>Apply</button>
+                        </div>
+                    </div>
                 </div>
             </Modal>
         </>

@@ -13,6 +13,7 @@ import s from './Packs.module.scss';
 import c from '../../common/styles/Common.module.scss';
 import {AddNewPackModal} from '../CustomModals/AddNewPackModal/AddNewPackModal';
 import {DoubleRangeInput} from "../DoubleRangeInput/DoubleRangeInput";
+import Typography from '@mui/material/Typography';
 
 const Component = memo(() => {
 
@@ -56,11 +57,6 @@ const Component = memo(() => {
     const onPageChange = (page: number) => dispatch(fetchPacks({...fetchData, page}))
     const onChangePageCount = (pageCount: number) => dispatch(fetchPacks({...fetchData, pageCount}))
 
-    const onLoggedUserPacksHandler = async () => {
-        await dispatch(fetchPacks({...fetchData, user_id: !own ? _id : undefined}));
-        dispatch(setOwn(!own))
-    }
-
     const onchangeSliderValue = (value1: number, value2: number) => {
         dispatch(fetchPacks({...fetchData, min: value1, max: value2}))
     }
@@ -76,6 +72,23 @@ const Component = memo(() => {
         },
     }))
 
+    const onMyPacksHandler = async () => {
+        if (!own) {
+            await dispatch(fetchPacks({...fetchData, user_id: _id}));
+            dispatch(setOwn(true))
+        }
+    }
+
+    const onAllPacksHandler = async () => {
+        if (own) {
+            await dispatch(fetchPacks({...fetchData, user_id: undefined}));
+            dispatch(setOwn(true))
+        }
+    }
+
+    const myClassName = `${s.belong} ${own ? s.active : ''}`
+    const allClassName = `${s.belong} ${own ? '' : s.active}`
+
     if (!isLoaded) return <img src={loader} alt="loader"/>
 
     return (
@@ -88,12 +101,17 @@ const Component = memo(() => {
                 <span>{rangeValue[0] < rangeValue[1] ? rangeValue[0] : rangeValue[1] - 1}</span>
             </div>
             <div className={s.controls}>
-                <AddNewPackModal addPackHandler={addPackHandler}/>
                 <div>
-                    <button className={c.applyWideButton} disabled={status === 'loading'}
-                        onClick={onLoggedUserPacksHandler}>
-                        {own ? 'Show all packs' : 'Show my packs'}
-                    </button>
+                    <AddNewPackModal addPackHandler={addPackHandler}/>
+                </div>
+                <div className={s.belongBlock}>
+                    <Typography variant={'h6'}>
+                        Show cards packs
+                    </Typography>
+                    <div>
+                        <span onClick={onMyPacksHandler} className={myClassName}>My</span>
+                        <span onClick={onAllPacksHandler} className={allClassName}>All</span>
+                    </div>
                 </div>
             </div>
             <div>
