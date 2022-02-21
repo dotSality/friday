@@ -1,4 +1,4 @@
-import React, {memo, useEffect, useState} from 'react';
+import React, {memo, useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../bll/store';
 import {Pack} from './Pack/Pack';
 import loader from '../../common/img/loader.gif';
@@ -10,7 +10,6 @@ import {Input} from './Input/Input';
 import {CardPackType, GetPacksPayloadType} from '../../dal/packs-api';
 import {List} from "../List/List";
 import s from './Packs.module.scss';
-import c from '../../common/styles/Common.module.scss';
 import {AddNewPackModal} from '../CustomModals/AddNewPackModal/AddNewPackModal';
 import {DoubleRangeInput} from "../DoubleRangeInput/DoubleRangeInput";
 import Typography from '@mui/material/Typography';
@@ -29,8 +28,6 @@ const Component = memo(() => {
     const dispatch = useAppDispatch()
 
 
-
-    const [rangeValue, setRangeValue] = useState<number[]>([minCardsCount, maxCardsCount]) // slider's state
 
     const fetchData: GetPacksPayloadType = {
         packName: value || '',

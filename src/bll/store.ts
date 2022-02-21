@@ -22,7 +22,7 @@ const reducers = combineReducers({
 
 export const store = configureStore({
     reducer: reducers,
-    middleware: getDefaultMiddleware => getDefaultMiddleware().prepend(thunk)
+    middleware: getDefaultMiddleware => getDefaultMiddleware().prepend(thunk), devTools: process.env.NODE_ENV !== "production"
 })
 
 export type RootStateType = ReturnType<typeof reducers>
