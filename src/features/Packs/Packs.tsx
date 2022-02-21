@@ -57,15 +57,9 @@ const Component = memo(() => {
     const onPageChange = (page: number) => dispatch(fetchPacks({...fetchData, page}))
     const onChangePageCount = (pageCount: number) => dispatch(fetchPacks({...fetchData, pageCount}))
 
-    const onLoggedUserPacksHandler = async () => {
-        await dispatch(fetchPacks({...fetchData, user_id: !own ? _id : undefined}));
-        dispatch(setOwn(!own))
-    }
-
     const onchangeSliderValue = (value: number[]) => {
         dispatch(fetchPacks({...fetchData, min:value[0], max:value[1]}))
     }
-
 
     const onRemovePackHandler = (packId: string) => dispatch(removePack({packId, fetchData}))
 
@@ -87,7 +81,7 @@ const Component = memo(() => {
     const onAllPacksHandler = async () => {
         if (own) {
             await dispatch(fetchPacks({...fetchData, user_id: undefined}));
-            dispatch(setOwn(true))
+            dispatch(setOwn(false))
         }
     }
 
