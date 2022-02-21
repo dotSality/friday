@@ -28,17 +28,16 @@ const Component = memo(() => {
     const dispatch = useAppDispatch()
 
 
-    const [min, setMin] = useState<number>(minCardsCount) // slider's state
-    const [max, setMax] = useState<number>(maxCardsCount) // slider's state
-    const [value3, setValue3] = useState<number[]>([min, max]) // slider's state
-    console.log(value3)
+
+    const [rangeValue, setRangeValue] = useState<number[]>([minCardsCount, maxCardsCount]) // slider's state
+
     const fetchData: GetPacksPayloadType = {
         packName: value || '',
         page,
         pageCount,
         user_id: own ? _id : undefined,
-        min,
-        max
+        min: rangeValue[0],
+        max: rangeValue[1]
     }
 
     useEffect(() => {
@@ -59,7 +58,6 @@ const Component = memo(() => {
     const onChangePageCount = (pageCount: number) => dispatch(fetchPacks({...fetchData, pageCount}))
 
     const onLoggedUserPacksHandler = async () => {
-        setValue3([min, max])
         await dispatch(fetchPacks({...fetchData, user_id: !own ? _id : undefined}));
         dispatch(setOwn(!own))
     }
@@ -85,15 +83,11 @@ const Component = memo(() => {
 
         <div className={s.main}>
             <div>
-                <span>{max}</span>
-                <DoubleRangeInput value1={min}
-                    value2={max}
-                    value3={value3}
-                    setValue1={setMin}
-                    setValue2={setMax}
-                    setValue3={setValue3}
-                    onchangeSliderValue={onchangeSliderValue}/>
-                <span>{min < max ? min : max - 1}</span>
+                <span>{rangeValue[1]}</span>
+                <DoubleRangeInput value={rangeValue}
+                                  setValue={setRangeValue}
+                                  onchangeSliderValue={onchangeSliderValue}/>
+                <span style={{color:'black'}}>{rangeValue[0] < rangeValue[1] ? rangeValue[0] : rangeValue[1] - 1}</span>
             </div>
             <div className={s.controls}>
                 <AddNewPackModal addPackHandler={addPackHandler}/>
