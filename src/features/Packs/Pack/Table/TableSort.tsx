@@ -20,7 +20,7 @@ import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import {visuallyHidden} from '@mui/utils';
-import {useAppSelector} from "../../../../bll/store";
+import {useAppSelector} from "../../bll/store";
 
 interface Data {
     name: string;
@@ -45,6 +45,13 @@ function createData(
         action,
     };
 }
+
+// const rows = [
+//     createData('Pack1', 4, '14.02.22', 'Nastya', 'learn'),
+//     createData('Pack2', 37, '13.02.22', 'Vlad', 'learn'),
+//     createData('Pack3', 18, '21.03.21', 'Vova', 'learn'),
+//     createData('Pack4', 0, '20.03.21', 'Maksim', 'learn'),
+// ];
 
 function descendingComparator<T>(a: T, b: T, orderBy: keyof T) {
     if (b[orderBy] < a[orderBy]) {
@@ -243,7 +250,7 @@ export default function EnhancedTable() {
     const [dense, setDense] = React.useState(false);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
-    const {cardPacks} = useAppSelector(state => state.packs)
+    const {packs: {cardPacks}, isLoaded} = useAppSelector(state => state.packs)
     const rows = cardPacks.map(el => {
         return createData(el.name, el.cardsCount, el.updated.split('').slice(0, 9).join(''), el.user_name, 'learn')
     })

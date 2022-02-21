@@ -1,33 +1,57 @@
 import {instance} from './instance';
 
+export enum sortValues {
+    nameTrue = "0name",
+    nameFalse = "1name",
+    updatedTrue = "0updated",
+    updatedFalse = "1updated",
+    cardsCountTrue = "0cardsCount",
+    cardsCountFalse = "1cardsCount",
+    gradeTrue = "0grade",
+    gradeFalse = "1grade",
+    createdTrue = "0created",
+    createdFalse = "1created",
+}
 
-export type PayloadType = {
+export type GetPacksPayloadType = {
     packName?: string,
     min?: number,
     max?: number,
     sortPacks?: string,
     page?: number,
     pageCount?: number,
-    user_id?: string,
-    "0updated"?: string,
-    "1updated"?: string,
+    user_id?: string
 };
 export const packsApi = {
-    getPack(data: PayloadType) {
+    getPack(data: GetPacksPayloadType) {
         return instance.get<ResponseType>(`/cards/pack`, {params: data})
     },
-    addPack(name: string) {
-        return instance.post<AddPackResponseType>(`/cards/pack`, {cardsPack: {name}})
+    addPack(data: AddPackRequestType) {
+        return instance.post<AddPackResponseType>(`/cards/pack`, {cardsPack: data})
     },
     deletePack(id: string) {
-        return instance.delete<ResponseType>(`/cards/pack?id=${id}`, {})
+        return instance.delete<DeletePackResponseType>(`/cards/pack?id=${id}`, {})
     },
-    updatePack(name: string, _id: string) {
-        return instance.put<ResponseType>(`/cards/pack`, {cardsPack: {name, _id}})
-    },
+    updatePack(data: UpdatePackRequestType) {
+        return instance.put<ResponseType>(`/cards/pack`, {cardsPack: data})
+    }
 }
 
-//shop?min=100&max=50000&page=1&pageCount=10&sortProducts=0price&
+export type UpdatePackRequestType = {
+    _id: string,
+    name?: string,
+}
+
+export type AddPackRequestType = {
+    name?: string,
+    path?: string,
+    grade?: number,
+    shots?: number,
+    rating?: number,
+    deckCover?: string,
+    private?: boolean,
+    type?: string,
+}
 
 export type CardPackType = {
     _id: string,
@@ -48,10 +72,8 @@ export type CardPackType = {
     __v: number
 }
 
-export type CardPacksType = CardPackType[]
-
 type ResponseType = {
-    cardPacks: CardPacksType
+    cardPacks: CardPackType[]
     cardPacksTotalCount: number
     maxCardsCount: number
     minCardsCount: number
@@ -62,4 +84,8 @@ type ResponseType = {
 export type AddPackResponseType = {
     newCardsPack: CardPackType;
 };
+
+export type DeletePackResponseType = {
+    deletedCardsPack: CardPackType
+}
 
