@@ -9,8 +9,9 @@ import {NotAuthRedirect} from '../../hoc/NotAuthRedirect';
 import {Input} from './Input/Input';
 import {CardPackType, GetPacksPayloadType} from '../../dal/packs-api';
 import {List} from "../List/List";
+import s from './Packs.module.scss';
 import c from '../../common/styles/Common.module.scss';
-import {AddNewPackModal} from './Pack/Modals/AddNewPackModal/AddNewPackModal';
+import {AddNewPackModal} from '../CustomModals/AddNewPackModal/AddNewPackModal';
 
 const Component = memo(() => {
 
@@ -66,24 +67,13 @@ const Component = memo(() => {
     if (!isLoaded) return <img src={loader} alt="loader"/>
 
     return (
-        <div style={{alignItems: 'center', color: 'white'}}>
-            <div style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "space-between"
-            }}>
-
-                <div style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "flex-start"
-                }}>
-                    <AddNewPackModal addPackHandler={addPackHandler}/>
-                    <div>
-                        <button className={c.applyWideButton} disabled={status === 'loading'} onClick={onLoggedUserPacksHandler}>
-                            {own ? 'Show all packs' : 'Show my packs'}
-                        </button>
-                    </div>
+        <div className={s.main}>
+            <div className={s.controls}>
+                <AddNewPackModal addPackHandler={addPackHandler}/>
+                <div>
+                    <button className={c.applyWideButton} disabled={status === 'loading'} onClick={onLoggedUserPacksHandler}>
+                        {own ? 'Show all packs' : 'Show my packs'}
+                    </button>
                 </div>
             </div>
             <div>
@@ -96,7 +86,7 @@ const Component = memo(() => {
                             key={cardPack._id}
                             cardPack={cardPack}/>}
                     />}
-                <div style={{display: 'flex', justifyContent: 'space-around'}}>
+                <div className={s.pagination}>
                     <CustomMuiPagination
                         totalItemsCount={cardPacksTotalCount}
                         pageCount={pageCount}

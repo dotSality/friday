@@ -1,9 +1,9 @@
 import {instance} from './instance';
-import {CardsType} from '../bll/cards-reducer';
+import {CardType} from '../bll/cards-reducer';
 
 export const cardsAPI = {
     getCards(data: GetCardsRequestType) {
-        return instance.get<GetCardsResponseType<CardsType[]>>(`cards/card`, {params: data})
+        return instance.get<GetCardsResponseType<CardType[]>>(`cards/card`, {params: data})
     },
     createCard(data: CreateCardRequestType) {
         return instance.post(`cards/card`, {card: data})
@@ -56,5 +56,6 @@ export type GetCardsResponseType<D> = {
 export type UpdateTaskRequestType = {
     _id: string,
     question?: string,
+    answer?: string,
     comment?: string,
 }

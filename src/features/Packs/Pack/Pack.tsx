@@ -6,8 +6,8 @@ import {PATH} from '../../../utils/paths';
 import {NavLink, useNavigate} from 'react-router-dom';
 import s from './Pack.module.scss';
 import c from '../../../common/styles/Common.module.scss';
-import {EditModal} from './Modals/EditModal/EditModal';
-import {DeleteModal} from './Modals/DeleteModal/DeleteModal';
+import {EditPackModal} from '../../CustomModals/EditPackModal/EditPackModal';
+import {DeletePackModal} from '../../CustomModals/DeleteModal/DeletePackModal';
 
 type PropsType = {
     cardPack: CardPackType
@@ -40,8 +40,8 @@ export const Pack: FC<PropsType> = ({cardPack, removePack, updatePack}) => {
                 <span>{user_name}</span>
             </div>
             <div>
-                <DeleteModal isDeletable={profileId === user_id} packName={name} onRemovePackHandler={onRemovePackHandler}/>
-                <EditModal _id={_id} isEditable={profileId === user_id} updatePack={updatePack}/>
+                <DeletePackModal isDeletable={profileId === user_id} packName={name} onRemovePackHandler={onRemovePackHandler}/>
+                <EditPackModal _id={_id} isEditable={profileId === user_id} updatePack={updatePack}/>
                 <button className={c.button} disabled={status === 'loading'} onClick={navigateToCardPage}>Learn</button>
             </div>
         </div>

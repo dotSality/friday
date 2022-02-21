@@ -1,10 +1,10 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
-import c from '../../../../../common/styles/Common.module.scss';
-import {useAppSelector} from '../../../../../bll/store';
-import {Modal} from '../../../../Modal/Modal';
+import c from '../../../common/styles/Common.module.scss';
 import Typography from '@mui/material/Typography';
 import s from './AddNewPackModal.module.scss';
 import {TextField} from '@mui/material';
+import {useAppSelector} from '../../../bll/store';
+import {Modal} from '../../Modal/Modal';
 
 type PropsType = {
     addPackHandler: (title: string) => void

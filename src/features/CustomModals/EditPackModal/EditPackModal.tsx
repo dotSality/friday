@@ -1,11 +1,10 @@
-import s from './EditModal.module.scss';
-import c from '../../../../../common/styles/Common.module.scss';
+import s from './EditPackModal.module.scss';
+import c from '../../../common/styles/Common.module.scss';
 import Typography from '@mui/material/Typography';
 import {TextField} from '@mui/material';
-import Button from '@mui/material/Button/Button';
-import {Modal} from '../../../../Modal/Modal';
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
-import {useAppSelector} from '../../../../../bll/store';
+import {useAppSelector} from '../../../bll/store';
+import {Modal} from '../../Modal/Modal';
 
 type PropsType = {
     _id: string;
@@ -13,7 +12,7 @@ type PropsType = {
     updatePack: (name: string, _id: string) => void,
 }
 
-export const EditModal = ({isEditable, updatePack, _id}: PropsType) => {
+export const EditPackModal = ({isEditable, updatePack, _id}: PropsType) => {
 
     const {status} = useAppSelector(state => state.app)
     const [active, setActive] = useState<boolean>(false)

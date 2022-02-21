@@ -1,0 +1,13 @@
+.main {
+
+  .controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: space-around;
+  }
+}

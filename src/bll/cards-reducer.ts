@@ -6,7 +6,7 @@ const cardsSlice = createSlice({
     name: 'cards',
     initialState: {
         cardsData: {
-            cards: [] as CardsType[],
+            cards: [] as CardType[],
             cardsTotalCount: 0,
             maxGrade: 0,
             minGrade: 0,
@@ -15,7 +15,7 @@ const cardsSlice = createSlice({
             pageCount: 10,
         },
         packId: null as string | null,
-        isLoaded: false
+        isLoaded: false,
     },
     reducers: {
         setPackId(state, action: PayloadAction<string>) {
@@ -23,7 +23,7 @@ const cardsSlice = createSlice({
         },
         clearCardsData(state) {
             state.cardsData = {
-                cards: [] as CardsType[],
+                cards: [] as CardType[],
                 cardsTotalCount: 0,
                 maxGrade: 0,
                 minGrade: 0,
@@ -105,7 +105,7 @@ export const createCard = createAsyncThunk('cards/createCard',
 export const cardsReducer = cardsSlice.reducer
 export const {setPackId, clearCardsData} = cardsSlice.actions
 
-export type CardsType = {
+export type CardType = {
     answer: string,
     question: string,
     cardsPack_id: string,

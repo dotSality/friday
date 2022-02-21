@@ -1,17 +1,17 @@
-import {Modal} from '../../../../Modal/Modal';
 import React, {useState} from 'react';
-import {useAppSelector} from '../../../../../bll/store';
 import Typography from '@mui/material/Typography';
-import s from './DeleteModal.module.scss';
-import c from '../../../../../common/styles/Common.module.scss';
+import s from './DeleteCardModal.module.scss';
+import c from '../../../common/styles/Common.module.scss';
+import {useAppSelector} from '../../../bll/store';
+import {Modal} from '../../Modal/Modal';
 
 type PropsType = {
-    packName: string,
+    cardName: string,
     isDeletable: boolean,
-    onRemovePackHandler: () => void,
+    onRemoveCardHandler: () => void,
 }
 
-export const DeleteModal = ({onRemovePackHandler, packName, isDeletable}: PropsType) => {
+export const DeleteCardModal = ({onRemoveCardHandler, cardName, isDeletable}: PropsType) => {
 
     const {status} = useAppSelector(state => state.app)
     const [active, setActive] = useState<boolean>(false)
@@ -31,16 +31,16 @@ export const DeleteModal = ({onRemovePackHandler, packName, isDeletable}: PropsT
                     {isDeletable
                         ? <>
                             <Typography variant={'h6'}>
-                                Do you really want to remove <b>{packName}</b> pack?
+                                Do you really want to remove <b>{cardName}</b> card?
                                 All cards will be excluded from this course
                             </Typography>
                             <div className={s.buttons}>
                                 <button className={c.wideButton} onClick={onHideModalHandler}>Cancel</button>
-                                <button className={c.wideErrorButton} onClick={onRemovePackHandler}>Remove</button>
+                                <button className={c.wideErrorButton} onClick={onRemoveCardHandler}>Remove</button>
                             </div>
                         </>
                         : <>
-                            <Typography variant={'h6'} className={s.title}>That is not your pack</Typography>
+                            <Typography variant={'h6'} className={s.title}>That is not your card</Typography>
                             <button className={c.wideButton} onClick={onHideModalHandler}>Got it</button>
                         </>}
                 </div>
