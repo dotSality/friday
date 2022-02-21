@@ -1,6 +1,6 @@
 import React, {memo, useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../bll/store';
-import {CardType, clearCardsData, createCard, deleteCard, fetchCards, updateCard} from '../../bll/cards-reducer';
+import {CardType, clearCardsData, createCard, deleteCard, fetchCards, setGrade, updateCard} from '../../bll/cards-reducer';
 import loader from '../../common/img/loader.gif';
 import {Card} from './Card/Card';
 import s from './Cards.module.scss'
@@ -54,6 +54,14 @@ const Component = memo(() => {
         }
     }))
 
+    const onSetGradeHandler = (grade: number, card_id: string) => dispatch(setGrade({
+        fetchData,
+        data: {
+            grade, card_id
+        }
+    }))
+
+
     useEffect(() => {
         if (packId) {
             dispatch(fetchCards({
@@ -82,6 +90,7 @@ const Component = memo(() => {
                 cards.length > 0
                     ? (<>
                         <List items={cards} renderItem={(card: CardType) => <Card key={card.updated}
+                            onSetGradeHandler={onSetGradeHandler}
                             userId={_id}
                             packUserId={packUserId!}
                             updateCard={onUpdateCardHandler}

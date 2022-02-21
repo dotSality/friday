@@ -13,7 +13,15 @@ export const cardsAPI = {
     },
     updateCard(data: UpdateTaskRequestType) {
         return instance.put(`cards/card`, {card: data})
+    },
+    setGrade(data: GradeRequestType) {
+        return instance.put(`cards/grade`, data)
     }
+}
+
+export type GradeRequestType = {
+    card_id: string,
+    grade: number,
 }
 
 export type CreateCardRequestType = {

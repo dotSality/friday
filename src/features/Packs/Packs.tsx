@@ -28,17 +28,13 @@ const Component = memo(() => {
 
     const dispatch = useAppDispatch()
 
-
-
-    const [rangeValue, setRangeValue] = useState<number[]>([minCardsCount, maxCardsCount]) // slider's state
-
     const fetchData: GetPacksPayloadType = {
         packName: value || '',
         page,
         pageCount,
         user_id: own ? _id : undefined,
         min: minCardsCount,
-        max: maxCardsCount
+        max: maxCardsCount,
     }
 
     useEffect(() => {

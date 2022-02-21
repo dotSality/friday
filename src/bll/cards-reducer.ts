@@ -1,7 +1,8 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 import {setAppError, setAppStatus} from './app-reducer';
-import {cardsAPI, CreateCardRequestType, GetCardsRequestType, UpdateTaskRequestType} from '../dal/cards-api';
+import {cardsAPI, CreateCardRequestType, GetCardsRequestType, GradeRequestType, UpdateTaskRequestType} from '../dal/cards-api';
+import {fetchPacks} from './packs-reducer';
 
 const cardsSlice = createSlice({
     name: 'cards',
@@ -102,6 +103,20 @@ export const createCard = createAsyncThunk('cards/createCard',
             dispatch(setAppError(e.response.error + ' ' + e.response.in))
         }
     })
+
+export const setGrade = createAsyncThunk('cards/setGrade',
+    async ({fetchData, data}: {fetchData: GetCardsRequestType, data: GradeRequestType}, {dispatch}) => {
+    try {
+        dispatch(setAppStatus('loading'))
+        let res = await cardsAPI.setGrade(data)
+        console.log(res)
+        await dispatch(fetchCards(fetchData))
+        dispatch(setAppStatus('succeeded'))
+    } catch (e: any) {
+        dispatch(setAppError('grade failed'))
+        dispatch(setAppStatus('failed'))
+    }
+})
 
 export const cardsReducer = cardsSlice.reducer
 export const {setPackId, clearCardsData} = cardsSlice.actions

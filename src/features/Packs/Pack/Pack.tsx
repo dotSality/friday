@@ -8,6 +8,7 @@ import s from './Pack.module.scss';
 import c from '../../../common/styles/Common.module.scss';
 import {EditPackModal} from '../../CustomModals/EditPackModal/EditPackModal';
 import {DeletePackModal} from '../../CustomModals/DeleteModal/DeletePackModal';
+import Rating from '@mui/material/Rating';
 
 type PropsType = {
     cardPack: CardPackType
@@ -38,7 +39,7 @@ export const Pack: FC<PropsType> = ({cardPack, removePack, updatePack}) => {
                 <span>{cardsCount}</span>
                 <span>{updated.split('').slice(0, 10).join('')}</span>
                 <span>{user_name}</span>
-                <span>{grade}</span>
+                <Rating value={grade} precision={0.5} readOnly />
             </div>
             <div>
                 <div className={s.buttons}>
