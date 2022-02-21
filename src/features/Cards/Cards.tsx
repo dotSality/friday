@@ -43,7 +43,8 @@ const Component = memo(() => {
     const onDeleteCardHandler = (cardId: string) => dispatch(deleteCard({fetchData, cardId}))
 
     const onUpdateCardHandler = (cardId: string, question: string, answer: string) => dispatch(updateCard({
-        fetchData: {...fetchData,
+        fetchData: {
+            ...fetchData,
             cardsPack_id: packId!,
         },
         data: {
@@ -76,7 +77,7 @@ const Component = memo(() => {
 
     return (
         <div className={s.cardsContainer}>
-            <AddNewCardModal addCardHandler={onCreateCardHandler}/>
+            {_id === packUserId && <AddNewCardModal addCardHandler={onCreateCardHandler}/>}
             {
                 cards.length > 0
                     ? (<>
@@ -85,11 +86,8 @@ const Component = memo(() => {
                             packUserId={packUserId!}
                             updateCard={onUpdateCardHandler}
                             deleteCard={onDeleteCardHandler}
-                            _id={card._id}
-                            answer={card.answer}
-                            grade={card.grade}
-                            question={card.question}
-                            updated={card.updated}/>}/>
+                            card={card}/>}
+                        />
                         <div style={{display: 'flex', alignSelf: 'flex-start'}}>
                             <CustomMuiPagination
                                 onSetNewPage={onSetNewPageHandler}

@@ -1,23 +1,19 @@
 import React from 'react';
-import {useAppSelector} from '../../../bll/store';
 import {DeleteCardModal} from '../../CustomModals/DeleteCardModal/DeleteCardModal';
 import {EditCardModal} from '../../CustomModals/EditCardModal/EditCardModal';
+import {CardType} from '../../../bll/cards-reducer';
 
 type CardPropsType = {
     deleteCard: (_id: string) => void,
     updateCard: (cardId: string, question: string, answer: string) => void,
-    question: string,
-    answer: string,
-    updated: string,
-    grade: number,
-    _id: string,
+    card: CardType,
     packUserId: string,
     userId: string,
 }
 
-export const Card = ({grade, updated, answer, question, _id, deleteCard, updateCard, packUserId, userId}: CardPropsType) => {
+export const Card = ({card, deleteCard, updateCard, packUserId, userId}: CardPropsType) => {
 
-    // const {status} = useAppSelector(state => state.app)
+    const {answer, question, _id, grade, updated} = card
     const deleteCardHandler = () => deleteCard(_id)
 
     return (
