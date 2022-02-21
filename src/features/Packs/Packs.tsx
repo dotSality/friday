@@ -14,6 +14,7 @@ import c from '../../common/styles/Common.module.scss';
 import {AddNewPackModal} from '../CustomModals/AddNewPackModal/AddNewPackModal';
 import {DoubleRangeInput} from "../DoubleRangeInput/DoubleRangeInput";
 import Typography from '@mui/material/Typography';
+import {Table} from "../Table/Table";
 
 const Component = memo(() => {
 
@@ -35,6 +36,7 @@ const Component = memo(() => {
         user_id: own ? _id : undefined,
         min: minCardsCount,
         max: maxCardsCount,
+        sortPacks: "0name"
     }
 
     useEffect(() => {
@@ -66,6 +68,8 @@ const Component = memo(() => {
             _id: packId
         },
     }))
+
+    const onChangeFilterPacks = (sortPacks: string) => dispatch(fetchPacks({...fetchData, sortPacks}))
 
     const onMyPacksHandler = async () => {
         if (!own) {
@@ -105,6 +109,7 @@ const Component = memo(() => {
                 </div>
             </div>
             <div>
+                <Table cardPacks={cardPacks} onChangeFilterPacks={onChangeFilterPacks}/>
                 <Input placeholder={'Search by title'}/>
                 {status === 'loading'
                     ? <img src={loader} alt="loader"/>

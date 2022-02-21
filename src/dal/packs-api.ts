@@ -9,6 +9,8 @@ export enum sortValues {
     cardsCountFalse = "1cardsCount",
     gradeTrue = "0grade",
     gradeFalse = "1grade",
+    createdTrue = "0created",
+    createdFalse = "1created",
 }
 
 export type GetPacksPayloadType = {
