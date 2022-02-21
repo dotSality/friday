@@ -16,7 +16,7 @@ type PropsType = {
 }
 
 export const Pack: FC<PropsType> = ({cardPack, removePack, updatePack}) => {
-    const {name, cardsCount, updated, user_name, _id, user_id} = cardPack
+    const {name, cardsCount, updated, user_name, _id, user_id, grade} = cardPack
     const {status} = useAppSelector(state => state.app)
     const profileId = useAppSelector(state => state.profile._id)
 
@@ -38,6 +38,7 @@ export const Pack: FC<PropsType> = ({cardPack, removePack, updatePack}) => {
                 <span>{cardsCount}</span>
                 <span>{updated.split('').slice(0, 10).join('')}</span>
                 <span>{user_name}</span>
+                <span>{grade}</span>
             </div>
             <div>
                 <DeletePackModal isDeletable={profileId === user_id} packName={name} onRemovePackHandler={onRemovePackHandler}/>
