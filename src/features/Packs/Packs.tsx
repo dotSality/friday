@@ -28,7 +28,6 @@ const Component = memo(() => {
     const dispatch = useAppDispatch()
 
 
-
     const [rangeValue, setRangeValue] = useState<number[]>([minCardsCount, maxCardsCount]) // slider's state
 
     const fetchData: GetPacksPayloadType = {
@@ -41,6 +40,7 @@ const Component = memo(() => {
     }
 
     useEffect(() => {
+        console.log('fetch')
         dispatch(fetchPacks(fetchData))
         return () => {
             dispatch(clearPacksData())
@@ -49,8 +49,7 @@ const Component = memo(() => {
 
     const addPackHandler = (title: string) => {
         dispatch(createPack({
-            fetchData, data:
-                {name: title}
+            fetchData, data: {name: title}
         }))
     }
 
@@ -80,14 +79,13 @@ const Component = memo(() => {
     if (!isLoaded) return <img src={loader} alt="loader"/>
 
     return (
-
         <div className={s.main}>
             <div>
                 <span>{rangeValue[1]}</span>
                 <DoubleRangeInput value={rangeValue}
-                                  setValue={setRangeValue}
-                                  onchangeSliderValue={onchangeSliderValue}/>
-                <span style={{color:'black'}}>{rangeValue[0] < rangeValue[1] ? rangeValue[0] : rangeValue[1] - 1}</span>
+                    setValue={setRangeValue}
+                    onchangeSliderValue={onchangeSliderValue}/>
+                <span>{rangeValue[0] < rangeValue[1] ? rangeValue[0] : rangeValue[1] - 1}</span>
             </div>
             <div className={s.controls}>
                 <AddNewPackModal addPackHandler={addPackHandler}/>

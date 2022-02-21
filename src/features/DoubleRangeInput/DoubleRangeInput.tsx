@@ -27,7 +27,6 @@ export const DoubleRangeInput: FC<DoubleRangePropsType> = React.memo((props) => 
         onchangeSliderValue (value[0],value[1])
     }
 
-
     return (
         <Box>
             <Slider min={minCardsCount}
