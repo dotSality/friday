@@ -1,4 +1,5 @@
-import React, {memo, useEffect} from 'react';
+import React, {memo, useEffect, useState} from 'react';
+
 import {useAppDispatch, useAppSelector} from '../../bll/store';
 import {CardsType, clearCardsData, createCard, deleteCard, fetchCards, updateCard} from '../../bll/cards-reducer';
 import loader from '../../common/img/loader.gif';
@@ -10,6 +11,7 @@ import {useParams} from 'react-router-dom';
 import {NotAuthRedirect} from '../../hoc/NotAuthRedirect';
 import {List} from "../List/List";
 
+
 const Component = memo(() => {
 
     const {cardsPack_id} = useParams()
@@ -19,6 +21,8 @@ const Component = memo(() => {
     const {cards, cardsTotalCount, pageCount, page, minGrade, maxGrade, packUserId} = cardsData
 
     const dispatch = useAppDispatch()
+
+
 
     const onCreateCardHandler = () => dispatch(createCard({
         fetchData: {
@@ -83,23 +87,15 @@ const Component = memo(() => {
         }
     }, [])
 
-    if (!isLoaded) return <img src={loader} alt="aaaa"/>
+    if (!isLoaded) return <img src={loader} alt="loader"/>
 
     return (
         <div className={s.cardsContainer}>
+
             <button disabled={status === 'loading'} onClick={onCreateCardHandler}>Add card</button>
             {
                 cards.length > 0
                     ? (<>
-                        {/*{cards.map(({answer, question, updated, grade, _id}) =>*/}
-                        {/*    <Card key={updated}*/}
-                        {/*        updateCard={onUpdateCardHandler}*/}
-                        {/*        deleteCard={onDeleteCardHandler}*/}
-                        {/*        _id={_id}*/}
-                        {/*        answer={answer}*/}
-                        {/*        grade={grade}*/}
-                        {/*        question={question}*/}
-                        {/*        updated={updated}/>)}*/}
                         <List items={cards} renderItem={(card: CardsType) => <Card key={card.updated}
                                                                                    updateCard={onUpdateCardHandler}
                                                                                    deleteCard={onDeleteCardHandler}
