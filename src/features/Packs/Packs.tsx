@@ -28,15 +28,15 @@ const Component = memo(() => {
 
 
 
-    const [rangeValue, setRangeValue] = useState<number[]>([minCardsCount, maxCardsCount]) // slider's state
+    //const [rangeValue, setRangeValue] = useState<number[]>([minCardsCount, maxCardsCount]) // slider's state
 
     const fetchData: GetPacksPayloadType = {
         packName: value || '',
         page,
         pageCount,
         user_id: own ? _id : undefined,
-        min: rangeValue[0],
-        max: rangeValue[1]
+        min: minCardsCount,
+        max: maxCardsCount
     }
 
     useEffect(() => {
@@ -61,8 +61,8 @@ const Component = memo(() => {
         dispatch(setOwn(!own))
     }
 
-    const onchangeSliderValue = (value1: number, value2: number) => {
-        dispatch(fetchPacks({...fetchData, min:value1, max:value2}))
+    const onchangeSliderValue = (value: number[]) => {
+        dispatch(fetchPacks({...fetchData, min:value[0], max:value[1]}))
     }
 
 
@@ -82,11 +82,12 @@ const Component = memo(() => {
 
         <div style={{alignItems: 'center', color: 'white'}}>
             <div>
-                <span style={{color:'black'}}>{rangeValue[1]}</span>
-                <DoubleRangeInput value={rangeValue}
-                                  setValue={setRangeValue}
-                                  onchangeSliderValue={onchangeSliderValue}/>
-                <span style={{color:'black'}}>{rangeValue[0] < rangeValue[1] ? rangeValue[0] : rangeValue[1] - 1}</span>
+                {/*<div style={{display: "flex", justifyContent: "space-between"}}>*/}
+                {/*    <span style={{color:'black', marginLeft: '-10px'}}>{rangeValue[1]}</span>*/}
+                {/*    <span style={{color:'black', marginRight: '-5px'}}>{rangeValue[0] < rangeValue[1] ? rangeValue[0] : rangeValue[1] - 1}</span>*/}
+                {/*</div>*/}
+
+                <DoubleRangeInput onchangeSliderValue={onchangeSliderValue}/>
             </div>
 
             <div style={{
