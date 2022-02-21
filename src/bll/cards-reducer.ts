@@ -1,4 +1,5 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
+
 import {setAppError, setAppStatus} from './app-reducer';
 import {cardsAPI, CreateCardRequestType, GetCardsRequestType, UpdateTaskRequestType} from '../dal/cards-api';
 
@@ -11,7 +12,7 @@ const cardsSlice = createSlice({
             maxGrade: 0,
             minGrade: 0,
             packUserId: null as string | null,
-            page: 0,
+            page: 1,
             pageCount: 10,
         },
         packId: null as string | null,

@@ -6,13 +6,13 @@ const packsSlice = createSlice({
         name: 'packs',
         initialState: {
             packs: {
-            cardPacks: [] as CardPackType[],
-            cardPacksTotalCount: 0 as number,
-            maxCardsCount: 0 as number,
-            minCardsCount: 0 as number,
-            page: 0 as number,
-            pageCount: 10 as number,
-        },
+                cardPacks: [] as CardPackType[],
+                cardPacksTotalCount: 0 as number,
+                maxCardsCount: 103 as number,
+                minCardsCount: 0 as number,
+                page: 1 as number,
+                pageCount: 10 as number,
+            },
             value: null as string | null,
             isLoaded: false,
             own: false,
@@ -64,7 +64,8 @@ export const fetchPacks = createAsyncThunk(
 
 export const createPack = createAsyncThunk(
     'packs/createPack',
-    async ({fetchData, data} : { fetchData: GetPacksPayloadType, data: AddPackRequestType }, {dispatch}) => {
+    async ({fetchData, data}: { fetchData: GetPacksPayloadType, data: AddPackRequestType }, {dispatch}) => {
+        debugger
         try {
             dispatch(setAppStatus('loading'))
             const res = await packsApi.addPack(data)
@@ -82,7 +83,7 @@ export const createPack = createAsyncThunk(
 
 export const removePack = createAsyncThunk(
     'packs/deletePack',
-    async ({fetchData, packId} : {fetchData: GetPacksPayloadType, packId: string}, {dispatch}) => {
+    async ({fetchData, packId}: { fetchData: GetPacksPayloadType, packId: string }, {dispatch}) => {
         try {
             dispatch(setAppStatus('loading'))
             const res = await packsApi.deletePack(packId)
@@ -100,7 +101,7 @@ export const removePack = createAsyncThunk(
 
 export const updatePack = createAsyncThunk(
     'packs/updatePack',
-    async ({fetchData, data}: {fetchData: GetPacksPayloadType, data: UpdatePackRequestType}, {dispatch}) => {
+    async ({fetchData, data}: { fetchData: GetPacksPayloadType, data: UpdatePackRequestType }, {dispatch}) => {
         try {
             dispatch(setAppStatus('loading'))
             await packsApi.updatePack(data)
