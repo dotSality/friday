@@ -36,7 +36,7 @@ export const DoubleRangeInput: FC<DoubleRangePropsType> = React.memo((props) => 
             <Box>
                 <Slider min={minCardsCount}
                         max={maxCardsCount}
-                        size='small'
+                        size='medium'
                         value={rangeValue}
                         onChange={handleChange}
                         disableSwap

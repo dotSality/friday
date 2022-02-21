@@ -1,4 +1,4 @@
-import React, {memo, useEffect, useState} from 'react';
+import React, {memo, useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../bll/store';
 import {Pack} from './Pack/Pack';
 import loader from '../../common/img/loader.gif';
@@ -10,7 +10,6 @@ import {Input} from './Input/Input';
 import {CardPackType, GetPacksPayloadType} from '../../dal/packs-api';
 import {List} from "../List/List";
 import s from './Packs.module.scss';
-import c from '../../common/styles/Common.module.scss';
 import {AddNewPackModal} from '../CustomModals/AddNewPackModal/AddNewPackModal';
 import {DoubleRangeInput} from "../DoubleRangeInput/DoubleRangeInput";
 import Typography from '@mui/material/Typography';
@@ -36,7 +35,7 @@ const Component = memo(() => {
         user_id: own ? _id : undefined,
         min: minCardsCount,
         max: maxCardsCount,
-        sortPacks: "0name"
+        sortPacks: "0created"
     }
 
     useEffect(() => {
@@ -56,10 +55,10 @@ const Component = memo(() => {
     const onChangePageCount = (pageCount: number) => dispatch(fetchPacks({...fetchData, pageCount}))
 
     const onchangeSliderValue = (value: number[]) => {
-        dispatch(fetchPacks({...fetchData, min:value[0], max:value[1]}))
+        dispatch(fetchPacks({...fetchData, min: value[0], max: value[1]}))
     }
 
-    const onRemovePackHandler = (packId: string) => dispatch(removePack({packId, fetchData}))
+    const onRemovePackCallback = (packId: string) => dispatch(removePack({packId, fetchData}))
 
     const onUpdatePackHandler = (name: string, packId: string) => dispatch(updatePack({
         fetchData,
@@ -93,7 +92,7 @@ const Component = memo(() => {
     return (
         <div className={s.main}>
             <div>
-                <DoubleRangeInput onchangeSliderValue={onchangeSliderValue}/>            </div>
+                <DoubleRangeInput onchangeSliderValue={onchangeSliderValue}/></div>
             <div className={s.controls}>
                 <div>
                     <AddNewPackModal addPackHandler={addPackHandler}/>
@@ -109,16 +108,26 @@ const Component = memo(() => {
                 </div>
             </div>
             <div>
-                <Table cardPacks={cardPacks} onChangeFilterPacks={onChangeFilterPacks}/>
+
                 <Input placeholder={'Search by title'}/>
                 {status === 'loading'
                     ? <img src={loader} alt="loader"/>
+                    : <Table cardPacks={cardPacks}
+                             onChangeFilterPacks={onChangeFilterPacks}
+                             updatePack={onUpdatePackHandler}
+                             removePackCallback={onRemovePackCallback}
+                             fetchData={fetchData}
+                    />
+                }
+{/*                {status === 'loading'
+                    ? <img src={loader} alt="loader"/>
                     : <List items={cardPacks} renderItem={(cardPack: CardPackType) =>
                         <Pack updatePack={onUpdatePackHandler}
-                            removePack={onRemovePackHandler}
-                            key={cardPack._id}
-                            cardPack={cardPack}/>}
-                    />}
+                              removePack={onRemovePackHandler}
+                              key={cardPack._id}
+                              cardPack={cardPack}/>}
+                    />}*/}
+
                 <div className={s.pagination}>
                     <CustomMuiPagination
                         totalItemsCount={cardPacksTotalCount}

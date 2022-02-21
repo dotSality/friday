@@ -43,9 +43,9 @@ export const Pack: FC<PropsType> = ({cardPack, removePack, updatePack}) => {
             </div>
             <div>
                 <div className={s.buttons}>
-                    {profileId === user_id && <DeletePackModal packName={name} onRemovePackHandler={onRemovePackHandler}/>}
-                    {profileId === user_id && <EditPackModal _id={_id} updatePack={updatePack}/>}
-                    <button className={c.button} disabled={status === 'loading'} onClick={navigateToCardPage}>Learn</button>
+                    {/*{profileId === user_id && <DeletePackModal packName={name} onRemovePackHandler={onRemovePackHandler}/>}*/}
+                    {/*{profileId === user_id && <EditPackModal _id={_id} updatePack={updatePack}/>}*/}
+                    {/*<button className={c.button} disabled={status === 'loading'} onClick={navigateToCardPage}>Learn</button>*/}
                 </div>
             </div>
         </div>

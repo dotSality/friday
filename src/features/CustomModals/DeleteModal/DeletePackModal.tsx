@@ -6,11 +6,12 @@ import {useAppSelector} from '../../../bll/store';
 import {Modal} from '../../Modal/Modal';
 
 type PropsType = {
-    packName: string,
-    onRemovePackHandler: () => void,
+    packName: string
+    onRemovePackHandler: (_id: string) => void
+    _id: string
 }
 
-export const DeletePackModal = ({onRemovePackHandler, packName}: PropsType) => {
+export const DeletePackModal = ({onRemovePackHandler, packName, _id}: PropsType) => {
 
     const {status} = useAppSelector(state => state.app)
     const [active, setActive] = useState<boolean>(false)
@@ -33,7 +34,7 @@ export const DeletePackModal = ({onRemovePackHandler, packName}: PropsType) => {
                     </Typography>
                     <div className={s.buttons}>
                         <button className={c.wideButton} onClick={onHideModalHandler}>Cancel</button>
-                        <button className={c.wideErrorButton} onClick={onRemovePackHandler}>Remove</button>
+                        <button className={c.wideErrorButton} onClick={() => onRemovePackHandler(_id)}>Remove</button>
                     </div>
                 </div>
             </Modal>
