@@ -1,14 +1,12 @@
 import React, {memo, useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../../bll/store';
-import {Pack} from './Pack/Pack';
 import loader from '../../common/img/loader.gif';
 import {CustomMuiPagination} from '../Pagination/CustomMuiPagination';
 import {CustomMuiSelect} from '../Select/CustomMuiSelect';
 import {clearPacksData, createPack, fetchPacks, removePack, setOwn, updatePack} from '../../bll/packs-reducer';
 import {NotAuthRedirect} from '../../hoc/NotAuthRedirect';
 import {Input} from './Input/Input';
-import {CardPackType, GetPacksPayloadType} from '../../dal/packs-api';
-import {List} from "../List/List";
+import {GetPacksPayloadType} from '../../dal/packs-api';
 import s from './Packs.module.scss';
 import {AddNewPackModal} from '../CustomModals/AddNewPackModal/AddNewPackModal';
 import {DoubleRangeInput} from "../DoubleRangeInput/DoubleRangeInput";
