@@ -18,15 +18,15 @@ type PropsType = {
     onChangeFilterCards: (sortCards: string) => void
 }
 
-export const TableCards = ({
-                               items,
-                               onSetGradeHandler,
-                               deleteCard,
-                               updateCard,
-                               packUserId,
-                               userId,
-                               onChangeFilterCards
-                           }: PropsType) => {
+export const TableCards = React.memo(({
+                                          items,
+                                          onSetGradeHandler,
+                                          deleteCard,
+                                          updateCard,
+                                          packUserId,
+                                          userId,
+                                          onChangeFilterCards
+                                      }: PropsType) => {
 
     return (
         <table>
@@ -69,7 +69,8 @@ export const TableCards = ({
             </thead>
             <tbody>
             {items.map(el => {
-                return <ItemCard pack={el}
+                return <ItemCard key={el._id}
+                                 pack={el}
                                  deleteCard={deleteCard}
                                  userId={userId}
                                  packUserId={packUserId}
@@ -79,4 +80,4 @@ export const TableCards = ({
             </tbody>
         </table>
     )
-}
+})

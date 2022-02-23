@@ -13,14 +13,21 @@ type PropsType = {
     updateCard: (cardId: string, question: string, answer: string) => void
 }
 
-export const ItemCard = ({pack, deleteCard, onSetGradeHandler, packUserId, userId, updateCard}: PropsType) => {
+export const ItemCard = React.memo(({
+                                        pack,
+                                        deleteCard,
+                                        onSetGradeHandler,
+                                        packUserId,
+                                        userId,
+                                        updateCard
+                                    }: PropsType) => {
 
     const [value, setValue] = React.useState<number | null>(pack.grade);
 
     const deleteCardHandler = () => deleteCard(pack._id)
 
     return (
-        <tr key={pack._id}>
+        <tr>
             <td>{pack.question}</td>
             <td>{pack.answer}</td>
             <td>{pack.updated.split('').slice(0, 10).join('')}</td>
@@ -46,4 +53,4 @@ export const ItemCard = ({pack, deleteCard, onSetGradeHandler, packUserId, userI
             </td>
         </tr>
     )
-}
+})
