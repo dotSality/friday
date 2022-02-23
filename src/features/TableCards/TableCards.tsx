@@ -6,6 +6,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import IconButton from "@mui/material/IconButton";
 
 import {ItemCard} from "./ItemCard";
+import {sortValues} from "../../dal/packs-api";
 
 
 type PropsType = {
@@ -15,6 +16,7 @@ type PropsType = {
     updateCard: (cardId: string, question: string, answer: string) => void
     packUserId: string
     userId: string
+    onChangeFilterCards: (sortCards: string) => void
 }
 
 export const TableCards = (props: PropsType) => {
@@ -24,35 +26,35 @@ export const TableCards = (props: PropsType) => {
             <thead>
             <tr>
                 <th>Question
-                    <IconButton size={'small'}>
+                    <IconButton size={'small'} onClick={()=>props.onChangeFilterCards(sortValues.questionFalse)}>
                         <ArrowDropUpIcon/>
                     </IconButton>
-                    <IconButton size={'small'}>
+                    <IconButton size={'small'} onClick={()=>props.onChangeFilterCards(sortValues.questionTrue)}>
                         <ArrowDropDownIcon/>
                     </IconButton>
                 </th>
                 <th>Answer
-                    <IconButton size={'small'}>
+                    <IconButton size={'small'} onClick={()=>props.onChangeFilterCards(sortValues.answerFalse)}>
                         <ArrowDropUpIcon/>
                     </IconButton>
-                    <IconButton size={'small'}>
+                    <IconButton size={'small'} onClick={()=>props.onChangeFilterCards(sortValues.answerTrue)}>
                         <ArrowDropDownIcon/>
                     </IconButton>
                 </th>
 
                 <th>Last Updated
-                    <IconButton size={'small'}>
+                    <IconButton size={'small'} onClick={()=>props.onChangeFilterCards(sortValues.updatedFalse)}>
                         <ArrowDropUpIcon/>
                     </IconButton>
-                    <IconButton size={'small'}>
+                    <IconButton size={'small'} onClick={()=>props.onChangeFilterCards(sortValues.updatedTrue)}>
                         <ArrowDropDownIcon/>
                     </IconButton>
                 </th>
                 <th>Grade
-                    <IconButton size={'small'}>
+                    <IconButton size={'small'} onClick={()=>props.onChangeFilterCards(sortValues.gradeFalse)}>
                         <ArrowDropUpIcon/>
                     </IconButton>
-                    <IconButton size={'small'}>
+                    <IconButton size={'small'} onClick={()=>props.onChangeFilterCards(sortValues.gradeTrue)}>
                         <ArrowDropDownIcon/>
                     </IconButton>
                 </th>
