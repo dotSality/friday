@@ -13,8 +13,10 @@ type CardPropsType = {
     userId: string,
 }
 
-export const Card = ({card: {answer, question, _id, grade, updated},
-                         deleteCard, updateCard, packUserId, userId, onSetGradeHandler}: CardPropsType) => {
+export const Card = ({
+                         card: {answer, question, _id, grade, updated},
+                         deleteCard, updateCard, packUserId, userId, onSetGradeHandler
+                     }: CardPropsType) => {
 
     const deleteCardHandler = () => deleteCard(_id)
 
@@ -34,8 +36,14 @@ export const Card = ({card: {answer, question, _id, grade, updated},
                 }}
             />
             <div>
-                <DeleteCardModal cardName={question} isDeletable={packUserId === userId} onRemoveCardHandler={deleteCardHandler}/>
-                <EditCardModal q={question} a={answer} _id={_id} isEditable={packUserId === userId} updateCard={updateCard}/>
+                <DeleteCardModal cardName={question}
+                                 isDeletable={packUserId === userId}
+                                 onRemoveCardHandler={deleteCardHandler}/>
+                <EditCardModal q={question}
+                               a={answer}
+                               _id={_id}
+                               isEditable={packUserId === userId}
+                               updateCard={updateCard}/>
             </div>
         </div>
     )

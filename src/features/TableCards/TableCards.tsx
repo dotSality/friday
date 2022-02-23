@@ -1,13 +1,12 @@
 import React from 'react';
 import {CardType} from "../../bll/cards-reducer";
+import {sortValues} from "../../dal/packs-api";
+
+import {ItemCard} from "./ItemCard";
 
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import IconButton from "@mui/material/IconButton";
-
-import {ItemCard} from "./ItemCard";
-import {sortValues} from "../../dal/packs-api";
-
 
 type PropsType = {
     items: CardType[]
@@ -19,42 +18,49 @@ type PropsType = {
     onChangeFilterCards: (sortCards: string) => void
 }
 
-export const TableCards = (props: PropsType) => {
+export const TableCards = ({
+                               items,
+                               onSetGradeHandler,
+                               deleteCard,
+                               updateCard,
+                               packUserId,
+                               userId,
+                               onChangeFilterCards
+                           }: PropsType) => {
 
     return (
         <table>
             <thead>
             <tr>
                 <th>Question
-                    <IconButton size={'small'} onClick={()=>props.onChangeFilterCards(sortValues.questionFalse)}>
+                    <IconButton size={'small'} onClick={() => onChangeFilterCards(sortValues.questionFalse)}>
                         <ArrowDropUpIcon/>
                     </IconButton>
-                    <IconButton size={'small'} onClick={()=>props.onChangeFilterCards(sortValues.questionTrue)}>
+                    <IconButton size={'small'} onClick={() => onChangeFilterCards(sortValues.questionTrue)}>
                         <ArrowDropDownIcon/>
                     </IconButton>
                 </th>
                 <th>Answer
-                    <IconButton size={'small'} onClick={()=>props.onChangeFilterCards(sortValues.answerFalse)}>
+                    <IconButton size={'small'} onClick={() => onChangeFilterCards(sortValues.answerFalse)}>
                         <ArrowDropUpIcon/>
                     </IconButton>
-                    <IconButton size={'small'} onClick={()=>props.onChangeFilterCards(sortValues.answerTrue)}>
+                    <IconButton size={'small'} onClick={() => onChangeFilterCards(sortValues.answerTrue)}>
                         <ArrowDropDownIcon/>
                     </IconButton>
                 </th>
-
                 <th>Last Updated
-                    <IconButton size={'small'} onClick={()=>props.onChangeFilterCards(sortValues.updatedFalse)}>
+                    <IconButton size={'small'} onClick={() => onChangeFilterCards(sortValues.updatedFalse)}>
                         <ArrowDropUpIcon/>
                     </IconButton>
-                    <IconButton size={'small'} onClick={()=>props.onChangeFilterCards(sortValues.updatedTrue)}>
+                    <IconButton size={'small'} onClick={() => onChangeFilterCards(sortValues.updatedTrue)}>
                         <ArrowDropDownIcon/>
                     </IconButton>
                 </th>
                 <th>Grade
-                    <IconButton size={'small'} onClick={()=>props.onChangeFilterCards(sortValues.gradeFalse)}>
+                    <IconButton size={'small'} onClick={() => onChangeFilterCards(sortValues.gradeFalse)}>
                         <ArrowDropUpIcon/>
                     </IconButton>
-                    <IconButton size={'small'} onClick={()=>props.onChangeFilterCards(sortValues.gradeTrue)}>
+                    <IconButton size={'small'} onClick={() => onChangeFilterCards(sortValues.gradeTrue)}>
                         <ArrowDropDownIcon/>
                     </IconButton>
                 </th>
@@ -62,14 +68,13 @@ export const TableCards = (props: PropsType) => {
             </tr>
             </thead>
             <tbody>
-            {props.items.map(el => {
-
-                return <ItemCard el={el}
-                                 deleteCard={props.deleteCard}
-                                 userId={props.userId}
-                                 packUserId={props.packUserId}
-                                 onSetGradeHandler={props.onSetGradeHandler}
-                                 updateCard={props.updateCard}/>
+            {items.map(el => {
+                return <ItemCard pack={el}
+                                 deleteCard={deleteCard}
+                                 userId={userId}
+                                 packUserId={packUserId}
+                                 onSetGradeHandler={onSetGradeHandler}
+                                 updateCard={updateCard}/>
             })}
             </tbody>
         </table>
