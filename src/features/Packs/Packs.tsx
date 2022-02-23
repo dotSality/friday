@@ -1,17 +1,19 @@
 import React, {memo, useEffect} from 'react';
+import {GetPacksPayloadType} from '../../dal/packs-api';
 import {useAppDispatch, useAppSelector} from '../../bll/store';
-import loader from '../../common/img/loader.gif';
+import {clearPacksData, createPack, fetchPacks, removePack, setOwn, updatePack} from '../../bll/packs-reducer';
+
 import {CustomMuiPagination} from '../Pagination/CustomMuiPagination';
 import {CustomMuiSelect} from '../Select/CustomMuiSelect';
-import {clearPacksData, createPack, fetchPacks, removePack, setOwn, updatePack} from '../../bll/packs-reducer';
-import {NotAuthRedirect} from '../../hoc/NotAuthRedirect';
 import {Input} from './Input/Input';
-import {GetPacksPayloadType} from '../../dal/packs-api';
-import s from './Packs.module.scss';
-import {AddNewPackModal} from '../CustomModals/AddNewPackModal/AddNewPackModal';
-import {DoubleRangeInput} from "../DoubleRangeInput/DoubleRangeInput";
-import Typography from '@mui/material/Typography';
 import {TablePacks} from "../TablePacks/TablePacks";
+import {DoubleRangeInput} from "../DoubleRangeInput/DoubleRangeInput";
+import {NotAuthRedirect} from '../../hoc/NotAuthRedirect';
+import {AddNewPackModal} from '../CustomModals/AddNewPackModal/AddNewPackModal';
+
+import Typography from '@mui/material/Typography';
+import loader from '../../common/img/loader.gif';
+import s from './Packs.module.scss';
 
 const Component = memo(() => {
 
@@ -114,10 +116,9 @@ const Component = memo(() => {
                                   onChangeFilterPacks={onChangeFilterPacks}
                                   updatePack={onUpdatePackHandler}
                                   removePackCallback={onRemovePackCallback}
-                                  fetchData={fetchData}
                     />
                 }
-{/*                {status === 'loading'
+                {/*                {status === 'loading'
                     ? <img src={loader} alt="loader"/>
                     : <List items={cardPacks} renderItem={(cardPack: CardPackType) =>
                         <Pack updatePack={onUpdatePackHandler}
