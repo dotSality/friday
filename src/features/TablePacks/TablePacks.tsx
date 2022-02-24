@@ -10,6 +10,7 @@ import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import IconButton from "@mui/material/IconButton";
 
 import {ItemPack} from "./ItemPack";
+import {ButtonSort} from "../ButtonSort/ButtonSort";
 
 type PropsType = {
     cardPacks: CardPackType[]
@@ -41,6 +42,7 @@ export const TablePacks = React.memo(({
             <thead>
             <tr>
                 <th>Name
+                   {/* <ButtonSort onChangeFilterPacks={onChangeFilterPacks} sortValue={"name"}/>*/}
                     <IconButton size={'small'} onClick={() => onChangeFilterPacks(sortValues.nameFalse)}>
                         <ArrowDropUpIcon/>
                     </IconButton>

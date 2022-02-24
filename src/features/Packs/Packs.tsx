@@ -1,4 +1,4 @@
-import React, {memo, useEffect} from 'react';
+import React, {memo, useEffect, useState} from 'react';
 import {GetPacksPayloadType} from '../../dal/packs-api';
 import {useAppDispatch, useAppSelector} from '../../bll/store';
 import {clearPacksData, createPack, fetchPacks, removePack, setOwn, updatePack} from '../../bll/packs-reducer';
@@ -16,6 +16,8 @@ import loader from '../../common/img/loader.gif';
 import s from './Packs.module.scss';
 
 const Component = memo(() => {
+
+    const [valueSlider, setValueSlider] = useState<number[]>([]) //doubleRangeSlider state
 
     const {status} = useAppSelector(state => state.app)
     const {_id} = useAppSelector(state => state.profile)
@@ -51,12 +53,20 @@ const Component = memo(() => {
         }))
     }
 
-    const onPageChange = (page: number) => dispatch(fetchPacks({...fetchData, page}))
-    const onChangePageCount = (pageCount: number) => dispatch(fetchPacks({...fetchData, pageCount}))
-
-    const onchangeSliderValue = (value: number[]) => {
-        dispatch(fetchPacks({...fetchData, min: value[0], max: value[1]}))
+    const onPageChange = (page: number) => {
+        dispatch(fetchPacks({
+            ...fetchData,
+            page,
+            min: valueSlider[0],
+            max: valueSlider[1]
+        }))
     }
+    const onChangePageCount = (pageCount: number) => dispatch(fetchPacks({
+        ...fetchData,
+        pageCount,
+        min: valueSlider[0],
+        max: valueSlider[1]
+    }))
 
     const onRemovePackCallback = (packId: string) => dispatch(removePack({packId, fetchData}))
 
@@ -68,7 +78,17 @@ const Component = memo(() => {
         },
     }))
 
-    const onChangeFilterPacks = (sortPacks: string) => dispatch(fetchPacks({...fetchData, sortPacks}))
+    const onchangeSliderValue = (value: number[]) => {
+        setValueSlider(value)
+        dispatch(fetchPacks({...fetchData, min: value[0], max: value[1]}))
+    }
+
+    const onChangeFilterPacks = (sortPacks: string) => dispatch(fetchPacks({
+        ...fetchData,
+        sortPacks,
+        min: valueSlider[0],
+        max: valueSlider[1]
+    }))
 
     const onMyPacksHandler = async () => {
         if (!own) {
