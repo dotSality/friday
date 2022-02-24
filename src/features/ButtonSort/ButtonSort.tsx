@@ -1,66 +1,38 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {CardPackType, sortValues} from "../../dal/packs-api";
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import IconButton from "@mui/material/IconButton";
+import {useDispatch, useSelector} from "react-redux";
+import {useAppDispatch, useAppSelector} from "../../bll/store";
+import {setSortDirection} from '../../bll/packs-reducer';
 
 type PropsType = {
     onChangeFilterPacks: (sortPacks: string) => void
-    sortValue: string
+    sortTableColumn: string
 }
 
 
-export const ButtonSort = (props: PropsType) => {
+export const ButtonSort = React.memo(({onChangeFilterPacks, sortTableColumn}: PropsType) => {
 
-    const [sort, setSort] = useState<'1' | '0'>('0');
+    const sortDirection = useAppSelector(state => state.packs.sortDirection)
+    const dispatch = useAppDispatch()
 
-    const onClickHandler = (sortValue: string) => {
-        debugger
-        sort === '0' ? setSort('1') : setSort('0')
-        sort === '0' ? props.onChangeFilterPacks(`0${sortValue}`) : props.onChangeFilterPacks(`1${sortValue}`)
+    const onClickHandler = () => {
+        if (sortDirection === '0') {
+            dispatch(setSortDirection('1'))
+            onChangeFilterPacks(`1${sortTableColumn}`)
+        } else {
+            dispatch(setSortDirection('0'))
+            onChangeFilterPacks(`0${sortTableColumn}`)
+        }
     }
 
     return (
         <>
-            <IconButton size={'small'}
-                        onClick={() => {
-                            debugger
-                            onClickHandler(props.sortValue)
-                        }}>
-                <ArrowDropUpIcon style={sort === '1' ? {transform: 'rotate(180deg)'} : {}}/>
+            <IconButton size={'small'} onClick={onClickHandler}>
+                <ArrowDropUpIcon style={sortDirection === '1' ? {transform: 'rotate(180deg)'} : {}}/>
             </IconButton>
         </>
     )
-}
-
-/*
-import {
-    SortButtonPropsType,
-    SortValueType,
-} from 'components/SortButton/SortButton/types';
-
-export const SortButton: FC<SortButtonPropsType> = props => {
-    const { onClick, defaultValue = '0updated' } = props;
-
-    const [sort, setSort] = useState<SortValueType>(defaultValue);
-    // стоит поиграться с логикой касаемо запроса...
-    const onClickSortHandler = () => {
-        if (sort === '0updated') {
-            setSort('1updated');
-            onClick && onClick('1updated');
-        } else {
-            setSort('0updated');
-            onClick && onClick('0updated');
-        }
-    };
-
-    return (
-        <button className={styles.button} type="button" onClick={onClickSortHandler}>
-            <img
-                src={arrowIcon}
-                alt="arrow"
-                style={sort === '1updated' ? { transform: 'rotate(180deg)' } : {}}
-            />
-        </button>
-    );
-};*/
+})

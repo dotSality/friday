@@ -14,7 +14,7 @@ import {
 
 import {CustomMuiPagination} from '../Pagination/CustomMuiPagination';
 import {CustomMuiSelect} from '../Select/CustomMuiSelect';
-import {Input} from './Input/Input';
+import {Input} from '../Input/Input';
 import {TablePacks} from "../TablePacks/TablePacks";
 import {DoubleRangeInput} from "../DoubleRangeInput/DoubleRangeInput";
 import {NotAuthRedirect} from '../../hoc/NotAuthRedirect';
@@ -25,7 +25,6 @@ import loader from '../../common/img/loader.gif';
 import s from './Packs.module.scss';
 
 const Component = memo(() => {
-
     const {status} = useAppSelector(state => state.app)
     const {_id} = useAppSelector(state => state.profile)
     const {
@@ -94,7 +93,6 @@ const Component = memo(() => {
     }
 
     const onChangeFilterPacks = (sortPacks: string) => {
-
         dispatch(setSortValue(sortPacks))
         dispatch(fetchPacks({
             ...fetchData,
@@ -103,6 +101,7 @@ const Component = memo(() => {
             max: sliderValue[1]
         }))
     };
+
 
     const onMyPacksHandler = async () => {
         if (!own) {

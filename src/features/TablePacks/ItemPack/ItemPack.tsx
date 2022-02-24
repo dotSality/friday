@@ -1,14 +1,14 @@
 import React from 'react';
-import {CardPackType} from "../../dal/packs-api";
-import {useAppSelector} from "../../bll/store";
+import {CardPackType} from "../../../dal/packs-api";
+import {useAppSelector} from "../../../bll/store";
 import {NavLink} from "react-router-dom";
-import {PATH} from "../../utils/paths";
+import {PATH} from "../../../utils/paths";
 
-import {DeletePackModal} from "../CustomModals/DeleteModal/DeletePackModal";
-import {EditPackModal} from "../CustomModals/EditPackModal/EditPackModal";
+import {DeletePackModal} from "../../CustomModals/DeleteModal/DeletePackModal";
+import {EditPackModal} from "../../CustomModals/EditPackModal/EditPackModal";
 
-import c from "../../common/styles/Common.module.scss";
-import s from "../Packs/Pack/Pack.module.scss";
+import c from "../../../common/styles/Common.module.scss";
+import s from "./ItemPack.module.scss";
 
 type PropsType = {
     pack: CardPackType
