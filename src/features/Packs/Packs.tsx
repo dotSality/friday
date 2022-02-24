@@ -1,7 +1,16 @@
-import React, {memo, useEffect, useState} from 'react';
+import React, {memo, useEffect} from 'react';
 import {GetPacksPayloadType} from '../../dal/packs-api';
 import {useAppDispatch, useAppSelector} from '../../bll/store';
-import {clearPacksData, createPack, fetchPacks, removePack, setOwn, updatePack} from '../../bll/packs-reducer';
+import {
+    clearPacksData,
+    createPack,
+    fetchPacks,
+    removePack,
+    setOwn,
+    setSliderValue,
+    setSortValue,
+    updatePack
+} from '../../bll/packs-reducer';
 
 import {CustomMuiPagination} from '../Pagination/CustomMuiPagination';
 import {CustomMuiSelect} from '../Select/CustomMuiSelect';
@@ -17,8 +26,6 @@ import s from './Packs.module.scss';
 
 const Component = memo(() => {
 
-    const [valueSlider, setValueSlider] = useState<number[]>([]) //doubleRangeSlider state
-
     const {status} = useAppSelector(state => state.app)
     const {_id} = useAppSelector(state => state.profile)
     const {
@@ -26,6 +33,8 @@ const Component = memo(() => {
         isLoaded,
         own,
         value,
+        sliderValue,
+        sortValue
     } = useAppSelector(state => state.packs)
 
     const dispatch = useAppDispatch()
@@ -37,7 +46,7 @@ const Component = memo(() => {
         user_id: own ? _id : undefined,
         min: minCardsCount,
         max: maxCardsCount,
-        sortPacks: "0created"
+        sortPacks: sortValue
     }
 
     useEffect(() => {
@@ -57,15 +66,16 @@ const Component = memo(() => {
         dispatch(fetchPacks({
             ...fetchData,
             page,
-            min: valueSlider[0],
-            max: valueSlider[1]
+            min: sliderValue[0],
+            max: sliderValue[1],
+            sortPacks: sortValue
         }))
     }
     const onChangePageCount = (pageCount: number) => dispatch(fetchPacks({
         ...fetchData,
         pageCount,
-        min: valueSlider[0],
-        max: valueSlider[1]
+        min: sliderValue[0],
+        max: sliderValue[1]
     }))
 
     const onRemovePackCallback = (packId: string) => dispatch(removePack({packId, fetchData}))
@@ -79,20 +89,24 @@ const Component = memo(() => {
     }))
 
     const onchangeSliderValue = (value: number[]) => {
-        setValueSlider(value)
+        dispatch(setSliderValue(value))
         dispatch(fetchPacks({...fetchData, min: value[0], max: value[1]}))
     }
 
-    const onChangeFilterPacks = (sortPacks: string) => dispatch(fetchPacks({
-        ...fetchData,
-        sortPacks,
-        min: valueSlider[0],
-        max: valueSlider[1]
-    }))
+    const onChangeFilterPacks = (sortPacks: string) => {
+
+        dispatch(setSortValue(sortPacks))
+        dispatch(fetchPacks({
+            ...fetchData,
+            sortPacks,
+            min: sliderValue[0],
+            max: sliderValue[1]
+        }))
+    };
 
     const onMyPacksHandler = async () => {
         if (!own) {
-            await dispatch(fetchPacks({...fetchData, user_id: _id}));
+            await dispatch(fetchPacks({...fetchData, user_id: _id, page: 1}));
             dispatch(setOwn(true))
         }
     }
@@ -138,15 +152,6 @@ const Component = memo(() => {
                                   removePackCallback={onRemovePackCallback}
                     />
                 }
-                {/*                {status === 'loading'
-                    ? <img src={loader} alt="loader"/>
-                    : <List items={cardPacks} renderItem={(cardPack: CardPackType) =>
-                        <Pack updatePack={onUpdatePackHandler}
-                              removePack={onRemovePackHandler}
-                              key={cardPack._id}
-                              cardPack={cardPack}/>}
-                    />}*/}
-
                 <div className={s.pagination}>
                     <CustomMuiPagination
                         totalItemsCount={cardPacksTotalCount}
