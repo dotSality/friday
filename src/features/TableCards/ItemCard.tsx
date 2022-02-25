@@ -1,8 +1,11 @@
 import React from 'react';
+
+import Rating from "@mui/material/Rating";
+
 import {CardType} from "../../bll/cards-reducer";
 import {DeleteCardModal} from "../CustomModals/DeleteCardModal/DeleteCardModal";
 import {EditCardModal} from "../CustomModals/EditCardModal/EditCardModal";
-import Rating from "@mui/material/Rating";
+
 
 type PropsType = {
     pack: CardType

@@ -1,7 +1,9 @@
 import React, {ChangeEvent, KeyboardEvent, useCallback, useState} from 'react';
+
 import TextField from '@mui/material/TextField';
 import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/material/IconButton/IconButton';
+
 
 type EditableSpanPropsType = {
     value: string
@@ -10,7 +12,7 @@ type EditableSpanPropsType = {
     onKeyPress: (newValue: string) => void
 }
 
-export const EditableSpan = React.memo( ({value,onChange,onKeyPress,onBlur}:EditableSpanPropsType) => {
+export const EditableSpan = React.memo(({value, onChange, onKeyPress, onBlur}: EditableSpanPropsType) => {
 
     let [editMode, setEditMode] = useState(false);
     let [title, setTitle] = useState(value);
@@ -19,24 +21,21 @@ export const EditableSpan = React.memo( ({value,onChange,onKeyPress,onBlur}:Edit
         setEditMode(true);
         setTitle(value);
     }
-
     const activateViewMode = useCallback(() => {
         setEditMode(false);
         onChange(title);
         onBlur(title)
-    },[title])
-
+    }, [title])
     const changeTitle = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
     }
-
     const onKeyPressHandler = useCallback((e: KeyboardEvent<HTMLDivElement>) => {
         if (e.key === 'Enter') {
             setEditMode(false);
             onKeyPress(title);
             setTitle('')
         }
-    },[title])
+    }, [title])
 
     return editMode
         ? <TextField value={title}
@@ -56,5 +55,4 @@ export const EditableSpan = React.memo( ({value,onChange,onKeyPress,onBlur}:Edit
                 <EditIcon/>
             </IconButton>
     </span>
-
 });

@@ -1,5 +1,7 @@
-import {instance} from './instance';
 import {AxiosResponse} from 'axios';
+
+import {instance} from './instance';
+
 
 export const passwordAPI = {
     recover(data: RecoverRequestType) {

@@ -1,27 +1,27 @@
 import React, {memo, useEffect} from 'react';
+import {useParams} from 'react-router-dom';
+
 import {useAppDispatch, useAppSelector} from '../../bll/store';
 import {clearCardsData, createCard, deleteCard, fetchCards, setGrade, updateCard} from '../../bll/cards-reducer';
-import loader from '../../common/img/loader.gif';
-import s from './Cards.module.scss'
-import {CustomMuiPagination} from '../Pagination/CustomMuiPagination';
-import {CustomMuiSelect} from '../Select/CustomMuiSelect';
-import {useParams} from 'react-router-dom';
 import {NotAuthRedirect} from '../../hoc/NotAuthRedirect';
 import {GetCardsRequestType} from '../../dal/cards-api';
+import {CustomMuiPagination} from '../Pagination/CustomMuiPagination';
+import {CustomMuiSelect} from '../Select/CustomMuiSelect';
 import {AddNewCardModal} from '../CustomModals/AddNewCardModal/AddNewCardModal';
 import {TableCards} from "../TableCards/TableCards";
-import {fetchPacks} from "../../bll/packs-reducer";
+import loader from '../../common/img/loader.gif';
+import s from './Cards.module.scss'
+
 
 const Component = memo(() => {
 
     const {cardsPack_id} = useParams()
+    const dispatch = useAppDispatch()
     const {cardsData, packId, isLoaded} = useAppSelector(state => state.cards)
     const {status} = useAppSelector(state => state.app)
     const {_id} = useAppSelector(state => state.profile)
 
-    const {cards, cardsTotalCount, pageCount, page, minGrade, maxGrade, packUserId} = cardsData
-
-    const dispatch = useAppDispatch()
+    const {cards, cardsTotalCount, pageCount, page, packUserId} = cardsData
 
     const fetchData: GetCardsRequestType = {
         cardsPack_id: packId!,
@@ -36,13 +36,9 @@ const Component = memo(() => {
             cardsPack_id: cardsPack_id || packId!, question, answer,
         }
     }))
-
     const onSetNewPageHandler = (value: number) => dispatch(fetchCards({...fetchData, page: value}))
-
     const onChangeOptionsHandler = (value: number) => dispatch(fetchCards({...fetchData, pageCount: value}))
-
     const onDeleteCardHandler = (cardId: string) => dispatch(deleteCard({fetchData, cardId}))
-
     const onUpdateCardHandler = (cardId: string, question: string, answer: string) => dispatch(updateCard({
         fetchData: {
             ...fetchData,
@@ -54,14 +50,12 @@ const Component = memo(() => {
             answer,
         }
     }))
-
     const onSetGradeHandler = (grade: number, card_id: string) => dispatch(setGrade({
         fetchData,
         data: {
             grade, card_id
         }
     }))
-
     const onChangeFilterCards = (sortCards: string) => dispatch(fetchCards({...fetchData, sortCards}))
 
 
@@ -84,7 +78,7 @@ const Component = memo(() => {
         }
     }, [])
 
-    if (!isLoaded) return <img src={loader} alt="aaaa"/>
+    if (!isLoaded) return <img src={loader} alt="loader"/>
 
     return (
         <div className={s.cardsContainer}>
@@ -100,15 +94,6 @@ const Component = memo(() => {
                                     userId={_id}
                                     onChangeFilterCards={onChangeFilterCards}
                         />
-
-{/*                        <List items={cards} renderItem={(card: CardType) => <Card key={card.updated}
-                                                                                  onSetGradeHandler={onSetGradeHandler}
-                                                                                  userId={_id}
-                                                                                  packUserId={packUserId!}
-                                                                                  updateCard={onUpdateCardHandler}
-                                                                                  deleteCard={onDeleteCardHandler}
-                                                                                  card={card}/>}
-                        />*/}
                         <div style={{display: 'flex', alignSelf: 'flex-start'}}>
                             <CustomMuiPagination
                                 onSetNewPage={onSetNewPageHandler}

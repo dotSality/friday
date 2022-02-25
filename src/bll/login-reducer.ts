@@ -1,23 +1,8 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 
-import {authAPI} from "./../dal/authApi";
+import {authAPI} from "../dal/authApi";
 import {setUserProfile} from './profile-reducer';
 import {setAppError, setAppStatus} from "./app-reducer";
-
-
-const initialState: InitStateType = {
-    isLoggedIn: false,
-}
-
-const loginSlice = createSlice({
-    name: 'login',
-    initialState,
-    reducers: {
-        isLoggedIn: (state, action: PayloadAction< boolean>) => {
-            state.isLoggedIn = action.payload
-        },
-    },
-})
 
 
 //Thunk
@@ -57,6 +42,21 @@ export const logoutTC = createAsyncThunk(
         }
     }
 )
+
+
+const initialState: InitStateType = {
+    isLoggedIn: false,
+}
+
+const loginSlice = createSlice({
+    name: 'login',
+    initialState,
+    reducers: {
+        isLoggedIn: (state, action: PayloadAction< boolean>) => {
+            state.isLoggedIn = action.payload
+        },
+    },
+})
 
 
 //types

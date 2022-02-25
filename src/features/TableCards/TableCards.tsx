@@ -1,12 +1,8 @@
 import React from 'react';
 import {CardType} from "../../bll/cards-reducer";
-import {sortValues} from "../../dal/packs-api";
 
 import {ItemCard} from "./ItemCard";
-
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import IconButton from "@mui/material/IconButton";
+import {ButtonSort} from "../ButtonSort/ButtonSort";
 
 type PropsType = {
     items: CardType[]
@@ -17,6 +13,14 @@ type PropsType = {
     userId: string
     onChangeFilterCards: (sortCards: string) => void
 }
+
+const sortCardsNames = [
+    {name:'name', columnsName:'Question'},
+    {name:'cardsCount', columnsName:'Answer'},
+    {name:'updated', columnsName:'Last Updated'},
+    {name:'created', columnsName:'Grade'},
+    {name:'actions', columnsName:'Actions'},
+]
 
 export const TableCards = React.memo(({
                                           items,
@@ -32,39 +36,45 @@ export const TableCards = React.memo(({
         <table>
             <thead>
             <tr>
-                <th>Question
-                    <IconButton size={'small'} onClick={() => onChangeFilterCards(sortValues.questionFalse)}>
-                        <ArrowDropUpIcon/>
-                    </IconButton>
-                    <IconButton size={'small'} onClick={() => onChangeFilterCards(sortValues.questionTrue)}>
-                        <ArrowDropDownIcon/>
-                    </IconButton>
-                </th>
-                <th>Answer
-                    <IconButton size={'small'} onClick={() => onChangeFilterCards(sortValues.answerFalse)}>
-                        <ArrowDropUpIcon/>
-                    </IconButton>
-                    <IconButton size={'small'} onClick={() => onChangeFilterCards(sortValues.answerTrue)}>
-                        <ArrowDropDownIcon/>
-                    </IconButton>
-                </th>
-                <th>Last Updated
-                    <IconButton size={'small'} onClick={() => onChangeFilterCards(sortValues.updatedFalse)}>
-                        <ArrowDropUpIcon/>
-                    </IconButton>
-                    <IconButton size={'small'} onClick={() => onChangeFilterCards(sortValues.updatedTrue)}>
-                        <ArrowDropDownIcon/>
-                    </IconButton>
-                </th>
-                <th>Grade
-                    <IconButton size={'small'} onClick={() => onChangeFilterCards(sortValues.gradeFalse)}>
-                        <ArrowDropUpIcon/>
-                    </IconButton>
-                    <IconButton size={'small'} onClick={() => onChangeFilterCards(sortValues.gradeTrue)}>
-                        <ArrowDropDownIcon/>
-                    </IconButton>
-                </th>
-                <th>Action</th>
+
+                {sortCardsNames.map(el => {
+                    return <th key={el.name}>{el.columnsName}
+                        <ButtonSort onChangeFilterValue={onChangeFilterCards}  sortTableColumn={el.name}/>
+                    </th>
+                })}
+                {/*<th>Question*/}
+                {/*    <IconButton size={'small'} onClick={() => onChangeFilterCards(sortValues.questionFalse)}>*/}
+                {/*        <ArrowDropUpIcon/>*/}
+                {/*    </IconButton>*/}
+                {/*    <IconButton size={'small'} onClick={() => onChangeFilterCards(sortValues.questionTrue)}>*/}
+                {/*        <ArrowDropDownIcon/>*/}
+                {/*    </IconButton>*/}
+                {/*</th>*/}
+                {/*<th>Answer*/}
+                {/*    <IconButton size={'small'} onClick={() => onChangeFilterCards(sortValues.answerFalse)}>*/}
+                {/*        <ArrowDropUpIcon/>*/}
+                {/*    </IconButton>*/}
+                {/*    <IconButton size={'small'} onClick={() => onChangeFilterCards(sortValues.answerTrue)}>*/}
+                {/*        <ArrowDropDownIcon/>*/}
+                {/*    </IconButton>*/}
+                {/*</th>*/}
+                {/*<th>Last Updated*/}
+                {/*    <IconButton size={'small'} onClick={() => onChangeFilterCards(sortValues.updatedFalse)}>*/}
+                {/*        <ArrowDropUpIcon/>*/}
+                {/*    </IconButton>*/}
+                {/*    <IconButton size={'small'} onClick={() => onChangeFilterCards(sortValues.updatedTrue)}>*/}
+                {/*        <ArrowDropDownIcon/>*/}
+                {/*    </IconButton>*/}
+                {/*</th>*/}
+                {/*<th>Grade*/}
+                {/*    <IconButton size={'small'} onClick={() => onChangeFilterCards(sortValues.gradeFalse)}>*/}
+                {/*        <ArrowDropUpIcon/>*/}
+                {/*    </IconButton>*/}
+                {/*    <IconButton size={'small'} onClick={() => onChangeFilterCards(sortValues.gradeTrue)}>*/}
+                {/*        <ArrowDropDownIcon/>*/}
+                {/*    </IconButton>*/}
+                {/*</th>*/}
+                {/*<th>Action</th>*/}
             </tr>
             </thead>
             <tbody>

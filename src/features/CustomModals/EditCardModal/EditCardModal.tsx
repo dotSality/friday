@@ -1,10 +1,13 @@
-import {useAppSelector} from '../../../bll/store';
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
-import c from '../../../common/styles/Common.module.scss';
-import {Modal} from '../../Modal/Modal';
-import s from './EditCardModal.module.scss';
+
 import Typography from '@mui/material/Typography';
 import {TextField} from '@mui/material';
+
+import {useAppSelector} from '../../../bll/store';
+import {Modal} from '../../Modal/Modal';
+import c from '../../../common/styles/Common.module.scss';
+import s from './EditCardModal.module.scss';
+
 
 type PropsType = {
     q: string;
@@ -20,11 +23,11 @@ export const EditCardModal = ({isEditable, updateCard, _id, q, a}: PropsType) =>
     const [active, setActive] = useState<boolean>(false)
     const [question, setQuestion] = useState<string>(q)
     const [answer, setAnswer] = useState<string>(a)
+
     const onQuestionChange = (e: ChangeEvent<HTMLInputElement>) => setQuestion(e.currentTarget.value)
     const onAnswerChange = (e: ChangeEvent<HTMLInputElement>) => setAnswer(e.currentTarget.value)
     const onShowModalHandler = () => setActive(true)
     const onHideModalHandler = () => setActive(false)
-
     const onUpdatePackHandler = () => updateCard(_id, question, answer)
     const onEnterUpdateHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') updateCard(_id, question, answer)

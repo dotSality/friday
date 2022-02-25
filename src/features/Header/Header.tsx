@@ -11,16 +11,15 @@ import LogoutIcon from '@mui/icons-material/Logout';
 
 import {useAppDispatch, useAppSelector} from "../../bll/store";
 import {ProfileType} from "../../bll/profile-reducer";
-import UserPhoto from "../../common/img/photo_2022-02-06_16-28-54.png";
 import {logoutTC} from "../../bll/login-reducer";
 import {PATH} from "../../utils/paths";
 import s from './Header.module.css'
 import CardsImg from '../../common/img/cards.png'
 import UserImg from '../../common/img/user.png'
+import UserPhoto from "../../common/img/photo_2022-02-06_16-28-54.png";
 
 
 export const Header = () => {
-
 
     const isLoggedIn = useAppSelector<boolean>(state => state.login.isLoggedIn)
     const user = useAppSelector<ProfileType>(state => state.profile)
@@ -29,9 +28,7 @@ export const Header = () => {
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
 
-    const logoutHandler = () => {
-        dispatch(logoutTC())
-    }
+    const logoutHandler = () => dispatch(logoutTC())
 
     return (
         <AppBar position="fixed" sx={{backgroundColor: 'gray', width: '100%'}}>

@@ -1,23 +1,8 @@
 import {createSlice, Dispatch, PayloadAction} from '@reduxjs/toolkit';
+
 import {authAPI} from "../dal/authApi";
 import {setAppError, setAppStatus} from "./app-reducer";
 
-const initialState = {
-    isRegistrationSuccess: false,
-}
-
-const registerSlice = createSlice({
-    name: 'register',
-    initialState,
-    reducers: {
-        setRegistrationSuccess(state, action: PayloadAction<boolean >) {
-            state.isRegistrationSuccess = action.payload
-        },
-    }
-})
-
-export const registerReducer = registerSlice.reducer
-export const {setRegistrationSuccess} = registerSlice.actions;
 
 export const registrationTC = (email: string, password: string) => async (dispatch: Dispatch) => {
     try {
@@ -33,3 +18,22 @@ export const registrationTC = (email: string, password: string) => async (dispat
         dispatch(setAppError(error))
     }
 }
+
+const initialState = {
+    isRegistrationSuccess: false,
+}
+
+const registerSlice = createSlice({
+    name: 'register',
+    initialState,
+    reducers: {
+        setRegistrationSuccess(state, action: PayloadAction<boolean >) {
+            state.isRegistrationSuccess = action.payload
+        },
+    }
+})
+
+
+export const registerReducer = registerSlice.reducer
+export const {setRegistrationSuccess} = registerSlice.actions;
+

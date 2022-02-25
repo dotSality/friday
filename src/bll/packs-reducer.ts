@@ -1,6 +1,82 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
+
 import {CardPackType, GetPacksPayloadType, AddPackRequestType, packsApi, UpdatePackRequestType} from '../dal/packs-api';
 import {setAppError, setAppStatus} from './app-reducer';
+
+
+//Thunk
+export const fetchPacks = createAsyncThunk(
+    'packs/fetchCards',
+    async (data: GetPacksPayloadType, {dispatch, rejectWithValue}) => {
+        dispatch(setAppStatus('loading'))
+        try {
+            const res = await packsApi.getPack(data)
+            dispatch(setAppStatus('succeeded'))
+            return res.data
+        } catch (e: any) {
+            const error = e.response
+                ? e.response.data.error
+                : (e.message + ', Try later')
+            dispatch(setAppError(error))
+            dispatch(setAppStatus('failed'))
+            return rejectWithValue({})
+        }
+    }
+)
+
+export const createPack = createAsyncThunk(
+    'packs/createPack',
+    async ({fetchData, data}: { fetchData: GetPacksPayloadType, data: AddPackRequestType }, {dispatch}) => {
+        try {
+            dispatch(setAppStatus('loading'))
+            await packsApi.addPack(data)
+            await dispatch(fetchPacks(fetchData))
+            dispatch(setAppStatus('succeeded'))
+        } catch (e: any) {
+            const error = e.response
+                ? e.response.data.error
+                : (e.message + ', Try later')
+            dispatch(setAppError(error))
+            dispatch(setAppStatus('failed'))
+        }
+    }
+)
+
+export const removePack = createAsyncThunk(
+    'packs/deletePack',
+    async ({fetchData, packId}: { fetchData: GetPacksPayloadType, packId: string }, {dispatch}) => {
+        try {
+            dispatch(setAppStatus('loading'))
+            await packsApi.deletePack(packId)
+            await dispatch(fetchPacks(fetchData))
+            dispatch(setAppStatus('succeeded'))
+        } catch (e: any) {
+            const error = e.response
+                ? e.response.data.error
+                : (e.message + ', Try later')
+            dispatch(setAppError(error))
+            dispatch(setAppStatus('failed'))
+        }
+    }
+)
+
+export const updatePack = createAsyncThunk(
+    'packs/updatePack',
+    async ({fetchData, data}: { fetchData: GetPacksPayloadType, data: UpdatePackRequestType }, {dispatch}) => {
+        try {
+            dispatch(setAppStatus('loading'))
+            await packsApi.updatePack(data)
+            await dispatch(fetchPacks(fetchData))
+            dispatch(setAppStatus('succeeded'))
+        } catch (e: any) {
+            const error = e.response
+                ? e.response.data.error
+                : (e.message + ', Try later')
+            dispatch(setAppError(error))
+            dispatch(setAppStatus('failed'))
+        }
+    }
+)
 
 const packsSlice = createSlice({
         name: 'packs',
@@ -18,7 +94,7 @@ const packsSlice = createSlice({
             own: false,
             sliderValue: [] as number[],
             sortValue: '0created' as string,
-            sortDirection: '0'  as string,
+            sortDirection: '0' as string,
         },
         reducers: {
             clearPacksData(state) {
@@ -52,81 +128,14 @@ const packsSlice = createSlice({
     },
 )
 
-//Thunk
-export const fetchPacks = createAsyncThunk(
-    'packs/fetchCards',
-    async (data: GetPacksPayloadType, {dispatch, rejectWithValue}) => {
-        dispatch(setAppStatus('loading'))
-        try {
-            const res = await packsApi.getPack(data)
-            dispatch(setAppStatus('succeeded'))
-            return res.data
-        } catch (e: any) {
-            const error = e.response
-                ? e.response.data.error
-                : (e.message + ', Try later')
-            console.log({...e})
-            dispatch(setAppError(error))
-            dispatch(setAppStatus('failed'))
-            return rejectWithValue({})
-        }
-    }
-)
 
-export const createPack = createAsyncThunk(
-    'packs/createPack',
-    async ({fetchData, data}: { fetchData: GetPacksPayloadType, data: AddPackRequestType }, {dispatch}) => {
-        try {
-            dispatch(setAppStatus('loading'))
-            const res = await packsApi.addPack(data)
-            await dispatch(fetchPacks(fetchData))
-            dispatch(setAppStatus('succeeded'))
-        } catch (e: any) {
-            const error = e.response
-                ? e.response.data.error
-                : (e.message + ', Try later')
-            dispatch(setAppError(error))
-            dispatch(setAppStatus('failed'))
-        }
-    }
-)
-
-export const removePack = createAsyncThunk(
-    'packs/deletePack',
-    async ({fetchData, packId}: { fetchData: GetPacksPayloadType, packId: string }, {dispatch}) => {
-        try {
-            dispatch(setAppStatus('loading'))
-            const res = await packsApi.deletePack(packId)
-            await dispatch(fetchPacks(fetchData))
-            dispatch(setAppStatus('succeeded'))
-        } catch (e: any) {
-            const error = e.response
-                ? e.response.data.error
-                : (e.message + ', Try later')
-            dispatch(setAppError(error))
-            dispatch(setAppStatus('failed'))
-        }
-    }
-)
-
-export const updatePack = createAsyncThunk(
-    'packs/updatePack',
-    async ({fetchData, data}: { fetchData: GetPacksPayloadType, data: UpdatePackRequestType }, {dispatch}) => {
-        try {
-            dispatch(setAppStatus('loading'))
-            await packsApi.updatePack(data)
-            let res = await dispatch(fetchPacks(fetchData))
-            dispatch(setAppStatus('succeeded'))
-        } catch (e: any) {
-            const error = e.response
-                ? e.response.data.error
-                : (e.message + ', Try later')
-            dispatch(setAppError(error))
-            dispatch(setAppStatus('failed'))
-        }
-    }
-)
-
-export const {clearPacksData, setOwn, setSearchValue, setSliderValue, setSortValue, setSortDirection} = packsSlice.actions
+export const {
+    clearPacksData,
+    setOwn,
+    setSearchValue,
+    setSliderValue,
+    setSortValue,
+    setSortDirection
+} = packsSlice.actions
 
 export const packsReducer = packsSlice.reducer

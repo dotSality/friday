@@ -24,6 +24,7 @@ import Typography from '@mui/material/Typography';
 import loader from '../../common/img/loader.gif';
 import s from './Packs.module.scss';
 
+
 const Component = memo(() => {
     const {status} = useAppSelector(state => state.app)
     const {_id} = useAppSelector(state => state.profile)
@@ -55,30 +56,19 @@ const Component = memo(() => {
         }
     }, [value])
 
-    const addPackHandler = (title: string) => {
-        dispatch(createPack({
-            fetchData, data: {name: title}
-        }))
-    }
-
-    const onPageChange = (page: number) => {
-        dispatch(fetchPacks({
-            ...fetchData,
-            page,
-            min: sliderValue[0],
-            max: sliderValue[1],
-            sortPacks: sortValue
-        }))
-    }
+    const addPackHandler = (title: string) => dispatch(createPack({fetchData, data: {name: title}}))
+    const onPageChange = (page: number) => dispatch(fetchPacks({
+        ...fetchData, page, min: sliderValue[0],
+        max: sliderValue[1],
+        sortPacks: sortValue
+    }))
     const onChangePageCount = (pageCount: number) => dispatch(fetchPacks({
         ...fetchData,
         pageCount,
         min: sliderValue[0],
         max: sliderValue[1]
     }))
-
     const onRemovePackCallback = (packId: string) => dispatch(removePack({packId, fetchData}))
-
     const onUpdatePackHandler = (name: string, packId: string) => dispatch(updatePack({
         fetchData,
         data: {
@@ -86,12 +76,10 @@ const Component = memo(() => {
             _id: packId
         },
     }))
-
     const onchangeSliderValue = (value: number[]) => {
         dispatch(setSliderValue(value))
         dispatch(fetchPacks({...fetchData, min: value[0], max: value[1]}))
     }
-
     const onChangeFilterPacks = (sortPacks: string) => {
         dispatch(setSortValue(sortPacks))
         dispatch(fetchPacks({
@@ -100,16 +88,13 @@ const Component = memo(() => {
             min: sliderValue[0],
             max: sliderValue[1]
         }))
-    };
-
-
+    }
     const onMyPacksHandler = async () => {
         if (!own) {
             await dispatch(fetchPacks({...fetchData, user_id: _id, page: 1}));
             dispatch(setOwn(true))
         }
     }
-
     const onAllPacksHandler = async () => {
         if (own) {
             await dispatch(fetchPacks({...fetchData, user_id: undefined}));

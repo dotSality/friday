@@ -1,17 +1,20 @@
-import s from './NewPassCreate.module.scss';
-import Paper from '@mui/material/Paper/Paper';
-import {Navigate, useParams} from 'react-router-dom';
-import Typography from '@mui/material/Typography/Typography';
-import {useFormik} from 'formik';
-import {CircularProgress, IconButton, InputAdornment, TextField, useMediaQuery} from '@mui/material';
-import Visibility from '../../../common/img/eye.svg';
-import VisibilityOff from '../../../common/img/eye_off.svg';
 import React, {useState} from 'react';
+import {useFormik} from 'formik';
+import {Navigate, useParams} from 'react-router-dom';
+
+import Typography from '@mui/material/Typography/Typography';
+import {CircularProgress, IconButton, InputAdornment, TextField, useMediaQuery} from '@mui/material';
 import Fab from '@mui/material/Fab/Fab';
 import Container from '@mui/material/Container/Container';
+import Paper from '@mui/material/Paper/Paper';
+
 import {useAppDispatch, useAppSelector} from '../../../bll/store';
 import {sendNewPassword} from '../../../bll/pass-reducer';
 import {PATH} from '../../../utils/paths';
+import Visibility from '../../../common/img/eye.svg';
+import VisibilityOff from '../../../common/img/eye_off.svg';
+import s from './NewPassCreate.module.scss';
+
 
 type FormikValuesType = {
     password: string,
@@ -26,20 +29,18 @@ type StateType = {
 export const NewPassCreate = () => {
 
     const maxWidth = useMediaQuery('(min-width:357px)');
-
     const {token} = useParams()
     const dispatch = useAppDispatch()
     const {passChanged} = useAppSelector(state => state.passRecover)
     const {status} = useAppSelector(state => state.app)
 
-    const [values, setValues] = useState<StateType>({
-        showPassword: false,
-        showConfirmPassword: false,
-    });
+    const [values, setValues] = useState<StateType>({showPassword: false, showConfirmPassword: false,});
 
     const handleClickShowPassword = () => setValues({...values, showPassword: !values.showPassword,});
-    const handleClickShowConfirmPassword = () => setValues({...values, showConfirmPassword: !values.showConfirmPassword,});
-
+    const handleClickShowConfirmPassword = () => setValues({
+        ...values,
+        showConfirmPassword: !values.showConfirmPassword,
+    });
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => event.preventDefault();
 
     const formik = useFormik({
@@ -72,8 +73,6 @@ export const NewPassCreate = () => {
                 Create new password
             </Typography>
             <form onSubmit={formik.handleSubmit} className={s.form}>
-
-
                 <Container className={s.contentContainer}>
                     <TextField
                         className={s.textField}
@@ -94,15 +93,14 @@ export const NewPassCreate = () => {
                                         onMouseDown={handleMouseDownPassword}>
                                         {values.showPassword
                                             ? <img src={Visibility}
-                                                width='16' height='16' alt="Visibility"/>
+                                                   width='16' height='16' alt="Visibility"/>
                                             : <img src={VisibilityOff}
-                                                width='16' height='16' alt="VisibilityOff"/>}
+                                                   width='16' height='16' alt="VisibilityOff"/>}
                                     </IconButton>
                                 </InputAdornment>
                             ),
                         }}
                         {...formik.getFieldProps('password')}/>
-
                     <TextField
                         className={s.textField}
                         sx={{width: '100%'}}
@@ -122,31 +120,25 @@ export const NewPassCreate = () => {
                                         onMouseDown={handleMouseDownPassword}>
                                         {values.showConfirmPassword
                                             ? <img src={Visibility}
-                                                width='16' height='16' alt="Visibility"/>
+                                                   width='16' height='16' alt="Visibility"/>
                                             : <img src={VisibilityOff}
-                                                width='16' height='16' alt="VisibilityOff"/>}
+                                                   width='16' height='16' alt="VisibilityOff"/>}
                                     </IconButton>
                                 </InputAdornment>
                             ),
                         }}
                         {...formik.getFieldProps('confirmPassword')}/>
-
                     <Typography variant={'subtitle1'} sx={{opacity: '50%'}}>
                         Create new password and we will send you further instructions
                     </Typography>
-
-
                 </Container>
                 {status === 'loading'
                     ? <CircularProgress sx={{alignSelf: 'center'}} color="secondary"/>
                     : <Fab sx={{padding: maxWidth ? '0 40px' : '0 20px', margin: '0 20px 50px'}} type={'submit'}
-                        variant="extended" size={maxWidth ? "medium" : 'small'} color={'primary'} aria-label="add">
+                           variant="extended" size={maxWidth ? "medium" : 'small'} color={'primary'} aria-label="add">
                         Create new password
                     </Fab>}
-
-
             </form>
         </Paper>
-
     </div>
 }

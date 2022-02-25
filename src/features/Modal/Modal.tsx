@@ -1,12 +1,13 @@
 import s from './Modal.module.scss';
 
+
 type ModalPropsType = {
     active: boolean,
     setActive: (active: boolean) => void,
     children: any,
 }
 
-export const Modal = ({active,setActive, children}: ModalPropsType) => {
+export const Modal = ({active, setActive, children}: ModalPropsType) => {
 
     const offModal = () => setActive(false)
     const modalClassName = `${s.modal} ${active ? s.modalActive : ''}`

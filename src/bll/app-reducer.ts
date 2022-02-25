@@ -1,8 +1,8 @@
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
+
 import {authAPI} from "../dal/authApi";
 import {isLoggedIn} from "./login-reducer";
-import {changeUserDataTC, setUserProfile} from './profile-reducer';
-import {sendNewPassword} from './pass-reducer';
+import {setUserProfile} from './profile-reducer';
 
 
 const initialState: InitStateType = {
@@ -11,7 +11,6 @@ const initialState: InitStateType = {
     isInitialized: false,
     _id: '',
 }
-
 
 const appSlice = createSlice({
     name: 'app',

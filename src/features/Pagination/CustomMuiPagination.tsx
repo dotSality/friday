@@ -19,7 +19,6 @@ export const CustomMuiPagination: FC<PropsType> = React.memo(({
                                                                   disabled
                                                               }) => {
 
-
         const totalAmountOfPages = Math.ceil(totalItemsCount / pageCount)
 
         return (

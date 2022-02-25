@@ -1,9 +1,12 @@
 import React, {useState} from 'react';
+
 import Typography from '@mui/material/Typography';
-import s from './DeleteCardModal.module.scss';
-import c from '../../../common/styles/Common.module.scss';
+
 import {useAppSelector} from '../../../bll/store';
 import {Modal} from '../../Modal/Modal';
+import s from './DeleteCardModal.module.scss';
+import c from '../../../common/styles/Common.module.scss';
+
 
 type PropsType = {
     cardName: string,
@@ -15,6 +18,7 @@ export const DeleteCardModal = ({onRemoveCardHandler, cardName, isDeletable}: Pr
 
     const {status} = useAppSelector(state => state.app)
     const [active, setActive] = useState<boolean>(false)
+
     const onShowModalHandler = () => setActive(true)
     const onHideModalHandler = () => setActive(false)
 

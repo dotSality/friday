@@ -1,18 +1,18 @@
-import s from './CheckSuccess.module.scss';
-import Paper from '@mui/material/Paper/Paper';
-import {useAppSelector} from '../../../../bll/store';
-import Typography from '@mui/material/Typography/Typography';
 import {useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
+
+import Paper from '@mui/material/Paper/Paper';
+import Typography from '@mui/material/Typography/Typography';
+
+import {useAppSelector} from '../../../../bll/store';
 import {PATH} from '../../../../utils/paths';
+import s from './CheckSuccess.module.scss';
+
 
 export const CheckSuccess = () => {
 
     const navigate = useNavigate()
-
-
     const {email} = useAppSelector(state => state.passRecover)
-
 
     useEffect(() => {
         const id = setTimeout(() => {
@@ -27,7 +27,7 @@ export const CheckSuccess = () => {
             <Paper elevation={2} className={s.container}>
                 <div className={s.item}>
                     <div className={s.imageContainer}>
-                        <div className={s.image}></div>
+                        <div className={s.image}/>
                     </div>
                 </div>
                 <div className={s.item}>

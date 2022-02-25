@@ -1,6 +1,7 @@
 import {instance} from './instance';
 import {CardType} from '../bll/cards-reducer';
 
+
 export const cardsAPI = {
     getCards(data: GetCardsRequestType) {
         return instance.get<GetCardsResponseType<CardType[]>>(`cards/card`, {params: data})

@@ -1,14 +1,14 @@
-import {useState} from 'react';
+import {useState} from 'react'
 
-import Backdrop from '@mui/material/Backdrop';
-import CircularProgress from '@mui/material/CircularProgress';
+import Backdrop from '@mui/material/Backdrop'
+import CircularProgress from '@mui/material/CircularProgress'
 
 
 export default function LoadingStatusBackdrop() {
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(true)
     const handleClose = () => {
-        setOpen(false);
-    };
+        setOpen(false)
+    }
 
     return (
         <div>
@@ -20,5 +20,5 @@ export default function LoadingStatusBackdrop() {
                 <CircularProgress color="inherit" size={80}/>
             </Backdrop>
         </div>
-    );
+    )
 }

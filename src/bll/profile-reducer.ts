@@ -1,21 +1,7 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 
-import {authAPI, LoginResponseType, UserDataType} from './../dal/authApi';
+import {authAPI, LoginResponseType, UserDataType} from '../dal/authApi';
 import {setAppError, setAppStatus} from "./app-reducer";
-
-
-const profileSlice = createSlice({
-    name: 'profile',
-    initialState: {} as InitStateType,
-    reducers: {
-        setUserProfile: (state, action: PayloadAction<LoginResponseType>) => {
-            return action.payload
-        },
-        setUserData: (state, action: PayloadAction<LoginResponseType>) => {
-            return action.payload
-        }
-    },
-})
 
 
 export const changeUserDataTC = createAsyncThunk(
@@ -35,6 +21,21 @@ export const changeUserDataTC = createAsyncThunk(
         }
     }
 )
+
+
+const profileSlice = createSlice({
+    name: 'profile',
+    initialState: {} as InitStateType,
+    reducers: {
+        setUserProfile: (state, action: PayloadAction<LoginResponseType>) => {
+            return action.payload
+        },
+        setUserData: (state, action: PayloadAction<LoginResponseType>) => {
+            return action.payload
+        }
+    },
+})
+
 
 type InitStateType = ProfileType
 

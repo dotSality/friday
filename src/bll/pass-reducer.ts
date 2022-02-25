@@ -1,7 +1,9 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
-import {PATH} from '../utils/paths';
+
 import {setAppError, setAppStatus} from './app-reducer';
 import {NewPassRequestType, passwordAPI} from '../dal/password-api';
+import {PATH} from '../utils/paths';
+
 
 export const sendInstructions = createAsyncThunk('forgot/sendInstructions', async (email: string, {
     dispatch,

@@ -1,16 +1,13 @@
 import React from 'react';
-import {CardPackType, sortValues} from "../../dal/packs-api";
+import {useNavigate} from "react-router-dom";
+
 import {useAppDispatch, useAppSelector} from "../../bll/store";
 import {setPackId} from "../../bll/cards-reducer";
-import {useNavigate} from "react-router-dom";
-import {PATH} from "../../utils/paths";
-
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import IconButton from "@mui/material/IconButton";
-
+import {CardPackType} from "../../dal/packs-api";
 import {ItemPack} from "./ItemPack/ItemPack";
 import {ButtonSort} from "../ButtonSort/ButtonSort";
+import {PATH} from "../../utils/paths";
+
 
 type PropsType = {
     cardPacks: CardPackType[]
@@ -18,6 +15,14 @@ type PropsType = {
     removePackCallback: (_id: string) => void
     updatePack: (name: string, _id: string) => void
 }
+
+const sortPacksNames = [
+    {name:'name', columnsName:'Name'},
+    {name:'cardsCount', columnsName:'Cards'},
+    {name:'updated', columnsName:'Last Updated'},
+    {name:'created', columnsName:'Created by'},
+    {name:'actions', columnsName:'Actions'},
+]
 
 export const TablePacks = React.memo(({
                                           cardPacks,
@@ -27,39 +32,24 @@ export const TablePacks = React.memo(({
                                       }: PropsType) => {
 
     const profileId = useAppSelector(state => state.profile._id)
-
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
+
     const navigateToCardPage = (_id: string) => {
         dispatch(setPackId(_id))
         navigate(PATH.CARDS + `/${_id}`)
     }
-
     const onRemovePackHandler = (packId: string) => removePackCallback(packId)
 
     return (
         <table>
             <thead>
             <tr>
-                <th>Name
-                    <ButtonSort onChangeFilterPacks={onChangeFilterPacks} sortTableColumn={"name"}/>
-                </th>
-                <th>Cards
-                    <ButtonSort onChangeFilterPacks={onChangeFilterPacks} sortTableColumn={"cardsCount"}/>
-                </th>
-                <th>Last Updated
-                    <ButtonSort onChangeFilterPacks={onChangeFilterPacks} sortTableColumn={"updated"}/>
-                </th>
-                <th>Created by
-                    <ButtonSort onChangeFilterPacks={onChangeFilterPacks} sortTableColumn={"created"}/>
-                    {/*<IconButton size={'small'} onClick={() => onChangeFilterPacks(sortValues.createdFalse)}>
-                        <ArrowDropUpIcon/>
-                    </IconButton>
-                    <IconButton size={'small'} onClick={() => onChangeFilterPacks(sortValues.createdTrue)}>
-                        <ArrowDropDownIcon/>
-                    </IconButton>*/}
-                </th>
-                <th>Action</th>
+                {sortPacksNames.map(el => {
+                    return <th key={el.name}>{el.columnsName}
+                        <ButtonSort onChangeFilterValue={onChangeFilterPacks}  sortTableColumn={el.name}/>
+                    </th>
+                })}
             </tr>
             </thead>
             <tbody>

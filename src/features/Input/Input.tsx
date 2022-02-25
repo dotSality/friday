@@ -1,9 +1,12 @@
-import s from '../Pages/LoginPage/LoginPage.module.scss';
-import {TextField} from '@mui/material';
 import React, {ChangeEvent, memo, useCallback, useEffect, useState} from 'react';
+
+import {TextField} from '@mui/material';
+
 import {setSearchValue} from '../../bll/packs-reducer';
 import {useAppDispatch, useAppSelector} from '../../bll/store';
 import {useDebounce} from '../../utils/debounce';
+import s from '../Pages/LoginPage/LoginPage.module.scss';
+
 
 type PropsType = {
     placeholder: string,
@@ -12,9 +15,10 @@ type PropsType = {
 export const Input = memo(({placeholder}: PropsType) => {
 
     const {value} = useAppSelector(state => state.packs)
-    const dispatch = useAppDispatch()
     const [defaultValue, setValue] = useState<string>(value || '')
     const debouncedValue = useDebounce<string>(defaultValue)
+    const dispatch = useAppDispatch()
+
     const onChangeCallback = useCallback((e: ChangeEvent<HTMLInputElement>) => setValue(e.currentTarget.value), [])
 
     useEffect(() => {

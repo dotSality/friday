@@ -1,19 +1,22 @@
 import React from 'react'
-import {Navigate, useNavigate} from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
-import {useFormik} from 'formik';
-import {RootStateType} from '../../../bll/store';
-import {registrationTC} from '../../../bll/register-reducer';
-import {Button, IconButton, InputAdornment, TextField} from '@mui/material';
+import {Navigate, useNavigate} from 'react-router-dom'
+import {useDispatch, useSelector} from 'react-redux'
+import {useFormik} from 'formik'
+
+import {Button, IconButton, InputAdornment, TextField} from '@mui/material'
+import Paper from "@mui/material/Paper/Paper"
+import Typography from "@mui/material/Typography/Typography"
+import Fab from '@mui/material/Fab/Fab'
+
+import {RootStateType} from '../../../bll/store'
+import {registrationTC} from '../../../bll/register-reducer'
+import {StatusType} from "../../../bll/app-reducer"
+import LoadingStatusBackdrop from '../../LoadingBackDrop/BackDrop'
+import {PATH} from "../../../utils/paths"
+import Visibility from './../../../common/img/eye.svg'
+import VisibilityOff from './../../../common/img/eye_off.svg'
 import s from './RegisterPage.module.scss'
-import Visibility from './../../../common/img/eye.svg';
-import VisibilityOff from './../../../common/img/eye_off.svg';
-import Paper from "@mui/material/Paper/Paper";
-import Typography from "@mui/material/Typography/Typography";
-import {PATH} from "../../../utils/paths";
-import {StatusType} from "../../../bll/app-reducer";
-import Fab from '@mui/material/Fab/Fab';
-import LoadingStatusBackdrop from '../../LoadingBackDrop/BackDrop';
+
 
 type FormikErrorType = {
     email?: string
@@ -33,28 +36,14 @@ export const RegisterPage = () => {
         showConfirmPassword: boolean
     }
 
-    const [values, setValues] = React.useState<State>({
-        showPassword: false,
-        showConfirmPassword: false,
+    const [values, setValues] = React.useState<State>({showPassword: false, showConfirmPassword: false})
+
+    const handleClickShowPassword = () => setValues({...values, showPassword: !values.showPassword});
+    const handleClickShowConfirmPassword = () => setValues({
+        ...values,
+        showConfirmPassword: !values.showConfirmPassword,
     });
-
-    const handleClickShowPassword = () => {
-        setValues({
-            ...values,
-            showPassword: !values.showPassword,
-        });
-    };
-
-    const handleClickShowConfirmPassword = () => {
-        setValues({
-            ...values,
-            showConfirmPassword: !values.showConfirmPassword,
-        });
-    };
-
-    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-    };
+    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => event.preventDefault();
 
     const formik = useFormik({
         initialValues: {
@@ -173,5 +162,6 @@ export const RegisterPage = () => {
                     </div>
                 </form>
             </Paper>
-        )}</div>
+        )}
+    </div>
 }

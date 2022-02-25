@@ -1,10 +1,13 @@
-import {useAppSelector} from '../../../bll/store';
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
-import c from '../../../common/styles/Common.module.scss';
-import {Modal} from '../../Modal/Modal';
-import s from './AddNewCardModal.module.scss';
+
 import Typography from '@mui/material/Typography';
 import {TextField} from '@mui/material';
+
+import {useAppSelector} from '../../../bll/store';
+import {Modal} from '../../Modal/Modal';
+import c from '../../../common/styles/Common.module.scss';
+import s from './AddNewCardModal.module.scss';
+
 
 type PropsType = {
     addCardHandler: (question: string, answer: string) => void
@@ -16,9 +19,9 @@ export const AddNewCardModal = ({addCardHandler}: PropsType) => {
     const [active, setActive] = useState<boolean>(false)
     const [question, setQuestion] = useState<string>('')
     const [answer, setAnswer] = useState<string>('')
+
     const onQuestionChange = (e: ChangeEvent<HTMLInputElement>) => setQuestion(e.currentTarget.value)
     const onAnswerChange = (e: ChangeEvent<HTMLInputElement>) => setAnswer(e.currentTarget.value)
-
     const onShowModalHandler = () => setActive(true)
     const onHideModalHandler = () => setActive(false)
     const addPackCallback = () => {

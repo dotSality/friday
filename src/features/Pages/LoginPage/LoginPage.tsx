@@ -1,25 +1,24 @@
-import React, {useState} from 'react';
-import {Navigate, useNavigate} from 'react-router-dom';
-import {useDispatch} from 'react-redux';
-import {useFormik} from 'formik';
+import React, {useState} from 'react'
+import {Navigate, useNavigate} from 'react-router-dom'
+import {useDispatch} from 'react-redux'
+import {useFormik} from 'formik'
 
-import Paper from '@mui/material/Paper/Paper';
-import Typography from '@mui/material/Typography/Typography';
-import TextField from '@mui/material/TextField/TextField';
-import {Checkbox, FormControlLabel, FormGroup, IconButton, InputAdornment, useMediaQuery} from '@mui/material';
-import Container from '@mui/material/Container/Container';
-import Button from '@mui/material/Button/Button';
+import Paper from '@mui/material/Paper/Paper'
+import Typography from '@mui/material/Typography/Typography'
+import TextField from '@mui/material/TextField/TextField'
+import {Checkbox, FormControlLabel, FormGroup, IconButton, InputAdornment, useMediaQuery} from '@mui/material'
+import Container from '@mui/material/Container/Container'
+import Button from '@mui/material/Button/Button'
+import Fab from '@mui/material/Fab/Fab'
 
-import {useAppSelector} from '../../../bll/store';
-import {loginTC} from '../../../bll/login-reducer';
-
-import {PATH} from '../../../utils/paths';
-import Visibility from '../../../common/img/eye.svg';
-import VisibilityOff from '../../../common/img/eye_off.svg';
+import {useAppSelector} from '../../../bll/store'
+import {loginTC} from '../../../bll/login-reducer'
+import {StatusType} from '../../../bll/app-reducer'
+import LoadingStatusBackdrop from '../../LoadingBackDrop/BackDrop'
+import {PATH} from '../../../utils/paths'
+import Visibility from '../../../common/img/eye.svg'
+import VisibilityOff from '../../../common/img/eye_off.svg'
 import s from './LoginPage.module.scss'
-import Fab from '@mui/material/Fab/Fab';
-import {StatusType} from '../../../bll/app-reducer';
-import LoadingStatusBackdrop from '../../LoadingBackDrop/BackDrop';
 
 
 type FormikErrorType = {
@@ -28,14 +27,11 @@ type FormikErrorType = {
     rememberMe?: boolean
 }
 
-
 export const LoginPage = React.memo(() => {
 
         const maxWidth = useMediaQuery('(max-width:421px)');
-
         const isLoggedIn = useAppSelector<boolean>(state => state.login.isLoggedIn)
         const status = useAppSelector<StatusType>(state => state.app.status)
-
         const navigate = useNavigate()
         const dispatch = useDispatch()
 
@@ -45,22 +41,10 @@ export const LoginPage = React.memo(() => {
             showConfirmPassword: boolean
         }
 
-        const [values, setValues] = useState<State>({
-            showPassword: false,
-            showConfirmPassword: false,
-        });
+        const [values, setValues] = useState<State>({showPassword: false, showConfirmPassword: false})
 
-        const handleClickShowPassword = () => {
-            setValues({
-                ...values,
-                showPassword: !values.showPassword,
-            });
-        };
-
-        const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-            event.preventDefault();
-        };
-
+        const handleClickShowPassword = () => setValues({...values, showPassword: !values.showPassword})
+        const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => event.preventDefault()
         const navigateToForgotClickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
             e.preventDefault()
             navigate(PATH.FORGOT)
@@ -185,7 +169,8 @@ export const LoginPage = React.memo(() => {
 
                             <div className={s.signUp}>
                                 <span className={s.descriptionSignUp}>Don't have an account?</span>
-                                <Button sx={{paddingBottom: '2px'}} onClick={navigateToRegisterClickHandler}>Sign Up</Button>
+                                <Button sx={{paddingBottom: '2px'}} onClick={navigateToRegisterClickHandler}>Sign
+                                    Up</Button>
                             </div>
                         </form>
                     </Paper>

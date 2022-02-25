@@ -1,5 +1,22 @@
 import {instance} from './instance';
 
+
+export const packsApi = {
+    getPack(data: GetPacksPayloadType) {
+        return instance.get<ResponseType>(`/cards/pack`, {params: data})
+    },
+    addPack(data: AddPackRequestType) {
+        return instance.post<AddPackResponseType>(`/cards/pack`, {cardsPack: data})
+    },
+    deletePack(id: string) {
+        return instance.delete<DeletePackResponseType>(`/cards/pack?id=${id}`, {})
+    },
+    updatePack(data: UpdatePackRequestType) {
+        return instance.put<ResponseType>(`/cards/pack`, {cardsPack: data})
+    }
+}
+
+
 export enum sortValues {
     nameTrue = "0name",
     nameFalse = "1name",
@@ -26,21 +43,6 @@ export type GetPacksPayloadType = {
     pageCount?: number,
     user_id?: string
 };
-export const packsApi = {
-    getPack(data: GetPacksPayloadType) {
-        return instance.get<ResponseType>(`/cards/pack`, {params: data})
-    },
-    addPack(data: AddPackRequestType) {
-        return instance.post<AddPackResponseType>(`/cards/pack`, {cardsPack: data})
-    },
-    deletePack(id: string) {
-        return instance.delete<DeletePackResponseType>(`/cards/pack?id=${id}`, {})
-    },
-    updatePack(data: UpdatePackRequestType) {
-        return instance.put<ResponseType>(`/cards/pack`, {cardsPack: data})
-    }
-}
-
 export type UpdatePackRequestType = {
     _id: string,
     name?: string,
