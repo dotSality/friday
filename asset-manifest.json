@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/friday/static/css/main.d1e91835.css",
-    "main.js": "/friday/static/js/main.b0400af2.js",
+    "main.js": "/friday/static/js/main.7f50b2c4.js",
     "static/js/787.117e2898.chunk.js": "/friday/static/js/787.117e2898.chunk.js",
     "static/media/photo_2022-02-06_16-28-54.png": "/friday/static/media/photo_2022-02-06_16-28-54.45407dae0406905244c1.png",
     "static/media/cards.png": "/friday/static/media/cards.cf21112cbef7e8e3121a.png",
@@ -11,11 +11,11 @@
     "index.html": "/friday/index.html",
     "static/media/eye.svg": "/friday/static/media/eye.0433fe31c21e46ad8174fdbc181c81e4.svg",
     "main.d1e91835.css.map": "/friday/static/css/main.d1e91835.css.map",
-    "main.b0400af2.js.map": "/friday/static/js/main.b0400af2.js.map",
+    "main.7f50b2c4.js.map": "/friday/static/js/main.7f50b2c4.js.map",
     "787.117e2898.chunk.js.map": "/friday/static/js/787.117e2898.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.d1e91835.css",
-    "static/js/main.b0400af2.js"
+    "static/js/main.7f50b2c4.js"
   ]
 }
