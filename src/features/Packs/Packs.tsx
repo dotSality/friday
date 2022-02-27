@@ -153,7 +153,6 @@ const Component = memo(() => {
                         <AddNewPackModal addPackHandler={addPackHandler}/>
                     </div>
                 </div>
-                {/* <LinearProgress color={"secondary"}/>*/}
                 <div className={s.table}>
                     {status === 'loading'
                         ? <img src={loader} alt="loader"/>

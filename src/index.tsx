@@ -20,7 +20,7 @@ const theme = createTheme({
         },
         success: {
             main: '#007556'
-        }
+        },
     }
 })
 
