@@ -34,7 +34,7 @@ export const Header = () => {
     }
 
     return (
-        <AppBar position="fixed" sx={{backgroundColor: 'gray', width: '100%'}}>
+        <AppBar position="fixed" sx={{backgroundColor: '#007556', width: '100%'}}>
             <Toolbar sx={{padding: '0 2%', display: 'flex', justifyContent: 'space-between'}} disableGutters>
                 <Typography
                     onClick={() => navigate(PATH.MAIN)}
