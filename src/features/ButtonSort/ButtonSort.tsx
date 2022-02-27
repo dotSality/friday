@@ -8,12 +8,12 @@ import {useAppDispatch, useAppSelector} from "../../bll/store";
 import {setSortDirection} from '../../bll/packs-reducer';
 
 type PropsType = {
-    onChangeFilterPacks: (sortPacks: string) => void
+    onChangeFilterValue: (sortPacks: string) => void
     sortTableColumn: string
 }
 
 
-export const ButtonSort = React.memo(({onChangeFilterPacks, sortTableColumn}: PropsType) => {
+export const ButtonSort = React.memo(({onChangeFilterValue, sortTableColumn}: PropsType) => {
 
     const sortDirection = useAppSelector(state => state.packs.sortDirection)
     const dispatch = useAppDispatch()
@@ -21,10 +21,10 @@ export const ButtonSort = React.memo(({onChangeFilterPacks, sortTableColumn}: Pr
     const onClickHandler = () => {
         if (sortDirection === '0') {
             dispatch(setSortDirection('1'))
-            onChangeFilterPacks(`1${sortTableColumn}`)
+            onChangeFilterValue(`1${sortTableColumn}`)
         } else {
             dispatch(setSortDirection('0'))
-            onChangeFilterPacks(`0${sortTableColumn}`)
+            onChangeFilterValue(`0${sortTableColumn}`)
         }
     }
 

@@ -20,7 +20,6 @@ import UserImg from '../../common/img/user.png'
 import {LinearProgress} from "@mui/material";
 import {StatusType} from "../../bll/app-reducer";
 
-
 export const Header = () => {
 
 
@@ -39,7 +38,7 @@ export const Header = () => {
     return (
         <AppBar position="fixed" sx={{backgroundColor: '#007556', width: '100%'}}>
             <div style={{height: '1px'}}>
-                {status === 'loading' && <LinearProgress color={'success'} sx={{height:'1px'}}/>}
+                {status === 'loading' && <LinearProgress color={'success'} sx={{height: '1px'}}/>}
             </div>
             <Toolbar sx={{padding: '0 2%', display: 'flex', justifyContent: 'space-between'}} disableGutters>
                 <Typography
