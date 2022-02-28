@@ -1,9 +1,6 @@
-import React, {useEffect, useState} from 'react';
-import {CardPackType, sortValues} from "../../dal/packs-api";
+import React from 'react';
 import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import IconButton from "@mui/material/IconButton";
-import {useDispatch, useSelector} from "react-redux";
 import {useAppDispatch, useAppSelector} from "../../bll/store";
 import {setSortDirection} from '../../bll/packs-reducer';
 
@@ -14,7 +11,6 @@ type PropsType = {
 
 
 export const ButtonSort = React.memo(({onChangeFilterValue, sortTableColumn}: PropsType) => {
-
     const sortDirection = useAppSelector(state => state.packs.sortDirection)
     const dispatch = useAppDispatch()
 
