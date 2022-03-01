@@ -7,7 +7,7 @@ import {setUserProfile} from './profile-reducer';
 
 const initialState: InitStateType = {
     error: null,
-    status: 'idle',
+    status: 'loading',
     isInitialized: false,
     _id: '',
 }

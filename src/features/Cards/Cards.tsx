@@ -102,7 +102,9 @@ const Component = memo(() => {
                                 currentPage={page}
                                 disabled={status === 'loading'}
                             />
-                            <CustomMuiSelect value={pageCount} onChangeOptions={onChangeOptionsHandler}/>
+                            <CustomMuiSelect disabled={status === 'loading'}
+                                             value={pageCount}
+                                             onChangeOptions={onChangeOptionsHandler}/>
                         </div>
                     </>)
                     : <span style={{fontSize: '70px'}}>no packs</span>
