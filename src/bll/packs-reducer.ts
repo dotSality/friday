@@ -7,11 +7,11 @@ const packsSlice = createSlice({
         initialState: {
             packs: {
                 cardPacks: [] as CardPackType[],
-                cardPacksTotalCount: 0 as number,
-                maxCardsCount: 103 as number,
-                minCardsCount: 0 as number,
-                page: 1 as number,
-                pageCount: 10 as number,
+                cardPacksTotalCount: 0,
+                maxCardsCount: 103,
+                minCardsCount: 0,
+                page: 1,
+                pageCount: 10,
             },
             value: null as string | null,
             isLoaded: false,

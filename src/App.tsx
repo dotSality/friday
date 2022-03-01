@@ -20,6 +20,7 @@ import {Header} from "./features/Header/Header";
 import {Packs} from "./features/Packs/Packs";
 import LoadingStatusBackdrop from "./features/LoadingBackDrop/BackDrop";
 import {Cards} from './features/Cards/Cards';
+import {LearnCards} from './features/Cards/LearnCards/LearnCards';
 
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
                 <Route path={PATH.FORGOT} element={<ForgotPage/>}/>
                 <Route path={PATH.CHECK_SUCCESS} element={<CheckSuccess/>}/>
                 <Route path={PATH.PROFILE} element={<ProfilePage/>}/>
+                <Route path={PATH.LEARN + '/:cardsPack_id'} element={<LearnCards/>}/>
                 <Route path={PATH.ERROR} element={<ErrorPage/>}/>
             </Routes>
             <ErrorSnackbar/>

@@ -2,7 +2,6 @@ import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 import {setAppError, setAppStatus} from './app-reducer';
 import {cardsAPI, CreateCardRequestType, GetCardsRequestType, GradeRequestType, UpdateTaskRequestType} from '../dal/cards-api';
-import {fetchPacks} from './packs-reducer';
 
 const cardsSlice = createSlice({
     name: 'cards',
@@ -18,6 +17,7 @@ const cardsSlice = createSlice({
         },
         packId: null as string | null,
         isLoaded: false,
+        sum: 0,
     },
     reducers: {
         setPackId(state, action: PayloadAction<string>) {
@@ -36,6 +36,13 @@ const cardsSlice = createSlice({
             state.packId = null;
             state.isLoaded = false;
         },
+        removeCard(state, action: PayloadAction<string>) {
+            let cardToRemoveId = state.cardsData.cards.findIndex(c => c._id === action.payload)
+            state.cardsData.cards.splice(cardToRemoveId, 1)
+        },
+        setSum(state, action: PayloadAction<number>) {
+            state.sum = action.payload
+        }
     },
     extraReducers: builder => {
         builder.addCase(fetchCards.fulfilled, (state, action) => {
@@ -47,8 +54,7 @@ const cardsSlice = createSlice({
         });
         builder.addCase(deleteCard.fulfilled, (state, action) => {
             if (action.payload) {
-                let filteredCards = state.cardsData.cards.filter(c => c._id !== action.payload)
-                state.cardsData.cards = filteredCards
+                state.cardsData.cards = state.cardsData.cards.filter(c => c._id !== action.payload)
             }
         })
     }
@@ -119,7 +125,7 @@ export const setGrade = createAsyncThunk('cards/setGrade',
 })
 
 export const cardsReducer = cardsSlice.reducer
-export const {setPackId, clearCardsData} = cardsSlice.actions
+export const {setPackId, clearCardsData, setSum, removeCard} = cardsSlice.actions
 
 export type CardType = {
     answer: string,

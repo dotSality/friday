@@ -10,7 +10,6 @@ import {NotAuthRedirect} from '../../hoc/NotAuthRedirect';
 import {GetCardsRequestType} from '../../dal/cards-api';
 import {AddNewCardModal} from '../CustomModals/AddNewCardModal/AddNewCardModal';
 import {TableCards} from "../TableCards/TableCards";
-import {fetchPacks} from "../../bll/packs-reducer";
 
 const Component = memo(() => {
 
@@ -100,15 +99,6 @@ const Component = memo(() => {
                                     userId={_id}
                                     onChangeFilterCards={onChangeFilterCards}
                         />
-
-{/*                        <List items={cards} renderItem={(card: CardType) => <Card key={card.updated}
-                                                                                  onSetGradeHandler={onSetGradeHandler}
-                                                                                  userId={_id}
-                                                                                  packUserId={packUserId!}
-                                                                                  updateCard={onUpdateCardHandler}
-                                                                                  deleteCard={onDeleteCardHandler}
-                                                                                  card={card}/>}
-                        />*/}
                         <div style={{display: 'flex', alignSelf: 'flex-start'}}>
                             <CustomMuiPagination
                                 onSetNewPage={onSetNewPageHandler}

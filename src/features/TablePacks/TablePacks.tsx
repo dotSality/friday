@@ -32,7 +32,7 @@ export const TablePacks = React.memo(({
     const navigate = useNavigate()
     const navigateToCardPage = (_id: string) => {
         dispatch(setPackId(_id))
-        navigate(PATH.CARDS + `/${_id}`)
+        navigate(PATH.LEARN + `/${_id}`)
     }
 
     const onRemovePackHandler = (packId: string) => removePackCallback(packId)
@@ -52,12 +52,6 @@ export const TablePacks = React.memo(({
                 </th>
                 <th>Created by
                     <ButtonSort onChangeFilterPacks={onChangeFilterPacks} sortTableColumn={"created"}/>
-                    {/*<IconButton size={'small'} onClick={() => onChangeFilterPacks(sortValues.createdFalse)}>
-                        <ArrowDropUpIcon/>
-                    </IconButton>
-                    <IconButton size={'small'} onClick={() => onChangeFilterPacks(sortValues.createdTrue)}>
-                        <ArrowDropDownIcon/>
-                    </IconButton>*/}
                 </th>
                 <th>Action</th>
             </tr>
@@ -65,10 +59,10 @@ export const TablePacks = React.memo(({
             <tbody>
             {cardPacks.map(el => (
                 <ItemPack key={el._id}
-                          pack={el}
-                          navigateToCardPage={navigateToCardPage}
-                          onRemovePackHandler={onRemovePackHandler}
-                          profileId={profileId} updatePack={updatePack}/>
+                    pack={el}
+                    navigateToCardPage={navigateToCardPage}
+                    onRemovePackHandler={onRemovePackHandler}
+                    profileId={profileId} updatePack={updatePack}/>
             ))}
             </tbody>
         </table>
