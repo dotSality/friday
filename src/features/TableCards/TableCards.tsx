@@ -1,12 +1,9 @@
 import React from 'react';
 import {CardType} from "../../bll/cards-reducer";
-import {sortValues} from "../../dal/packs-api";
 
 import {ItemCard} from "./ItemCard";
-
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import IconButton from "@mui/material/IconButton";
+import s from "../TablePacks/TablePacks.module.scss";
+import {ButtonSort} from "../ButtonSort/ButtonSort";
 
 type PropsType = {
     items: CardType[]
@@ -17,6 +14,13 @@ type PropsType = {
     userId: string
     onChangeFilterCards: (sortCards: string) => void
 }
+
+const sortCardsNames = [
+    {name: 'question', columnsName: 'Question'},
+    {name: 'answer', columnsName: 'Answer'},
+    {name: 'updated', columnsName: 'Last Updated'},
+    {name: 'created', columnsName: 'Created by'},
+]
 
 export const TableCards = React.memo(({
                                           items,
@@ -32,38 +36,11 @@ export const TableCards = React.memo(({
         <table>
             <thead>
             <tr>
-                <th>Question
-                    <IconButton size={'small'} onClick={() => onChangeFilterCards(sortValues.questionFalse)}>
-                        <ArrowDropUpIcon/>
-                    </IconButton>
-                    <IconButton size={'small'} onClick={() => onChangeFilterCards(sortValues.questionTrue)}>
-                        <ArrowDropDownIcon/>
-                    </IconButton>
-                </th>
-                <th>Answer
-                    <IconButton size={'small'} onClick={() => onChangeFilterCards(sortValues.answerFalse)}>
-                        <ArrowDropUpIcon/>
-                    </IconButton>
-                    <IconButton size={'small'} onClick={() => onChangeFilterCards(sortValues.answerTrue)}>
-                        <ArrowDropDownIcon/>
-                    </IconButton>
-                </th>
-                <th>Last Updated
-                    <IconButton size={'small'} onClick={() => onChangeFilterCards(sortValues.updatedFalse)}>
-                        <ArrowDropUpIcon/>
-                    </IconButton>
-                    <IconButton size={'small'} onClick={() => onChangeFilterCards(sortValues.updatedTrue)}>
-                        <ArrowDropDownIcon/>
-                    </IconButton>
-                </th>
-                <th>Grade
-                    <IconButton size={'small'} onClick={() => onChangeFilterCards(sortValues.gradeFalse)}>
-                        <ArrowDropUpIcon/>
-                    </IconButton>
-                    <IconButton size={'small'} onClick={() => onChangeFilterCards(sortValues.gradeTrue)}>
-                        <ArrowDropDownIcon/>
-                    </IconButton>
-                </th>
+                {sortCardsNames.map(el => {
+                    return <th className={s.cell} key={el.name}>{el.columnsName}
+                        <ButtonSort onChangeFilterValue={onChangeFilterCards} sortTableColumn={el.name}/>
+                    </th>
+                })}
                 <th>Action</th>
             </tr>
             </thead>
