@@ -8,5 +8,6 @@ export const PATH = {
     CREATE_PASS: '/create-pass',
     PROFILE:'/profile',
     PACKS: '/packs',
+    LEARN: '/learn',
     CARDS: '/cards'
 }

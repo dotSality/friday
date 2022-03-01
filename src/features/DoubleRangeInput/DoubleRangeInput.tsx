@@ -24,7 +24,7 @@ export const DoubleRangeInput = React.memo(({onchangeSliderValue}:DoubleRangePro
 
 
     return (<>
-            <div style={{display: "flex", justifyContent: "space-between"}}>
+            <div style={{display: "flex", justifyContent: "space-between", marginTop: '70px'}}>
                 <span style={{color: 'black', marginLeft: '-10px'}}>{rangeValue[0]}</span>
                 <span style={{color: 'black', marginRight: '-5px'}}>{rangeValue[1]}</span>
             </div>
