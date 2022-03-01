@@ -99,7 +99,7 @@ const Component = memo(() => {
                                     userId={_id}
                                     onChangeFilterCards={onChangeFilterCards}
                         />
-                        <div style={{display: 'flex', alignSelf: 'flex-start'}}>
+                        <div style={{display: 'flex', alignSelf: 'flex-end', marginRight: '135px'}}>
                             <CustomMuiPagination
                                 onSetNewPage={onSetNewPageHandler}
                                 totalItemsCount={cardsTotalCount}

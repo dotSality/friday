@@ -1,7 +1,7 @@
 import React from 'react';
 import {CardType} from "../../bll/cards-reducer";
 
-import {ItemCard} from "./ItemCard";
+import {ItemCard} from "./ItemCard/ItemCard";
 import s from "../TablePacks/TablePacks.module.scss";
 import {ButtonSort} from "../ButtonSort/ButtonSort";
 
@@ -19,7 +19,7 @@ const sortCardsNames = [
     {name: 'question', columnsName: 'Question'},
     {name: 'answer', columnsName: 'Answer'},
     {name: 'updated', columnsName: 'Last Updated'},
-    {name: 'created', columnsName: 'Created by'},
+    {name: 'grade', columnsName: 'Grade'},
 ]
 
 export const TableCards = React.memo(({
@@ -32,6 +32,7 @@ export const TableCards = React.memo(({
                                           onChangeFilterCards
                                       }: PropsType) => {
 
+
     return (
         <table>
             <thead>
@@ -41,7 +42,7 @@ export const TableCards = React.memo(({
                         <ButtonSort onChangeFilterValue={onChangeFilterCards} sortTableColumn={el.name}/>
                     </th>
                 })}
-                <th>Action</th>
+                <th style={{textAlign: 'center', paddingLeft: '10px'}}>Action</th>
             </tr>
             </thead>
             <tbody>
