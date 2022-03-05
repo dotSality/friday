@@ -1,6 +1,14 @@
 import {instance} from './instance';
 
-
+export type GetPacksPayloadType = {
+    packName?: string,
+    min?: number,
+    max?: number,
+    sortPacks?: string,
+    page?: number,
+    pageCount?: number,
+    user_id?: string
+};
 export const packsApi = {
     getPack(data: GetPacksPayloadType) {
         return instance.get<ResponseType>(`/cards/pack`, {params: data})
@@ -16,33 +24,6 @@ export const packsApi = {
     }
 }
 
-
-export enum sortValues {
-    nameTrue = "0name",
-    nameFalse = "1name",
-    updatedTrue = "0updated",
-    updatedFalse = "1updated",
-    cardsCountTrue = "0cardsCount",
-    cardsCountFalse = "1cardsCount",
-    gradeTrue = "0grade",
-    gradeFalse = "1grade",
-    createdTrue = "0created",
-    createdFalse = "1created",
-    answerTrue = "0answer",
-    answerFalse = "1answer",
-    questionTrue = "0question",
-    questionFalse = "1question",
-}
-
-export type GetPacksPayloadType = {
-    packName?: string,
-    min?: number,
-    max?: number,
-    sortPacks?: string,
-    page?: number,
-    pageCount?: number,
-    user_id?: string
-};
 export type UpdatePackRequestType = {
     _id: string,
     name?: string,
