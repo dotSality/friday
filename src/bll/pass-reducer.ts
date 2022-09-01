@@ -15,7 +15,7 @@ export const sendInstructions = createAsyncThunk('forgot/sendInstructions', asyn
             email, from: 'Best INCUBATOR IT-team',
             message: `<div style="background-color: lime; padding: 15px">
                         password recovery link: 
-                        <a href='http://localhost:3000/friday#${PATH.CREATE_PASS}/$token$'>link</a>
+                        <a href='https://dotsality.github.io/friday/#${PATH.CREATE_PASS}/$token$'>link</a>
                       </div>\``
         })
         dispatch(setAppStatus('succeeded'))

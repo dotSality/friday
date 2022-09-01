@@ -12,6 +12,5 @@ export const NotAuthRedirect = (Component: React.FC) => {
             return <Navigate to={PATH.LOGIN}/>
         } else return <Component {...props}/>;
     }
-
     return NewComponent
 }
